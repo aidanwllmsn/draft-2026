@@ -127,9 +127,61 @@ input,select{font-family:inherit; font-size:inherit}
 
 
 
+
+
+
+/* ---------- depth chart popup ---------- */
+.tmbtn{cursor:pointer; border-bottom:1px dotted var(--dim2)}
+.tmbtn:hover{color:var(--txt); border-bottom-color:var(--txt)}
+#dcov{position:fixed; inset:0; z-index:100; background:rgba(5,8,12,.72); display:flex;
+      align-items:center; justify-content:center; padding:16px}
+.dcbox{background:var(--panel); border:1px solid var(--line2); border-radius:12px; width:100%;
+       max-width:420px; max-height:82vh; overflow-y:auto}
+.dcbox h3{margin:0; padding:10px 14px; font-size:13px; font-weight:800; letter-spacing:.4px;
+          background:var(--panel2); border-bottom:1px solid var(--line); position:sticky; top:0;
+          display:flex; justify-content:space-between; align-items:center}
+.dcx{font-size:17px; color:var(--dim); padding:0 4px}
+.dcx:hover{color:var(--txt)}
+.dcpos{padding:5px 14px 2px; font-size:9.5px; font-weight:800; letter-spacing:.8px; color:var(--dim2)}
+.dcrow{display:flex; align-items:center; gap:9px; padding:5.5px 14px; border-bottom:1px solid #202730; font-size:13px}
+.dcrow:last-child{border-bottom:none}
+.dcrow .dn{width:38px; flex:none; font-size:10px; font-weight:800; color:var(--dim); font-variant-numeric:tabular-nums}
+.dcrow .dm{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:650}
+.dcrow .da{flex:none; font-size:10.5px; color:var(--dim2)}
+.dcrow .dt{flex:none; font-size:9px; font-weight:800; padding:1.5px 6px; border-radius:3px}
+.dcrow.gone{opacity:.4}
+.dcrow.gone .dm{text-decoration:line-through}
+.dcrow.mine{background:rgba(63,191,127,.08)}
+.dcrow .dt.you{background:var(--good); color:#08130d}
+.dcrow .dt.cuff{background:rgba(63,191,127,.16); color:var(--good); border:1px solid #2f7a52}
+.dcrow .dt.outt{background:var(--bad); color:#fff}
+.dchint{padding:8px 14px 11px; font-size:11px; color:var(--dim2)}
+
+/* ---------- round tabs in the log ---------- */
+.rtabs{display:flex; gap:4px; overflow-x:auto; padding:6px 8px; background:var(--panel2);
+       border-bottom:1px solid var(--line); scrollbar-width:none}
+.rtabs::-webkit-scrollbar{display:none}
+.rtab{flex:none; padding:2.5px 9px; border-radius:12px; font-size:10.5px; font-weight:800;
+      color:var(--dim); border:1px solid transparent; font-variant-numeric:tabular-nums}
+.rtab:hover{color:var(--txt)}
+.rtab.on{background:var(--txt); color:#0b0e13}
+.rtab.dim{opacity:.35}
+.rtab[data-rt="live"].on{background:var(--good); color:#08130d}
+
+/* ---------- live pick ticker ---------- */
+.ticker{display:flex; gap:5px; overflow-x:auto; padding:0 0 12px; scrollbar-width:none; -webkit-overflow-scrolling:touch}
+.ticker::-webkit-scrollbar{display:none}
+.tk{flex:none; display:flex; align-items:center; gap:6px; background:var(--panel); border:1px solid var(--line);
+    border-radius:16px; padding:3.5px 10px 3.5px 7px; font-size:11.5px; white-space:nowrap}
+.tk b{font-weight:650}
+.tk .n{color:var(--dim2); font-variant-numeric:tabular-nums; font-weight:700; font-size:10px}
+.tk .pos{width:auto; padding:1px 5px}
+.tk.mine{background:#12281c; border-color:#2f7a52}
+.tk.mine b{color:#9ff0c4}
+
 /* ================= PHONE LAYOUT ================= */
 .gear{display:none; font-size:19px; color:var(--dim); padding:2px 8px}
-.mini{display:none}
+.pstrip{display:none}
 .mtabs{display:none}
 .restore{display:none}
 @media(min-width:761px){ [data-mp]{display:block} }
@@ -147,15 +199,16 @@ input,select{font-family:inherit; font-size:inherit}
   .simstatus{margin-left:0; width:100%; order:9}
 
   /* always-visible pick strip */
-  .mini{display:flex; align-items:center; gap:9px; position:sticky; top:0; z-index:40;
+  .pstrip{display:flex; align-items:center; gap:9px; position:sticky; top:0; z-index:40;
         padding:7px 12px; background:#0b0e13; border-bottom:1px solid var(--line); font-size:12.5px}
-  .mini b{color:var(--txt)}
-  .mini .mnow{font-size:15px; font-weight:800; letter-spacing:-.3px; white-space:nowrap}
-  .mini .mnext{color:var(--dim); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-  .mini.mine{background:#12281c; border-bottom-color:#2f7a52}
-  .mini.mine .mnow{color:#7ee0a8}
+  .pstrip b{color:var(--txt)}
+  .pstrip .mnow{font-size:15px; font-weight:800; letter-spacing:-.3px; white-space:nowrap}
+  .pstrip .mnext{color:var(--dim); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .pstrip.mine{background:#12281c; border-bottom-color:#2f7a52}
+  .pstrip.mine .mnow{color:#7ee0a8}
 
-  .wrap{grid-template-columns:1fr; padding:10px 10px 20px; gap:0}
+  .wrap{grid-template-columns:minmax(0,1fr); padding:10px 10px 20px; gap:0}
+  .main,.side{min-width:0}
   .card{margin-bottom:11px; border-radius:11px}
   /* the sticky strip already shows the pick number — don't repeat it */
   .clock{padding:10px 13px}
@@ -175,7 +228,6 @@ input,select{font-family:inherit; font-size:inherit}
   .row{padding:10px 12px; gap:11px}
   .nm{font-size:15px}
   .meta{font-size:11.5px}
-  .mini-btn, .mini{--x:0}
   .acts .mini{padding:8px 13px; font-size:14px; border-radius:7px}
   .rec{padding:12px}
   .rec-nm{font-size:16px}
@@ -187,6 +239,9 @@ input,select{font-family:inherit; font-size:inherit}
   .slot{padding:7px 12px; font-size:14px}
   .tmrow{padding:9px 12px}
   .mrow{padding:7px 12px; font-size:13.5px}
+  .log{max-height:190px}
+  .rtab{padding:5px 12px; font-size:12px}
+  .logrow{padding:5px 12px; font-size:12.5px}
   .resn{width:130px}
   .btn{padding:7px 12px}
   .fld select,.fld input[type=number]{padding:6px 8px; font-size:14px}
@@ -348,7 +403,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 </div>
 </div>
 
-<div class="mini" id="mini"></div>
+<div class="pstrip" id="mini"></div>
 <div class="restore" id="restoreBar" style="display:none"></div>
 
 <div class="wrap">
@@ -357,6 +412,13 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
   <div class="main">
     <div id="newsWrap" data-mp="pick" style="display:none"><div id="news"></div></div>
     <div id="clock" data-mp="pick"></div>
+    <div class="ticker" id="ticker" style="display:none"></div>
+
+    <div class="card" data-mp="pick">
+      <h3><span>Live draft log</span><b id="logSub"></b></h3>
+      <div class="rtabs" id="rtabs"></div>
+      <div class="log" id="log"></div>
+    </div>
     <div class="card" id="resultsCard" data-mp="more" style="display:none">
       <h3>How your draft went</h3>
       <div id="results"></div>
@@ -428,11 +490,6 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
     </div>
 
     <div class="card" data-mp="more">
-      <h3><span>Draft log</span><b id="logSub"></b></h3>
-      <div class="log" id="log"></div>
-    </div>
-
-    <div class="card" data-mp="more">
       <h3><span>Save / restore</span></h3>
       <div class="pad">
         <textarea id="state" placeholder="Your draft state appears here"></textarea>
@@ -447,6 +504,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
   </div>
 </div>
 
+<div id="dcov" style="display:none"></div>
 <nav class="mtabs" id="mtabs">
   <button class="mtab on" data-tab="pick"><i>&#9679;</i>Pick</button>
   <button class="mtab" data-tab="board"><i>&#9776;</i>Board</button>
@@ -719,7 +777,7 @@ const S = {
   starters: { QB:1, RB:2, WR:3, TE:1, FLEX:2, K:1, DST:1 },
   superflex: false,
   taken: [],            // [{id, mine}]
-  filter: 'ALL', q: '', showGone: false, openNote: null,
+  filter: 'ALL', q: '', showGone: false, openNote: null, logRound: null,
   sim: { on:false, running:false, news:[], gms:[], done:false, clockLen:0, clockLeft:0 }
 };
 
@@ -739,15 +797,24 @@ let P = [];
   });
   P.sort((a,b)=>a.val-b.val);
   P.forEach((p,i)=>{ p.id=i; p.rank=i+1; });
-  const cnt={};
+  const cnt={}, dep={};
   P.forEach(p=>{
     cnt[p.pos]=(cnt[p.pos]||0)+1; p.posRank=cnt[p.pos];
     const br = TIER_BREAKS[p.pos]||[];
     let t = br.length+1;
     for(let i=0;i<br.length;i++){ if(p.posRank<=br[i]){ t=i+1; break; } }
     p.tier=t;
+    if(['QB','RB','WR','TE'].includes(p.pos) && p.team!=='FA'){
+      const k=p.team+'|'+p.pos; dep[k]=(dep[k]||0)+1; p.depthRank=dep[k];
+    }
   });
 })();
+/* clickable "LAR RB1"-style chip; derived from this board's own pool ordered by
+   adjusted value — a fantasy depth chart, not the official one */
+function depthChip(p){
+  if(!p.depthRank) return `<span>${p.team}</span>`;
+  return `<span class="tmbtn" data-dc="${p.team}">${p.team} ${p.pos}${p.depthRank}</span>`;
+}
 const byId = id => P[id];
 
 /* ================= DRAFT MATH ================= */
@@ -1031,6 +1098,36 @@ function offerRestore(){
   $('bDismiss').onclick=()=>{ $('restoreBar').style.display='none'; };
 }
 
+
+/* ================= TEAM DEPTH CHART POPUP ================= */
+function openDepthChart(team){
+  const tk=takenIds(), mineIds=new Set(S.taken.filter((t,i)=>S.sim.on?teamOfPick(i+1)===S.slot:t.mine).map(t=>t.id));
+  let html=`<div class="dcbox"><h3><span>${esc(team)} depth chart</span><button class="dcx" data-dcclose>&times;</button></h3>`;
+  ['QB','RB','WR','TE'].forEach(pos=>{
+    const grp=P.filter(p=>p.team===team && p.pos===pos && p.depthRank).sort((a,b)=>a.depthRank-b.depthRank);
+    if(!grp.length) return;
+    html+=`<div class="dcpos">${pos}</div>`;
+    let cuffArmed=false, cuffUsed=false;
+    grp.forEach(p=>{
+      const gone=tk.has(p.id), mine=mineIds.has(p.id);
+      if(mine && (pos==='RB'||pos==='TE')) cuffArmed=true;
+      const isCuff = cuffArmed && !cuffUsed && !gone && !mine && p.flag!=='out';
+      if(isCuff) cuffUsed=true;
+      const tags=[];
+      if(mine) tags.push('<span class="dt you">YOU</span>');
+      if(isCuff) tags.push('<span class="dt cuff">HANDCUFF</span>');
+      if(p.flag==='out') tags.push('<span class="dt outt">OUT</span>');
+      html+=`<div class="dcrow ${gone&&!mine?'gone':''} ${mine?'mine':''}">
+        <span class="dn">${pos}${p.depthRank}</span>
+        <span class="dm">${esc(p.name)}</span>
+        ${tags.join('')}
+        <span class="da">ADP ${p.adp.toFixed(0)}</span></div>`;
+    });
+  });
+  html+=`<div class="dchint">Ordered by this board's adjusted draft value &mdash; a fantasy depth chart, not the team's official one. HANDCUFF marks the next available back behind a player you roster.</div></div>`;
+  const ov=$('dcov'); ov.innerHTML=html; ov.style.display='flex';
+}
+
 /* ================= RENDER ================= */
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
@@ -1047,7 +1144,7 @@ function renderMini(){
   const total=S.teams*S.rounds, over=currentPick()>total;
   const pick=Math.min(currentPick(),total), next=nextMyPick(), mine=isMyTurn();
   const el=$('mini');
-  el.className='mini'+(mine?' mine':'');
+  el.className='pstrip'+(mine?' mine':'');
   if(over||!next){ el.innerHTML=`<span class="mnow">Done</span><span class="mnext">All ${total} picks in.</span>`; return; }
   el.innerHTML = mine
     ? `<span class="mnow">&#9733; YOU'RE UP</span><span class="mnext">Pick ${pick} &middot; round ${roundOf(pick)}</span>`
@@ -1093,7 +1190,7 @@ function renderRecs(){
       <div class="rec-b">
         <div class="rec-nm">${esc(p.name)}
           <span class="pos ${p.pos}" style="display:inline-block;width:auto;padding:1px 5px;margin-left:4px">${p.pos}</span>
-          <span style="color:var(--dim2);font-size:11.5px;font-weight:600"> ${p.team} &middot; ADP ${p.adp.toFixed(0)} &middot; ${p.pos} Tier ${p.tier}</span>
+          <span style="color:var(--dim2);font-size:11.5px;font-weight:600"> ADP ${p.adp.toFixed(0)} &middot; ${p.pos}${p.posRank} &middot; Tier ${p.tier} &middot; ${depthChip(p)}</span>
         </div>
         <div class="rec-why">${reasonsFor(p).join(' &nbsp;&middot;&nbsp; ')}</div>
       </div>
@@ -1147,7 +1244,7 @@ function renderRows(){
       <div class="pos ${p.pos}">${p.pos}</div>
       <div class="mid">
         <div class="nm">${esc(p.name)} ${mine?'<span style="color:var(--good);font-size:10px;font-weight:800"> &#9733; MINE</span>':''}</div>
-        <div class="meta"><span>${p.team}</span><span>ADP ${p.adp.toFixed(0)}</span><span>${p.pos}${p.posRank} &middot; T${p.tier}</span>${tags.join('')}</div>
+        <div class="meta">${depthChip(p)}<span>ADP ${p.adp.toFixed(0)}</span><span>${p.pos}${p.posRank} &middot; T${p.tier}</span>${tags.join('')}</div>
       </div>
       <div class="acts">
         ${p.note?`<button class="mini" data-note="${p.id}">i</button>`:''}
@@ -1191,7 +1288,7 @@ function renderRoster(){
     `<div class="slot ${p?'':'empty'}">
        <div class="slot-l">${lbl}</div>
        <div class="slot-v">${p?esc(p.name):'—'}</div>
-       <div class="slot-r">${p?`${p.pos} ${p.team} · T${p.tier}`:''}</div>
+       <div class="slot-r">${p?(p.depthRank?`<span class="tmbtn" data-dc="${p.team}">${p.team} ${p.pos}${p.depthRank}</span> · T${p.tier}`:`${p.pos} ${p.team} · T${p.tier}`):''}</div>
      </div>`).join('');
 }
 
@@ -1224,15 +1321,43 @@ function renderRuns(){
 }
 
 function renderLog(){
-  const last=S.taken.slice(-40).reverse();
-  $('logSub').textContent = `${S.taken.length} logged`;
-  $('log').innerHTML = last.map(t=>{
+  // horizontal ticker of the most recent picks — always visible, newest first
+  const recent=S.taken.slice(-9).reverse(), tick=$('ticker');
+  tick.style.display = recent.length ? 'flex' : 'none';
+  tick.innerHTML = recent.map(t=>{
     const p=byId(t.id), n=S.taken.indexOf(t)+1;
+    return `<span class="tk ${t.mine?'mine':''}"><span class="n">${n}</span><span class="pos ${p.pos}">${p.pos}</span><b>${esc(p.name)}</b></span>`;
+  }).join('');
+
+  $('logSub').textContent = S.taken.length ? `${S.taken.length} of ${S.teams*S.rounds} picks in` : 'waiting for pick 1';
+
+  // ---- round tabs: LIVE follows the current round; tap a round to pin it ----
+  const curRound = S.taken.length ? roundOf(S.taken.length) : 1;
+  let sel = S.logRound;
+  if(sel!=null && (sel<1 || sel>S.rounds || !S.taken.length)) sel = S.logRound = null;
+  const view = sel ?? curRound;
+  let chips = `<button class="rtab ${sel==null?'on':''}" data-rt="live">LIVE</button>`;
+  for(let r=1;r<=S.rounds;r++){
+    const has = S.taken.length > (r-1)*S.teams;
+    chips += `<button class="rtab ${sel===r?'on':''} ${has?'':'dim'}" data-rt="${r}">R${r}</button>`;
+  }
+  $('rtabs').innerHTML = chips;
+  if(sel==null){                      // keep the live chip's round in view as the draft advances
+    const on=$('rtabs').querySelector(`[data-rt="${curRound}"]`);
+    if(on) $('rtabs').scrollLeft = Math.max(0, on.offsetLeft - 90);
+  }
+
+  const start=(view-1)*S.teams;
+  const slice=S.taken.slice(start, start+S.teams)
+    .map((t,i)=>({t, n:start+i+1, inR:i+1}));
+  if(sel==null) slice.reverse();      // live view: newest pick on top; pinned round: 1.01 first
+  $('log').innerHTML = slice.map(({t,n,inR})=>{
+    const p=byId(t.id);
     return `<div class="logrow ${t.mine?'mine':''}">
-      <span style="color:var(--dim2);width:26px">${n}</span>
+      <span style="color:var(--dim2);width:36px;font-variant-numeric:tabular-nums">${view}.${String(inR).padStart(2,'0')}</span>
       <b>${esc(p.name)}</b><span>${p.pos} ${p.team}</span>
       <span class="who">${t.mine?'YOU':''}</span></div>`;
-  }).join('') || '<div class="empty-msg" style="padding:12px">Nothing drafted yet.</div>';
+  }).join('') || `<div class="empty-msg" style="padding:12px">${S.taken.length?`No picks yet in round ${view}.`:'Nothing drafted yet.'}</div>`;
 }
 
 /* ================= ACTIONS ================= */
@@ -1288,6 +1413,11 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
     if(me){ e.stopPropagation(); markTaken(+me.dataset.me, true); return; }
     if(un){ e.stopPropagation(); undoOne(+un.dataset.undo1); return; }
     if(nt){ e.stopPropagation(); const id=+nt.dataset.note; S.openNote = S.openNote===id?null:id; renderRows(); return; }
+    const dc=e.target.closest('[data-dc]');
+    if(dc){ e.stopPropagation(); openDepthChart(dc.dataset.dc); return; }
+    if(e.target.closest('[data-dcclose]') || e.target.id==='dcov'){ $('dcov').style.display='none'; return; }
+    const rt=e.target.closest('[data-rt]');
+    if(rt){ S.logRound = rt.dataset.rt==='live' ? null : +rt.dataset.rt; renderLog(); return; }
     if(gn){
       const id=+gn.dataset.gone;
       if(S.sim.on){ S.openNote = S.openNote===id?null:id; renderRows(); return; }
@@ -1427,31 +1557,48 @@ function cpuPick(pk){
   const tk=takenIds(), runs=runCounts();
   const cands=[];
 
+  /* Variance grows with draft depth. Round 1 is near-chalk (a pick or two of
+     wiggle); by the double-digit rounds a GM's full personality is in play.
+     sigmaEff:  pick 1-12 => ~1.3-2.1,  pick 36 => ~3.9,  pick 72 => ~6.6,
+                pick 120+ => capped at the GM's own sigma. */
+  const sigmaEff  = Math.min(gm.sigma||8, 1.2 + pk*0.075);
+  const persScale = Math.min(1, Math.max(0.12, (rnd-1)/5));   // personalities ramp in over rounds 1-6
+
   P.forEach(p=>{
     if(tk.has(p.id)) return;
     const pen=cpuNeed(cnt,p.pos,picksLeft);
     if(pen>=900) return;
-    let e = p.adp + (p.sim||0) + pen + gauss(gm.sigma||8);
+    let e = p.adp + (p.sim||0) + pen + gauss(sigmaEff);
 
     if(gm.bias && gm.bias[p.pos] && (!gm.until || rnd<=gm.until))
-      e -= gm.bias[p.pos] * S.teams * 0.5;
-    if(gm.homer && p.team===gm.favTeam)      e -= 12 + Math.random()*16;
-    if(gm.namebrand)                          e -= Math.max(0, 55 - p.adp) * 0.22;
-    if(gm.upside && p.adp > 60)               e -= Math.random()*22;
+      e -= gm.bias[p.pos] * S.teams * 0.5 * persScale;
+    if(gm.homer && p.team===gm.favTeam)      e -= (12 + Math.random()*16) * persScale;
+    if(gm.namebrand)                          e -= Math.max(0, 55 - p.adp) * 0.22 * persScale;
+    if(gm.upside && p.adp > 60)               e -= Math.random()*22 * persScale;
     if(gm.qbTarget && p.pos==='QB' && rnd>=gm.qbTarget && cnt.QB===0) e -= 45;
-    e -= (gm.herd ?? 0.7) * (runs[p.pos]||0) * 2.0;      // runs are contagious
+    e -= (gm.herd ?? 0.7) * (runs[p.pos]||0) * 2.0 * Math.min(1, 0.3 + persScale);
     if(p.flag==='out')  e += 40 + Math.random()*90;      // some GMs still take them
-    if(p.flag==='inj')  e += Math.random()*16;
+    if(p.flag==='inj')  e += Math.random()*16 * persScale;
 
     cands.push({p,e});
   });
   if(!cands.length) return null;
   cands.sort((a,b)=>a.e-b.e);
 
-  // ~8% of picks are a genuine head-scratcher reach — but never when a GM
-  // has no spare picks left, or they'd strand a starting slot
-  const canReach = picksLeft > unfilledFor(cnt) + 1;
-  const i = (canReach && Math.random()<0.08 && cands.length>18) ? 4+Math.floor(Math.random()*14) : 0;
+  /* Head-scratcher reaches: never in rounds 1-2, rare and shallow in the
+     early-middle, deeper late. And never when it would strand a starter. */
+  const canReach = rnd >= 3 && picksLeft > unfilledFor(cnt) + 1;
+  const depth = Math.min(12, 2 + rnd);
+  let i = (canReach && Math.random()<0.06 && cands.length>18)
+        ? 2 + Math.floor(Math.random()*depth) : 0;
+
+  /* Chalk guard: a top-30 player who has already slid well past his ADP gets
+     scooped — no GM lets an elite name keep falling forever. */
+  if(rnd<=3){
+    const faller = cands.slice(0, 8).find(c => c.p.adp <= 30 && (pk - c.p.adp) >= 4 + rnd*2);
+    if(faller) i = cands.indexOf(faller);
+  }
+
   const chosen=cands[i].p;
   S.taken.push({id:chosen.id, mine:false});
   return chosen;
@@ -1481,7 +1628,11 @@ function fireNews(pk){
   const p=pool[Math.floor(Math.random()*pool.length)];
   const good=Math.random()<0.38;
   const tpl=(good?NEWS_GOOD:NEWS_BAD)[Math.floor(Math.random()*(good?NEWS_GOOD:NEWS_BAD).length)];
-  p.sim=(p.sim||0)+tpl.d;
+  // good news can't catapult a player into the elite range — cap the rise so he
+  // never jumps above pick ~25 territory
+  let delta = tpl.d;
+  if(delta < 0) delta = Math.max(delta, Math.min(0, 25 - p.adp));
+  p.sim=(p.sim||0)+delta;
   if(tpl.out){ p.simOut=true; p.flag='out'; }
   recomputeRanks();
   S.sim.news.unshift({ pk, good, out:!!tpl.out,
