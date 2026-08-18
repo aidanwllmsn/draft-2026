@@ -296,6 +296,7 @@ input,select{font-family:inherit; font-size:inherit}
 .newsrow.out .newstag{background:var(--bad); color:#fff}
 .newsrow.good .newstag{background:var(--good); color:#08130d}
 .newstx{flex:1; min-width:0}
+.newstx b{color:var(--txt)}
 .newspk{flex:none; font-size:10.5px; color:var(--dim2)}
 /* ---------- the room ---------- */
 .tmrow{display:flex; gap:9px; align-items:center; padding:5px 12px; border-bottom:1px solid #202730;
@@ -541,14 +542,14 @@ const RAW = [
 ["Christian McCaffrey","RB","SF",6.4,14,"inj","Still not practicing as of Aug 17 — a week of DNPs. Rapoport: 'actual tightness, not a hold-in.' Age 30, 413 touches last year. Let someone else pay."],
 ["Amon-Ra St. Brown","WR","DET",6.6,0,"","Consensus top-8 overall."],
 ["Jonathan Taylor","RB","IND",7.5,2,"","Entrenched workhorse, though the team has talked about reducing his workload."],
-["De'Von Achane","RB","MIA",10.1,0,"","Went 1.12 in both the RotoWire and DK Network mocks. Reception volume is the PPR engine."],
+["De'Von Achane","RB","MIA",10.1,4,"","AIDAN'S CALL (keep on refresh): demoted below Chase Brown/Jeanty/Cook — Miami's offense is gutted (Tua and Tyreek both gone) and the TD downside is real. Reception floor keeps him a late-1st option, not the auto-pick."],
 ["Drake London","WR","ATL",10.3,5,"","Bleacher Report: 'drafted at his ceiling'. Still a clear WR1."],
 ["CeeDee Lamb","WR","DAL",10.8,-2,"","Cheaper on CBS and ESPN than anywhere else."],
 ["Justin Jefferson","WR","MIN",13.0,-3,"","Tier-1 WR who slides in most mocks. Kyler Murray at QB is already priced in."],
-["James Cook III","RB","BUF",13.1,0,"","Clean workload, zero camp noise. The likeliest RB at the back of round 1."],
-["Chase Brown","RB","CIN",13.3,-2,"","Top-12 on every list. Pass-game work in a Burrow offense."],
+["James Cook III","RB","BUF",13.1,-1,"","Clean workload, zero camp noise. No. 2 in my RB order at the turn (Aidan's call)."],
+["Chase Brown","RB","CIN",13.3,-1,"","Pass-game work in a Burrow offense. No. 3 in my RB order at the turn (Aidan's call)."],
 ["Rashee Rice","WR","KC",14.2,-2,"","May knee scope fully behind him, ramping up in camp. Riser."],
-["Ashton Jeanty","RB","LV",14.9,-2,"","Bell-cow role locked. BR's pick as the upside swing at the turn."],
+["Ashton Jeanty","RB","LV",14.9,-3,"","AIDAN'S CALL (keep on refresh): my RB order at the turn is Jeanty > Cook > Brown > Achane. Bell-cow role locked; the upside swing."],
 ["Derrick Henry","RB","BAL",17.1,9,"","Age fade: expert consensus now ranks him ~2 rounds below his ADP. Still fine if the room lets him slide."],
 ["A.J. Brown","WR","NE",17.5,0,"","Traded from PHI in June. Lifts Drake Maye; Maye lifts him back."],
 ["George Pickens","WR","DAL",19.9,-3,"","BR has him 9 spots above ADP."],
@@ -1620,39 +1621,28 @@ function cpuPick(pk){
   return chosen;
 }
 
-/* ---------- simulated in-draft news ---------- */
-const NEWS_BAD = [
-  {t:'{n} pulled up with a hamstring in practice. The team is calling it day-to-day, but nobody sounds sure.', d:38},
-  {t:'{n} was carted off. Beat writers say it looked bad.', d:9999, out:true},
-  {t:'Report: {n} is facing a possible suspension to open the season.', d:46},
-  {t:"{n}'s coach just described the backfield as “a true committee.”", d:32},
-  {t:'{n} has been limited all week and is now questionable for Week 1.', d:28},
-  {t:'{n} is dealing with a personal matter and his availability is unclear.', d:40},
-];
-const NEWS_GOOD = [
-  {t:'{n} has been named the outright starter. His snap share just jumped.', d:-32},
-  {t:"{n}'s coach: “he's going to touch the ball twenty times a game.”", d:-38},
-  {t:'The player ahead of {n} on the depth chart is out indefinitely. {n} is the guy now.', d:-42},
-  {t:'{n} is reportedly in the best shape of his career and running with the ones.', d:-24},
-];
+/* ---------- real-news alerts ----------
+   No fabricated events. As the draft approaches a player's range, surface his
+   REAL researched situation: injury/suspension warnings, expert-value alerts,
+   and do-not-draft landmines. Informational only — the board never re-ranks. */
 function fireNews(pk){
   const tk=takenIds();
-  // target someone who is still relevant to this part of the draft
-  const pool=P.filter(p=>['RB','WR','TE','QB'].includes(p.pos) && p.flag!=='out' && !p.sim
-                      && p.adp>pk-25 && p.adp<pk+90);
-  if(!pool.length) return;
-  const p=pool[Math.floor(Math.random()*pool.length)];
-  const good=Math.random()<0.38;
-  const tpl=(good?NEWS_GOOD:NEWS_BAD)[Math.floor(Math.random()*(good?NEWS_GOOD:NEWS_BAD).length)];
-  // good news can't catapult a player into the elite range — cap the rise so he
-  // never jumps above pick ~25 territory
-  let delta = tpl.d;
-  if(delta < 0) delta = Math.max(delta, Math.min(0, 25 - p.adp));
-  p.sim=(p.sim||0)+delta;
-  if(tpl.out){ p.simOut=true; p.flag='out'; }
-  recomputeRanks();
-  S.sim.news.unshift({ pk, good, out:!!tpl.out,
-    text: tpl.t.replace(/\{n\}/g, p.name), name:p.name, pos:p.pos, team:p.team });
+  S.sim.usedNews = S.sim.usedNews || new Set();
+  const near = p => p.adp > pk-15 && p.adp < pk+55;
+  const fresh = p => !tk.has(p.id) && !S.sim.usedNews.has(p.id) && p.note;
+  const pools = [
+    {kind:'out',  list: P.filter(p=>p.flag==='out' && !tk.has(p.id) && !S.sim.usedNews.has(p.id) && p.adp < pk+45 && p.note)},
+    {kind:'bad',  list: P.filter(p=>(p.flag==='inj'||p.flag==='risk') && fresh(p) && near(p))},
+    {kind:'good', list: P.filter(p=>p.adj<=-10 && p.flag==='' && fresh(p) && near(p))},
+  ].filter(x=>x.list.length);
+  if(!pools.length) return;
+  // weight: warnings and values common, landmines occasional
+  const weights={out:1, bad:3, good:3};
+  const bag=[]; pools.forEach(x=>{ for(let i=0;i<weights[x.kind];i++) bag.push(x); });
+  const pool=bag[Math.floor(Math.random()*bag.length)];
+  const p=pool.list[Math.floor(Math.random()*pool.list.length)];
+  S.sim.usedNews.add(p.id);
+  S.sim.news.unshift({ pk, kind:pool.kind, name:p.name, pos:p.pos, team:p.team, text:p.note });
   if(S.sim.news.length>6) S.sim.news.pop();
 }
 
@@ -1663,7 +1653,7 @@ function resetSimFlags(){
 }
 function startSim(){
   stopClock(); clearTimeout(S.sim.timer);
-  S.taken=[]; S.sim.news=[]; S.sim.done=false; S.sim.showTeam=null;
+  S.taken=[]; S.sim.news=[]; S.sim.usedNews=new Set(); S.sim.done=false; S.sim.showTeam=null;
   resetSimFlags();
 
   const pool=[...ARCHETYPES].sort(()=>Math.random()-0.5);
@@ -1676,7 +1666,7 @@ function startSim(){
     S.sim.gms.push(a);
   }
   // 2-4 news events, none in the first half-round
-  const n=2+Math.floor(Math.random()*3), last=S.teams*Math.min(S.rounds,13);
+  const n=4+Math.floor(Math.random()*3), last=S.teams*Math.min(S.rounds,13);
   S.sim.newsAt=[];
   while(S.sim.newsAt.length<n){
     const at=Math.floor(S.teams*0.7)+Math.floor(Math.random()*(last-S.teams));
@@ -1794,10 +1784,12 @@ function renderSim(){
 }
 
 function renderNews(){
+  const lbl={out:'LANDMINE', bad:'INJURY / RISK', good:'VALUE AHEAD'};
+  const cls={out:'out', bad:'bad', good:'good'};
   $('news').innerHTML = S.sim.news.slice(0,3).map(n=>
-    `<div class="newsrow ${n.out?'out':(n.good?'good':'bad')}">
-       <span class="newstag">${n.out?'SIM · MAJOR':'SIM NEWS'}</span>
-       <span class="newstx">${esc(n.text)}</span>
+    `<div class="newsrow ${cls[n.kind]||'bad'}">
+       <span class="newstag">${lbl[n.kind]||'NEWS'}</span>
+       <span class="newstx"><b>${esc(n.name)}</b> <span style="color:var(--dim2)">${n.pos} ${esc(n.team)}</span> &mdash; ${esc(n.text)}</span>
        <span class="newspk">pick ${n.pk}</span>
      </div>`).join('');
 }
