@@ -176,6 +176,8 @@ input,select{font-family:inherit; font-size:inherit}
 .aisetup select{background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:6px 8px; color:var(--txt); font-size:12px}
 
 /* ---------- flex advisor ---------- */
+.fxhd{padding:7px 12px 4px; font-size:10px; font-weight:800; letter-spacing:.8px; text-transform:uppercase;
+      color:var(--acc); border-top:1px solid var(--line)}
 .fxv{padding:10px 12px; font-size:13px; border-bottom:1px solid var(--line); background:rgba(63,191,127,.05)}
 .fxv b{color:var(--good)}
 .fxr{display:flex; align-items:center; gap:9px; padding:6px 12px; border-bottom:1px solid #202730; font-size:12.5px}
@@ -524,13 +526,6 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
       </div>
     </div>
 
-    <div class="card" id="flexCard" data-mp="pick" style="display:none">
-      <h3><span>RB or WR? &mdash; flex advisor</span><b id="flexSub"></b></h3>
-      <div class="fxv" id="flexVerdict"></div>
-      <div id="flexRows"></div>
-      <div class="fxte" id="flexTE"></div>
-    </div>
-
     <div class="card" id="moveCard" data-mp="pick">
       <h3><span>Your next move</span><b id="moveSub"></b></h3>
       <div id="pair"></div>
@@ -576,8 +571,14 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
     </div>
 
     <div class="card" data-mp="pick">
-      <h3>What to do here</h3>
+      <h3><span>What to do here</span><b id="flexSub"></b></h3>
       <div class="plan" id="plan"></div>
+      <div id="flexWrap" style="display:none">
+        <div class="fxhd">RB or WR? &mdash; flex advisor</div>
+        <div class="fxv" id="flexVerdict"></div>
+        <div id="flexRows"></div>
+        <div class="fxte" id="flexTE"></div>
+      </div>
     </div>
 
     <div class="card" data-mp="team">
@@ -1117,6 +1118,15 @@ function renderMove(){
 
 
 
+
+/* AI answers arrive with light markdown — render bold and line breaks, nothing else */
+function mdLite(t){
+  let x=esc((t||'').trim());
+  x=x.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  x=x.replace(/^[#]+\s*/gm,'').replace(/^\s*[-*]\s+/gm,'&bull; ');
+  return x.replace(/\n\n+/g,'<br><br>').replace(/\n/g,'<br>');
+}
+
 /* ================= ASK AI (optional) =================
    Second opinion from Claude via the user's own API key.
    The key lives ONLY in this browser's storage — it is never embedded in the
@@ -1135,7 +1145,13 @@ function aiPrompt(){
     const p=x.p, tgt=after??next, odds=tgt?Math.round(survivalOdds(p,tgt)*100):100;
     return `${i+1}. ${p.name}, ${p.pos}, ${p.team} — ADP ${p.adp.toFixed(0)}, ${p.pos}${p.posRank}, tier ${p.tier}, ~${odds}% chance he survives to my following pick${p.flag?', FLAG: '+p.flag:''}${myNote(p)?'. MY OWN NOTE: '+myNote(p):''}${p.note?'. Scouting: '+p.note.slice(0,110):''}`;
   }).join('\n');
-  return `You are advising ONE pick in a live fantasy football snake draft. League: ${S.teams}-team full PPR; starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}${S.superflex?'/Superflex':''}/K/DST; ${S.rounds} rounds. I am on the clock at overall pick ${currentPick()} (round ${roundOf(currentPick())}). My following pick after this one is ${after??'(none left)'}.\nMY ROSTER SO FAR: ${roster}.\nTOP CANDIDATES in my board's order:\n${cands}\n\nIn 2-4 sentences: which one should I take and why, given my roster construction — and name the fallback if he gets sniped. Be decisive, no hedging.`;
+  const fx=computeFlex();
+  let posCtx='';
+  if(fx.baseDone && fx.next){
+    const d=p=>fx.info[p].now?`${p}: -${fx.info[p].cost} (${fx.info[p].now.name} now vs ${fx.info[p].later?fx.info[p].later.name:'shelf empty'} at my next pick)`:`${p}: none left`;
+    posCtx=`\nPOSITIONAL SCARCITY — cost of waiting one turn, in picks of value: ${d('RB')}; ${d('WR')}; ${d('TE')}. Open FLEX spots: ${fx.flexLeft}.`;
+  }
+  return `You are advising ONE pick in a live fantasy football snake draft. League: ${S.teams}-team full PPR; starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}${S.superflex?'/Superflex':''}/K/DST; ${S.rounds} rounds. I am on the clock at overall pick ${currentPick()} (round ${roundOf(currentPick())}). My following pick after this one is ${after??'(none left)'}.\nMY ROSTER SO FAR: ${roster}.\nTOP CANDIDATES in my board's order:\n${cands}${posCtx}\n\nIn 3-5 sentences: FIRST state which position this pick should target given my roster and the scarcity numbers, THEN which specific player and the fallback if he gets sniped. Be decisive, no hedging. Plain sentences only — no markdown, no asterisks, no headers.`;
 }
 async function askAI(){
   const out=$('aiOut');
@@ -1144,7 +1160,7 @@ async function askAI(){
   out.style.display='block'; out.innerHTML='<span style="color:var(--dim)">Asking Claude&hellip;</span>';
   try{
     const text=await callClaude(aiPrompt());
-    out.innerHTML='<b>&#10022; AI second opinion:</b> '+esc(text);
+    out.innerHTML='<b>&#10022; AI second opinion:</b> '+mdLite(text);
   }catch(e){
     if(String(e.message).includes('rejected')) AIK.key='';
     out.innerHTML='<span style="color:var(--bad)">'+esc(e.message||'Network error — the AI needs internet; the rest of the app works offline.')+'</span>';
@@ -1232,8 +1248,8 @@ async function askCmpAI(aId,bId){
 I'm stuck between two players:
 A) ${desc(A)}
 B) ${desc(B)}
-Break down the head-to-head in 3-5 sentences: floor vs ceiling, situation, how each fits MY roster — then pick one, decisively.`);
-    out.innerHTML='<b>&#10022; AI breakdown:</b> '+esc(text);
+Break down the head-to-head in 3-5 sentences: floor vs ceiling, situation, how each fits MY roster — then pick one, decisively. Plain sentences only — no markdown, no asterisks, no headers.`);
+    out.innerHTML='<b>&#10022; AI breakdown:</b> '+mdLite(text);
   }catch(e){ out.innerHTML='<span style="color:var(--bad)">'+esc(e.message)+'</span>'; }
 }
 
@@ -1242,18 +1258,11 @@ Break down the head-to-head in 3-5 sentences: floor vs ceiling, situation, how e
    For each position, compare the best player available NOW with the best
    player LIKELY to survive to your next pick. The difference is the cost of
    waiting — take the position where waiting hurts most. */
-function renderFlex(){
-  const el=$('flexCard'); if(!el) return;
-  const next=nextMyPick(), c=myCounts(), r=S.starters, made=myMade();
-  const roundsLeft=S.rounds-made;
+function computeFlex(){
+  const next=nextMyPick(), c=myCounts(), r=S.starters;
   const baseDone = c.RB>=r.RB && c.WR>=r.WR && c.TE>=r.TE;
-  if(!next || !baseDone || roundsLeft<=2){ el.style.display='none'; return; }
-  el.style.display='';
-
   const flexUsed=Math.max(0,c.RB-r.RB)+Math.max(0,c.WR-r.WR)+Math.max(0,c.TE-r.TE);
   const flexLeft=Math.max(0, r.FLEX-flexUsed);
-  $('flexSub').textContent = flexLeft>0 ? `${flexLeft} FLEX open` : 'bench rounds';
-
   const avail=available().filter(p=>p.flag!=='out');
   const info={};
   ['RB','WR','TE'].forEach(pos=>{
@@ -1262,6 +1271,16 @@ function renderFlex(){
     const later=list.find(p=>survivalOdds(p,next)>=0.55);
     info[pos]={now, later, cost: now ? (later ? Math.max(0,Math.round(later.val-now.val)) : 60) : 0};
   });
+  return {next, baseDone, flexLeft, info};
+}
+function renderFlex(){
+  const el=$('flexWrap'); if(!el) return;
+  const c=myCounts(), r=S.starters, made=myMade();
+  const roundsLeft=S.rounds-made;
+  const fx=computeFlex(), next=fx.next, info=fx.info, flexLeft=fx.flexLeft;
+  if(!next || !fx.baseDone || roundsLeft<=2){ el.style.display='none'; $('flexSub').textContent=''; return; }
+  el.style.display='';
+  $('flexSub').textContent = flexLeft>0 ? `${flexLeft} FLEX open` : 'bench rounds';
 
   // ----- verdict: RB vs WR by cost-of-waiting, nudged by roster balance -----
   const dRB=c.RB-r.RB, dWR=c.WR-r.WR;                 // depth beyond required starters
