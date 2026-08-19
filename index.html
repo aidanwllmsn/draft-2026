@@ -141,6 +141,56 @@ input,select{font-family:inherit; font-size:inherit}
 }
 
 
+
+
+
+/* ---------- player compare ---------- */
+.vsbtn{border-color:#4d5f8a !important; color:#9db4e8 !important; font-size:10px !important}
+.cmpbar{position:fixed; left:50%; transform:translateX(-50%); bottom:74px; z-index:90;
+  background:#232c42; border:1px solid #4d5f8a; color:#c4d4f5; border-radius:20px;
+  padding:8px 14px; font-size:12.5px; display:flex; gap:10px; align-items:center;
+  box-shadow:0 4px 18px rgba(0,0,0,.5)}
+@media(min-width:761px){ .cmpbar{bottom:24px} }
+.cmpbar b{color:#fff}
+.cmpgrid{display:grid; grid-template-columns:88px 1fr 1fr; font-size:12px}
+.cmpgrid>div{padding:6px 9px; border-bottom:1px solid #202730; min-width:0}
+.cmpl{color:var(--dim2); font-size:10px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; display:flex; align-items:center}
+.cmpv{color:var(--dim)}
+.cmpv.win{color:var(--good); font-weight:700; background:rgba(63,191,127,.07)}
+.cmphead{font-weight:800; font-size:13px; color:var(--txt) !important; background:var(--panel2)}
+.cmpverdict{padding:10px 12px; font-size:12.5px; border-top:1px solid var(--line); background:rgba(63,191,127,.05)}
+.cmpverdict b{color:var(--good)}
+.cmpai{padding:9px 12px; border-top:1px solid var(--line)}
+.cmpaiout{padding:0 12px 11px; font-size:12.5px; line-height:1.5; color:var(--txt)}
+.cmpaiout b{color:var(--acc)}
+.cmpnotes{padding:7px 12px; font-size:11.5px; color:var(--dim); border-top:1px solid #202730}
+.cmpnotes b{color:var(--txt)}
+
+/* ---------- ask AI ---------- */
+.aibtn{border-color:#4d5f8a; color:#9db4e8}
+.aibtn:hover{background:#232c42; color:#c4d4f5}
+.aiout{padding:10px 12px; font-size:13px; border-top:1px solid var(--line); background:rgba(77,159,255,.06); line-height:1.5}
+.aiout b{color:var(--acc)}
+.aisetup{padding:10px 12px; font-size:12px; border-top:1px solid var(--line); background:var(--panel2); color:var(--dim)}
+.aisetup input{width:100%; background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:7px 9px; color:var(--txt); font-size:13px}
+.aisetup select{background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:6px 8px; color:var(--txt); font-size:12px}
+
+/* ---------- flex advisor ---------- */
+.fxv{padding:10px 12px; font-size:13px; border-bottom:1px solid var(--line); background:rgba(63,191,127,.05)}
+.fxv b{color:var(--good)}
+.fxr{display:flex; align-items:center; gap:9px; padding:6px 12px; border-bottom:1px solid #202730; font-size:12.5px}
+.fxr:last-child{border-bottom:none}
+.fxr .fp{width:30px; flex:none}
+.fxr .fnow{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fxr .farrow{flex:none; color:var(--dim2)}
+.fxr .flater{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--dim)}
+.fxr .fcost{flex:none; font-weight:800; font-size:11px; padding:2px 7px; border-radius:10px; font-variant-numeric:tabular-nums}
+.fxr .fcost.hi{background:rgba(240,96,95,.16); color:var(--bad)}
+.fxr .fcost.mid{background:rgba(232,163,61,.16); color:var(--warn)}
+.fxr .fcost.lo{background:rgba(139,149,165,.14); color:var(--dim)}
+.fxte{padding:8px 12px; font-size:11.5px; color:var(--dim); border-top:1px solid var(--line)}
+.fxte b{color:var(--txt)}
+
 /* ---------- personal notes ---------- */
 .tag.un{background:rgba(232,201,90,.16); color:#e8c95a}
 .mynote-line{font-size:11.5px; color:#e8c95a; margin-top:2px}
@@ -455,8 +505,30 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
     </div>
 
     <div class="card" id="recCard" data-mp="pick">
-      <h3><span>Take one of these &mdash; ranked</span><b id="recSub"></b></h3>
+      <h3><span>Take one of these &mdash; ranked</span>
+        <span style="display:flex;gap:8px;align-items:center"><button class="mini aibtn" id="bAskAI">&#10022; Ask AI</button><b id="recSub"></b></span></h3>
       <div id="recs"></div>
+      <div class="aiout" id="aiOut" style="display:none"></div>
+      <div class="aisetup" id="aiSetup" style="display:none">
+        <div style="font-weight:700;margin-bottom:5px">One-time AI setup</div>
+        <input type="password" id="aiKey" placeholder="Anthropic API key (sk-ant-&hellip;)">
+        <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+          <select id="aiModel">
+            <option value="claude-haiku-4-5">Fast &amp; cheap (Haiku)</option>
+            <option value="claude-sonnet-4-5">Smarter (Sonnet)</option>
+          </select>
+          <button class="btn" id="aiSave">Save</button>
+          <button class="btn" id="aiCancel">Cancel</button>
+        </div>
+        <div class="hint" style="padding:6px 0 0">The key is stored only in this browser. It is never written into the app file, the GitHub repo, or the save/restore code. Standard API rates apply (~a cent per question).</div>
+      </div>
+    </div>
+
+    <div class="card" id="flexCard" data-mp="pick" style="display:none">
+      <h3><span>RB or WR? &mdash; flex advisor</span><b id="flexSub"></b></h3>
+      <div class="fxv" id="flexVerdict"></div>
+      <div id="flexRows"></div>
+      <div class="fxte" id="flexTE"></div>
     </div>
 
     <div class="card" id="moveCard" data-mp="pick">
@@ -541,6 +613,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 </div>
 
 <div id="dcov" style="display:none"></div>
+<div class="cmpbar" id="cmpBar" style="display:none"></div>
 <nav class="mtabs" id="mtabs">
   <button class="mtab on" data-tab="pick"><i>&#9679;</i>Pick</button>
   <button class="mtab" data-tab="board"><i>&#9776;</i>Board</button>
@@ -579,7 +652,7 @@ const RAW = [
 ["Saquon Barkley","RB","PHI",20.1,0,"","Went 1.12 in the Yahoo mock."],
 ["Omarion Hampton","RB","LAC",20.7,0,"","Rookie lead back. RotoWire flags him as a name that reaches the turn."],
 ["Chris Olave","WR","NO",21.5,-3,"","Brief medical-tent visit at the Aug 18 joint practice but returned to the field — scare only, no designation."],
-["Nico Collins","WR","HOU",22.2,-8,"","DraftSharks has him WR9 against a WR26 price. Biggest WR value in round 2."],
+["Nico Collins","WR","HOU",22.2,-9,"","DraftSharks has him WR9 against a WR26 price — and Higgins' torn ACL concentrates the Houston target tree on him even further."],
 ["Kenneth Walker III","RB","KC",24.0,6,"","Signed with KC for $45M. BR has him 8 spots BELOW consensus — Andy Reid committee risk."],
 ["Zay Flowers","WR","BAL",24.9,0,"",""],
 ["Garrett Wilson","WR","NYJ",27.8,-2,"","NFL.com counters: outside the top-20 PPR in 3 of 4 seasons."],
@@ -688,7 +761,7 @@ const RAW = [
 ["KC Concepcion","WR","CLE",126.7,-2,"","First-rounder already starting alongside Jeudy. QB room caps it."],
 ["Rashid Shaheed","WR","SEA",127.6,-12,"","Extended; the WR2 behind Smith-Njigba."],
 ["New England Defense","DST","NE",128.4,45,"","Stream."],
-["Jayden Higgins","WR","HOU",129.6,-22,"","The single most-repeated sleeper across every source. Seven WR3-or-better weeks late last year; Kirk is gone. Consensus ADP is closer to 137-142, so he may last."],
+["Jayden Higgins","WR","HOU",129.6,400,"out","OUT FOR THE SEASON — tore his ACL at the Aug 19 joint practice vs the Raiders (NFL Network). Was the market's favorite sleeper; someone in your league may not have heard."],
 ["Baker Mayfield","QB","TB",129.8,0,"",""],
 ["Brandon Aubrey","K","DAL",130.3,90,"","NEVER. ADP 85 on some sites against an expert consensus rank of 184 — a ~100-pick overpay, the worst value on any board."],
 ["Detroit Defense","DST","DET",130.6,45,"","Stream."],
@@ -731,7 +804,7 @@ const RAW = [
 ["Dalton Kincaid","TE","BUF",152.9,-25,"","4th among TEs in yards per route run since 2023. Effectively a free TE2."],
 ["Daniel Jones","QB","IND",153.0,0,"","Back to full team work after Achilles and fibula injuries."],
 ["Kimani Vidal","RB","LAC",153.1,-8,"","Listed 'Mitchell OR Vidal' as Hampton's backup on the first official depth chart — a shared handcuff."],
-["Tank Dell","WR","HOU",153.3,-15,"","Back in pads. Averaged 23 fantasy points across four healthy rookie games."],
+["Tank Dell","WR","HOU",153.3,-30,"","Massive riser: Higgins' torn ACL (Aug 19) clears the Texans WR2 job, and Dell is back in pads. Averaged 23 fantasy points across four healthy rookie games — grab him 2-3 rounds early."],
 ["Isiah Pacheco","RB","DET",153.9,-6,"inj","The Gibbs handcuff. Grade 1 MCL sprain but expected Week 1."],
 ["Jalen Nailor","WR","LV",153.9,0,"",""],
 ["Juwan Johnson","TE","NO",154.3,6,"","Fant and Tyson added; regressing."],
@@ -758,7 +831,7 @@ const RAW = [
 ["Nicolas Singleton","RB","TEN",200,0,"","Rookie scheme fit."],
 ["Ja'Kobi Lane","WR","BAL",190,-15,"","6-4 red-zone target pushing Bateman for the No. 2 job with Lamar."],
 ["Adonai Mitchell","WR","NYJ",192,-10,"","Starting opposite Garrett Wilson."],
-["Jaylin Noel","WR","HOU",194,-8,"","Path to a bigger role with Kirk gone. Finger injury, a few weeks."],
+["Jaylin Noel","WR","HOU",194,-14,"","Bumped up by Higgins' torn ACL — now the Texans WR3 with a real path to snaps once his finger heals."],
 ["Isaac TeSlaa","WR","DET",196,-8,"","16 catches turned into 6 TDs. WR3 role."],
 ["Zachariah Branch","WR","ATL",198,-6,"","4.35 speed opposite Drake London."],
 ["Xavier Legette","WR","CAR",200,-4,"","Beneficiary of Brazzell's LCL tear."],
@@ -817,7 +890,7 @@ const S = {
   starters: { QB:1, RB:2, WR:3, TE:1, FLEX:2, K:1, DST:1 },
   superflex: false,
   taken: [],            // [{id, mine}]
-  filter: 'ALL', q: '', showGone: false, openNote: null, logRound: null,
+  filter: 'ALL', q: '', showGone: false, openNote: null, logRound: null, cmpA: null,
   sim: { on:false, running:false, news:[], gms:[], done:false, clockLen:0, clockLeft:0 }
 };
 
@@ -1042,6 +1115,203 @@ function renderMove(){
   } else $('pair').innerHTML='';
 }
 
+
+
+/* ================= ASK AI (optional) =================
+   Second opinion from Claude via the user's own API key.
+   The key lives ONLY in this browser's storage — it is never embedded in the
+   file, never pushed to the repo, and deliberately EXCLUDED from the
+   save/restore transfer code. */
+const AIK={
+  get key(){ try{return localStorage.getItem('ffaikey2026')||''}catch(e){return ''} },
+  set key(v){ try{ v?localStorage.setItem('ffaikey2026',v):localStorage.removeItem('ffaikey2026') }catch(e){} },
+  get model(){ try{return localStorage.getItem('ffaimodel2026')||'claude-haiku-4-5'}catch(e){return 'claude-haiku-4-5'} },
+  set model(v){ try{localStorage.setItem('ffaimodel2026',v)}catch(e){} }
+};
+function aiPrompt(){
+  const next=nextMyPick(), after=pickAfterNext();
+  const roster=myRoster().map(p=>`${p.pos} ${p.name} (${p.team}${p.flag?', flag:'+p.flag:''})`).join('; ')||'(empty)';
+  const cands=ranked().filter(x=>x.s>0).slice(0,12).map((x,i)=>{
+    const p=x.p, tgt=after??next, odds=tgt?Math.round(survivalOdds(p,tgt)*100):100;
+    return `${i+1}. ${p.name}, ${p.pos}, ${p.team} — ADP ${p.adp.toFixed(0)}, ${p.pos}${p.posRank}, tier ${p.tier}, ~${odds}% chance he survives to my following pick${p.flag?', FLAG: '+p.flag:''}${myNote(p)?'. MY OWN NOTE: '+myNote(p):''}${p.note?'. Scouting: '+p.note.slice(0,110):''}`;
+  }).join('\n');
+  return `You are advising ONE pick in a live fantasy football snake draft. League: ${S.teams}-team full PPR; starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}${S.superflex?'/Superflex':''}/K/DST; ${S.rounds} rounds. I am on the clock at overall pick ${currentPick()} (round ${roundOf(currentPick())}). My following pick after this one is ${after??'(none left)'}.\nMY ROSTER SO FAR: ${roster}.\nTOP CANDIDATES in my board's order:\n${cands}\n\nIn 2-4 sentences: which one should I take and why, given my roster construction — and name the fallback if he gets sniped. Be decisive, no hedging.`;
+}
+async function askAI(){
+  const out=$('aiOut');
+  if(!AIK.key){ $('aiSetup').style.display=''; $('aiModel').value=AIK.model; return; }
+  S._aiAt=S.taken.length;
+  out.style.display='block'; out.innerHTML='<span style="color:var(--dim)">Asking Claude&hellip;</span>';
+  try{
+    const text=await callClaude(aiPrompt());
+    out.innerHTML='<b>&#10022; AI second opinion:</b> '+esc(text);
+  }catch(e){
+    if(String(e.message).includes('rejected')) AIK.key='';
+    out.innerHTML='<span style="color:var(--bad)">'+esc(e.message||'Network error — the AI needs internet; the rest of the app works offline.')+'</span>';
+  }
+}
+async function callClaude(prompt){
+  const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+    headers:{'content-type':'application/json','x-api-key':AIK.key,
+      'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:AIK.model, max_tokens:300, messages:[{role:'user',content:prompt}]})});
+  if(!res.ok) throw new Error(res.status===401||res.status===403
+    ? 'API key rejected — tap Ask AI again to re-enter it.'
+    : 'API error '+res.status+' — try again in a moment.');
+  const j=await res.json();
+  return (j.content?.[0]?.text||'No answer returned.').trim();
+}
+
+
+/* ================= PLAYER COMPARE ================= */
+function startCompare(id){
+  if(S.cmpA===id){ S.cmpA=null; $('cmpBar').style.display='none'; return; }
+  if(S.cmpA==null){
+    S.cmpA=id;
+    $('cmpBar').style.display='flex';
+    $('cmpBar').innerHTML=`Comparing <b>${esc(byId(id).name)}</b> — tap <b>vs</b> on another player
+      <button class="mini" data-cmpcancel>cancel</button>`;
+    return;
+  }
+  const aId=S.cmpA; S.cmpA=null; $('cmpBar').style.display='none';
+  openCompare(aId,id);
+}
+function openCompare(aId,bId){
+  const A=byId(aId), B=byId(bId);
+  const tgt=isMyTurn()?pickAfterNext():nextMyPick();
+  const tk=takenIds();
+  const oddsA=tgt?Math.round(survivalOdds(A,tgt)*100):100, oddsB=tgt?Math.round(survivalOdds(B,tgt)*100):100;
+  const row=(label,va,vb,winner)=>`<div class="cmpl">${label}</div>
+    <div class="cmpv ${winner==='A'?'win':''}">${va}</div>
+    <div class="cmpv ${winner==='B'?'win':''}">${vb}</div>`;
+  const w=(x,y,lowerBetter=true)=> x===y?'':((x<y)===lowerBetter?'A':'B');
+  const lean=p=> p.adj<=-8?`VALUE ${-p.adj}`:(p.adj>=8?`FADE ${p.adj}`:'neutral');
+  const flagTxt=p=> p.flag==='out'?'DO NOT DRAFT':(p.flag==='inj'?'injury':(p.flag==='risk'?'risk':'clean'));
+  const fw=(a,b)=>{ const v={'':0,'risk':1,'inj':1,'out':9}; return w(v[a.flag],v[b.flag]); };
+  const sA=scoreOf(A,currentPick(),nextMyPick()), sB=scoreOf(B,currentPick(),nextMyPick());
+  const eng=sA===sB?null:(sA>sB?A:B);
+  const margin=Math.abs(sA-sB);
+  const verdict = !eng ? 'The board has these two dead even — take the one your gut likes.' :
+    `<b>The board leans ${esc(eng.name)}</b> ${margin>=25?'clearly':'narrowly'} — ` +
+    (Math.abs(A.val-B.val)>=6 ? `he ranks ${Math.abs(Math.round(A.val-B.val))} picks better on adjusted value` :
+     (eng===A?oddsA:oddsB) < (eng===A?oddsB:oddsA) - 20 ? 'mostly because he is far less likely to survive to your next pick — take him now, get the other later' :
+     tierLeft(eng)===1 ? `he is the last ${eng.pos} in his tier` :
+     'a mix of tier scarcity and roster fit') + '.';
+  const noteBlock=p=>`<div class="cmpnotes"><b>${esc(p.name)}:</b> ${p.note?esc(p.note):'<i>no scouting note</i>'}${myNote(p)?`<br><span style="color:#e8c95a">Your note: ${esc(myNote(p))}</span>`:''}</div>`;
+
+  $('dcov').innerHTML=`<div class="dcbox">
+    <h3><span>Head to head</span><button class="dcx" data-dcclose>&times;</button></h3>
+    <div class="cmpgrid">
+      <div class="cmpl"></div><div class="cmpv cmphead">${esc(A.name)}</div><div class="cmpv cmphead">${esc(B.name)}</div>
+      ${row('Role', `${A.team} ${A.pos}${A.depthRank||''}`, `${B.team} ${B.pos}${B.depthRank||''}`, '')}
+      ${row('ADP', A.adp.toFixed(0), B.adp.toFixed(0), w(A.adp,B.adp))}
+      ${row('Board rank', '#'+A.rank+' overall', '#'+B.rank+' overall', w(A.rank,B.rank))}
+      ${row('Pos rank', A.pos+A.posRank, B.pos+B.posRank, A.pos===B.pos?w(A.posRank,B.posRank):'')}
+      ${row('Tier', `T${A.tier} (${tierLeft(A)} left)`, `T${B.tier} (${tierLeft(B)} left)`, w(A.tier,B.tier))}
+      ${row('Expert lean', lean(A), lean(B), w(A.adj,B.adj))}
+      ${tgt?row('Survives to '+tgt, oddsA+'%', oddsB+'%', w(oddsA,oddsB,false)):''}
+      ${row('Flags', flagTxt(A), flagTxt(B), fw(A,B))}
+    </div>
+    <div class="cmpverdict">${verdict}</div>
+    ${noteBlock(A)}${noteBlock(B)}
+    <div class="cmpai"><button class="mini aibtn" data-cmpai="${A.id}_${B.id}">&#10022; Ask AI to break it down</button></div>
+    <div class="cmpaiout" id="cmpAiOut"></div>
+  </div>`;
+  $('dcov').style.display='flex';
+}
+async function askCmpAI(aId,bId){
+  const out=$('cmpAiOut');
+  if(!AIK.key){ out.innerHTML='<span style="color:var(--warn)">Set up your API key first — close this and tap &#10022; Ask AI on the recommendations card.</span>'; return; }
+  const A=byId(aId), B=byId(bId);
+  const desc=p=>`${p.name} (${p.pos}, ${p.team}, ${p.pos}${p.depthRank||''} on depth chart) — ADP ${p.adp.toFixed(0)}, my board #${p.rank}, tier ${p.tier}${p.flag?', FLAG: '+p.flag:''}. Scouting: ${p.note||'none'}.${myNote(p)?' MY OWN NOTE: '+myNote(p):''}`;
+  const roster=myRoster().map(p=>`${p.pos} ${p.name}`).join('; ')||'(empty)';
+  out.innerHTML='<span style="color:var(--dim)">Asking Claude&hellip;</span>';
+  try{
+    const text=await callClaude(
+`Fantasy football snake draft, ${S.teams}-team full PPR (starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}). I'm at overall pick ${currentPick()}, my following pick is ${nextMyPick()??'none'}. MY ROSTER: ${roster}.
+I'm stuck between two players:
+A) ${desc(A)}
+B) ${desc(B)}
+Break down the head-to-head in 3-5 sentences: floor vs ceiling, situation, how each fits MY roster — then pick one, decisively.`);
+    out.innerHTML='<b>&#10022; AI breakdown:</b> '+esc(text);
+  }catch(e){ out.innerHTML='<span style="color:var(--bad)">'+esc(e.message)+'</span>'; }
+}
+
+/* ================= FLEX ADVISOR =================
+   The round-6+ question: RB, WR, or a second TE?
+   For each position, compare the best player available NOW with the best
+   player LIKELY to survive to your next pick. The difference is the cost of
+   waiting — take the position where waiting hurts most. */
+function renderFlex(){
+  const el=$('flexCard'); if(!el) return;
+  const next=nextMyPick(), c=myCounts(), r=S.starters, made=myMade();
+  const roundsLeft=S.rounds-made;
+  const baseDone = c.RB>=r.RB && c.WR>=r.WR && c.TE>=r.TE;
+  if(!next || !baseDone || roundsLeft<=2){ el.style.display='none'; return; }
+  el.style.display='';
+
+  const flexUsed=Math.max(0,c.RB-r.RB)+Math.max(0,c.WR-r.WR)+Math.max(0,c.TE-r.TE);
+  const flexLeft=Math.max(0, r.FLEX-flexUsed);
+  $('flexSub').textContent = flexLeft>0 ? `${flexLeft} FLEX open` : 'bench rounds';
+
+  const avail=available().filter(p=>p.flag!=='out');
+  const info={};
+  ['RB','WR','TE'].forEach(pos=>{
+    const list=avail.filter(p=>p.pos===pos).sort((a,b)=>a.val-b.val);
+    const now=list[0];
+    const later=list.find(p=>survivalOdds(p,next)>=0.55);
+    info[pos]={now, later, cost: now ? (later ? Math.max(0,Math.round(later.val-now.val)) : 60) : 0};
+  });
+
+  // ----- verdict: RB vs WR by cost-of-waiting, nudged by roster balance -----
+  const dRB=c.RB-r.RB, dWR=c.WR-r.WR;                 // depth beyond required starters
+  let sRB=info.RB.cost + Math.max(0,(dWR-dRB))*2;     // thinner side gets a nudge
+  let sWR=info.WR.cost + Math.max(0,(dRB-dWR))*2;
+  const injRB=myRoster().filter(p=>p.pos==='RB'&&(p.flag==='inj'||p.flag==='risk')).length;
+  sRB += injRB*3;                                      // fragile RB room => want more RBs
+  let verdict;
+  const diff=Math.abs(sRB-sWR);
+  const w = sRB>sWR ? 'RB' : 'WR', l = w==='RB' ? 'WR' : 'RB';
+  if(diff<=3){
+    const both=Math.min(info.RB.cost,info.WR.cost);
+    const bp=(info.RB.now&&info.WR.now)?(info.RB.now.val<=info.WR.now.val?info.RB.now:info.WR.now):(info.RB.now||info.WR.now);
+    verdict = both>=12
+      ? `<b>Both shelves drop before pick ${next}</b> (~-${info.RB.cost} RB, ~-${info.WR.cost} WR) — you can't protect both, so just take the best player: ${esc(bp?.name||'')}.`
+      : `<b>Coin flip by scarcity</b> — neither shelf collapses before pick ${next}. Take the best player: ${esc(bp?.name||'')}.`;
+  } else {
+    const wi=info[w];
+    verdict=`<b>Lean ${w} here.</b> Waiting one turn costs ~${wi.cost} picks of value at ${w}`
+      + (wi.later?` (${esc(wi.now.name)} &rarr; ${esc(wi.later.name)})`:` — the useful ${w}s are nearly gone`)
+      + `, only ~${info[l].cost} at ${l}.`
+      + (injRB&&w==='RB'?` Your RB room also carries ${injRB} injury flag${injRB>1?'s':''} — depth there is insurance.`:'');
+  }
+  $('flexVerdict').innerHTML=verdict;
+
+  // ----- the comparison table -----
+  const cls=x=> x>=15?'hi':(x>=7?'mid':'lo');
+  $('flexRows').innerHTML=['RB','WR','TE'].map(pos=>{
+    const x=info[pos]; if(!x.now) return '';
+    return `<div class="fxr">
+      <span class="fp pos ${pos}">${pos}</span>
+      <span class="fnow"><b>${esc(x.now.name)}</b> <span style="color:var(--dim2);font-size:10.5px">now</span></span>
+      <span class="farrow">&rarr;</span>
+      <span class="flater">${x.later?esc(x.later.name):'shelf empties'} <span style="color:var(--dim2);font-size:10.5px">at ${next}</span></span>
+      <span class="fcost ${cls(x.cost)}">${x.later?'-'+x.cost:'ALL'}</span></div>`;
+  }).join('');
+
+  // ----- the TE2 question, answered directly -----
+  const te1=myRoster().filter(p=>p.pos==='TE').sort((a,b)=>a.val-b.val)[0];
+  const bestTE=info.TE.now;
+  let teMsg;
+  if(c.TE>=2) teMsg=`<b>TE is done.</b> You have two — a third is a wasted pick.`;
+  else if(te1 && (te1.flag==='inj') && bestTE)
+    teMsg=`<b>TE2 makes sense for you:</b> ${esc(te1.name)} carries an injury flag, so ${esc(bestTE.name)} is insurance, not a luxury.`;
+  else if(flexLeft>0 && bestTE && bestTE.tier<=2 && info.TE.cost>=15)
+    teMsg=`<b>TE2 exception:</b> ${esc(bestTE.name)} is a top-tier TE who can actually win a FLEX spot, and he won't last. Otherwise skip TE2.`;
+  else teMsg=`<b>Skip a second TE.</b> Your TE1 is healthy and a backup TE scores fewer points than any RB/WR you would bench for him. Stream from waivers if disaster hits.`;
+  $('flexTE').innerHTML=teMsg;
+}
+
 /* ================= ROUND PLAN ================= */
 function planText(){
   const pick=currentPick(), rnd=roundOf(pick), next=nextMyPick(), after=pickAfterNext();
@@ -1198,7 +1468,7 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
 function render(){
-  renderClock(); renderRecs(); renderMove(); renderRows(); renderPipe(); renderMyNotes();
+  renderClock(); renderRecs(); renderMove(); renderFlex(); renderRows(); renderPipe(); renderMyNotes();
   if(typeof renderSim==='function') renderSim();
   renderRoster(); renderPlan(); renderRuns(); renderLog();
   $('state').value = JSON.stringify(snapshot());
@@ -1217,6 +1487,7 @@ function renderMini(){
 }
 
 function renderClock(){
+  if(S._aiAt!==undefined && S._aiAt!==S.taken.length && $('aiOut')){ $('aiOut').style.display='none'; S._aiAt=undefined; }
   const total=S.teams*S.rounds, over=currentPick()>total;
   const pick=Math.min(currentPick(),total), rnd=roundOf(pick), inR=pick-(rnd-1)*S.teams;
   const next=nextMyPick(), mine=isMyTurn();
@@ -1263,6 +1534,7 @@ function renderRecs(){
       <div class="rec-act">
         <button class="mini me" data-me="${p.id}">&#9733; ME</button>
         <button class="mini" data-gone="${p.id}">taken</button>
+        <button class="mini vsbtn" data-vs="${p.id}">vs</button>
       </div>
     </div>`;
   }).join('') || `<div class="empty-msg">No one left worth recommending.</div>`;
@@ -1315,6 +1587,7 @@ function renderRows(){
       </div>
       <div class="acts">
         <button class="mini" data-note="${p.id}">i</button>
+        <button class="mini vsbtn" data-vs="${p.id}">vs</button>
         ${gone?`<button class="mini" data-undo1="${p.id}">&#8630;</button>`
               :`<button class="mini me" data-me="${p.id}">&#9733;</button>`}
       </div>
@@ -1488,6 +1761,11 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
     if(me){ e.stopPropagation(); markTaken(+me.dataset.me, true); return; }
     if(un){ e.stopPropagation(); undoOne(+un.dataset.undo1); return; }
     if(nt){ e.stopPropagation(); const id=+nt.dataset.note; S.openNote = S.openNote===id?null:id; renderRows(); return; }
+    const vs=e.target.closest('[data-vs]');
+    if(vs){ e.stopPropagation(); startCompare(+vs.dataset.vs); return; }
+    if(e.target.closest('[data-cmpcancel]')){ S.cmpA=null; $('cmpBar').style.display='none'; return; }
+    const cai=e.target.closest('[data-cmpai]');
+    if(cai){ e.stopPropagation(); const [x,y]=cai.dataset.cmpai.split('_').map(Number); askCmpAI(x,y); return; }
     const ns=e.target.closest('[data-nsave]');
     if(ns){ e.stopPropagation(); const id=+ns.dataset.nsave;
       saveNote(byId(id).name, document.getElementById('ne_'+id)?.value||''); render(); return; }
@@ -1504,6 +1782,12 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
       markTaken(id, false); return;
     }
   });
+
+  $('bAskAI').onclick=askAI;
+  $('aiSave').onclick=()=>{ const v=$('aiKey').value.trim();
+    if(v) AIK.key=v; AIK.model=$('aiModel').value; $('aiKey').value='';
+    $('aiSetup').style.display='none'; if(AIK.key) askAI(); };
+  $('aiCancel').onclick=()=>{ $('aiSetup').style.display='none'; };
 
   $('bCopy').onclick=()=>{ $('state').select(); document.execCommand('copy'); $('bCopy').textContent='Copied'; setTimeout(()=>$('bCopy').textContent='Copy code',1200); };
   $('bLoad').onclick=()=>{
