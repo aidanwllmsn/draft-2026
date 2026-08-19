@@ -140,6 +140,23 @@ input,select{font-family:inherit; font-size:inherit}
   body.simcollapsed .simbar > .btn, body.simcollapsed .simbar > .fld{display:none}
 }
 
+
+/* ---------- personal notes ---------- */
+.tag.un{background:rgba(232,201,90,.16); color:#e8c95a}
+.mynote-line{font-size:11.5px; color:#e8c95a; margin-top:2px}
+.mynote-ed{margin-top:7px; padding-top:7px; border-top:1px dashed var(--line2)}
+.mynote-ed textarea{width:100%; min-height:54px; background:var(--bg); border:1px solid var(--line2);
+  border-radius:6px; color:var(--txt); font-family:inherit; font-size:12.5px; padding:7px; resize:vertical}
+.mynote-ed textarea:focus{outline:none; border-color:#e8c95a}
+.mynote-ed .row2{display:flex; gap:6px; margin-top:5px; align-items:center}
+.mynote-ed .hint2{font-size:10px; color:var(--dim2); margin-left:auto}
+.noterow{padding:8px 12px; border-bottom:1px solid #202730; font-size:12.5px}
+.noterow:last-child{border-bottom:none}
+.noterow .nh{display:flex; gap:8px; align-items:baseline}
+.noterow .nh b{font-size:13px}
+.noterow .nh .nt{color:var(--dim2); font-size:11px}
+.noterow .nb{color:#e8c95a; margin-top:2px; white-space:pre-wrap}
+
 /* ---------- depth chart popup ---------- */
 .tmbtn{cursor:pointer; border-bottom:1px dotted var(--dim2)}
 .tmbtn:hover{color:var(--txt); border-bottom-color:var(--txt)}
@@ -500,6 +517,12 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
     <div class="card" id="leagueCard" data-mp="more" style="display:none">
       <h3><span>The room</span><b>tap a team to see its roster</b></h3>
       <div id="league"></div>
+    </div>
+
+    <div class="card" data-mp="more">
+      <h3><span>My research notes</span><b id="noteCount"></b></h3>
+      <div id="myNotes"></div>
+      <div class="hint" style="padding:6px 12px 10px">Notes live in this browser and survive reloads and data updates. They ride along in the save/restore code below, so you can copy them between phone and computer.</div>
     </div>
 
     <div class="card" data-mp="more">
@@ -1079,7 +1102,7 @@ const KEY='ffdraft2026';
 let storageOK=true;
 function snapshot(){
   return {t:S.teams,s:S.slot,r:S.rounds,st:S.starters,sf:S.superflex,
-          d:S.taken.map(x=>[x.id, x.mine?1:0])};
+          d:S.taken.map(x=>[x.id, x.mine?1:0]), notes:NOTES};
 }
 function autoSave(){
   if(!storageOK || S.sim.on) return;                 // mocks are practice, not worth persisting
@@ -1099,6 +1122,8 @@ function applyState(o){
   $('cWR').value=S.starters.WR; $('cTE').value=S.starters.TE; $('cFLEX').value=S.starters.FLEX;
   $('cSF').checked=S.superflex;
   S.taken=o.d.map(x=>({id:x[0], mine:!!x[1]}));
+  if(o.notes && typeof o.notes==='object'){ Object.assign(NOTES,o.notes);
+    try{ localStorage.setItem('ffnotes2026', JSON.stringify(NOTES)); }catch(e){} }
 }
 function offerRestore(){
   let o=null;
@@ -1145,12 +1170,35 @@ function openDepthChart(team){
   const ov=$('dcov'); ov.innerHTML=html; ov.style.display='flex';
 }
 
+
+/* ================= PERSONAL NOTES =================
+   Keyed by player name (ids shift when the data updates; names don't).
+   Stored in the browser; also embedded in the save/restore code. */
+let NOTES={};
+try{ NOTES=JSON.parse(localStorage.getItem('ffnotes2026')||'{}')||{}; }catch(e){ NOTES={}; }
+const myNote=p=>NOTES[p.name]||'';
+function saveNote(name,text){
+  if((text||'').trim()) NOTES[name]=text.trim(); else delete NOTES[name];
+  try{ localStorage.setItem('ffnotes2026', JSON.stringify(NOTES)); }catch(e){}
+}
+function renderMyNotes(){
+  const names=Object.keys(NOTES).sort();
+  $('noteCount').textContent = names.length ? `${names.length} player${names.length===1?'':'s'}` : '';
+  $('myNotes').innerHTML = names.map(n=>{
+    const p=P.find(x=>x.name===n);
+    return `<div class="noterow">
+      <div class="nh"><b>${esc(n)}</b><span class="nt">${p?`${p.pos} ${p.team} · ADP ${p.adp.toFixed(0)}`:'not on the board'}</span>
+        <button class="mini" style="margin-left:auto" data-ndeln="${esc(n)}">delete</button></div>
+      <div class="nb">${esc(NOTES[n])}</div></div>`;
+  }).join('') || '<div class="empty-msg" style="padding:14px">No notes yet. Tap the <b>i</b> on any player to add one.</div>';
+}
+
 /* ================= RENDER ================= */
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
 function render(){
-  renderClock(); renderRecs(); renderMove(); renderRows(); renderPipe();
+  renderClock(); renderRecs(); renderMove(); renderRows(); renderPipe(); renderMyNotes();
   if(typeof renderSim==='function') renderSim();
   renderRoster(); renderPlan(); renderRuns(); renderLog();
   $('state').value = JSON.stringify(snapshot());
@@ -1210,6 +1258,7 @@ function renderRecs(){
           <span style="color:var(--dim2);font-size:11.5px;font-weight:600"> ADP ${p.adp.toFixed(0)} &middot; ${p.pos}${p.posRank} &middot; Tier ${p.tier} &middot; ${depthChip(p)}</span>
         </div>
         <div class="rec-why">${reasonsFor(p).join(' &nbsp;&middot;&nbsp; ')}</div>
+        ${myNote(p)?`<div class="mynote-line">Your note: ${esc(myNote(p))}</div>`:''}
       </div>
       <div class="rec-act">
         <button class="mini me" data-me="${p.id}">&#9733; ME</button>
@@ -1250,6 +1299,7 @@ function renderRows(){
       if(p.adj>=8)  tags.push(`<span class="tag fade">FADE ${p.adj}</span>`);
       if(p.flag==='inj')  tags.push('<span class="tag inj">INJ</span>');
       if(p.flag==='risk') tags.push('<span class="tag risk">RISK</span>');
+      if(myNote(p)) tags.push('<span class="tag un">MY NOTE</span>');
       if(!gone && next && next>currentPick()){
         const o=survivalOdds(p,next);
         if(o<0.3) tags.push(`<span class="tag now">GONE BY ${next}</span>`);
@@ -1264,12 +1314,20 @@ function renderRows(){
         <div class="meta">${depthChip(p)}<span>ADP ${p.adp.toFixed(0)}</span><span>${p.pos}${p.posRank} &middot; T${p.tier}</span>${tags.join('')}</div>
       </div>
       <div class="acts">
-        ${p.note?`<button class="mini" data-note="${p.id}">i</button>`:''}
+        <button class="mini" data-note="${p.id}">i</button>
         ${gone?`<button class="mini" data-undo1="${p.id}">&#8630;</button>`
               :`<button class="mini me" data-me="${p.id}">&#9733;</button>`}
       </div>
     </div>`;
-    if(S.openNote===p.id) html += `<div class="note">${esc(p.note)}</div>`;
+    if(S.openNote===p.id) html += `<div class="note">${p.note?esc(p.note):'<span style="color:var(--dim2)">No scouting note on file.</span>'}
+      <div class="mynote-ed">
+        <textarea id="ne_${p.id}" placeholder="Your note on ${esc(p.name)}&hellip;">${esc(myNote(p))}</textarea>
+        <div class="row2">
+          <button class="mini me" data-nsave="${p.id}">Save note</button>
+          ${myNote(p)?`<button class="mini" data-ndeln="${esc(p.name)}">Delete</button>`:''}
+          <span class="hint2">saved to this browser</span>
+        </div>
+      </div></div>`;
   });
   $('rows').innerHTML = html || `<div class="empty-msg">Nothing matches that filter.</div>`;
 }
@@ -1430,6 +1488,11 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
     if(me){ e.stopPropagation(); markTaken(+me.dataset.me, true); return; }
     if(un){ e.stopPropagation(); undoOne(+un.dataset.undo1); return; }
     if(nt){ e.stopPropagation(); const id=+nt.dataset.note; S.openNote = S.openNote===id?null:id; renderRows(); return; }
+    const ns=e.target.closest('[data-nsave]');
+    if(ns){ e.stopPropagation(); const id=+ns.dataset.nsave;
+      saveNote(byId(id).name, document.getElementById('ne_'+id)?.value||''); render(); return; }
+    const nd=e.target.closest('[data-ndeln]');
+    if(nd){ e.stopPropagation(); saveNote(nd.dataset.ndeln, ''); render(); return; }
     const dc=e.target.closest('[data-dc]');
     if(dc){ e.stopPropagation(); openDepthChart(dc.dataset.dc); return; }
     if(e.target.closest('[data-dcclose]') || e.target.id==='dcov'){ $('dcov').style.display='none'; return; }
