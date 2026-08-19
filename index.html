@@ -175,6 +175,14 @@ input,select{font-family:inherit; font-size:inherit}
 .aisetup input{width:100%; background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:7px 9px; color:var(--txt); font-size:13px}
 .aisetup select{background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:6px 8px; color:var(--txt); font-size:12px}
 
+
+.aimsg{padding:6px 0; border-bottom:1px dashed #2a323e}
+.aimsg.you{color:#e8c95a}
+.aimsg:last-of-type{border-bottom:none}
+.aireply{display:flex; gap:6px; margin-top:8px}
+.aireply input{flex:1; background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:7px 10px; color:var(--txt); font-size:13px}
+.aireply input:focus{outline:none; border-color:#4d5f8a}
+
 /* ---------- flex advisor ---------- */
 .fxhd{padding:7px 12px 4px; font-size:10px; font-weight:800; letter-spacing:.8px; text-transform:uppercase;
       color:var(--acc); border-top:1px solid var(--line)}
@@ -663,14 +671,14 @@ const RAW = [
 ["Breece Hall","RB","NYJ",28.9,0,"inj","Groin — MRI confirmed a minor strain, week-to-week, 'not a big deal' per Glenn. Expected Week 1."],
 ["Josh Jacobs","RB","GB",30.0,12,"risk","Groin is better — returned to practice Aug 18 — but the NFL suspension review is still open with a ruling expected before the season. Real risk at full price."],
 ["Josh Allen","QB","BUF",30.6,8,"","Unanimous QB1 in ESPN's vote, but BR says his edge over QB10 is marginal. Went 26th overall in the RotoWire mock."],
-["Trey McBride","TE","ARI",31.7,3,"","Tier-1 TE. BR is 20 spots below consensus on him; ESPN's analyst vote had him TE1 unanimously."],
+["Trey McBride","TE","ARI",31.7,14,"","AIDAN'S CALL (keep on refresh): passing on elite TEs at round-3 cost — not worth a round-3 RB/WR. Consensus TE1 and a fine pick for others, just not this build."],
 ["Kyren Williams","RB","LAR",32.4,-2,"","Boring, but the touches are real. Corum eats the goal line."],
 ["Tetairoa McMillan","WR","CAR",33.6,0,"","Clear alpha target share."],
 ["Cam Skattebo","RB","NYG",34.1,8,"","Listed as co-starter with Tyrone Tracy — the RB1 job is a live battle, and Najee Harris just signed. The price ran ahead of the situation."],
 ["Tee Higgins","WR","CIN",36.6,-8,"","Experts have him WR18 against a WR23 price. ESPN ADP calls it a mispricing."],
 ["Emeka Egbuka","WR","TB",37.0,-5,"inj","Toe sprain is stable; likely skips the rest of preseason but Bucs are very optimistic for Week 1. Evans gone to SF."],
 ["Javonte Williams","RB","DAL",37.4,-3,"","Lead role in a high-total offense. BR calls him undervalued."],
-["Brock Bowers","TE","LV",38.0,-10,"","Tier-1 TE. Consensus ranks him nearly two rounds above his ADP — the market under-drafts him."],
+["Brock Bowers","TE","LV",38.0,12,"","AIDAN'S CALL (keep on refresh): passing at this cost — my TE window is rounds 5-9 (Warren/Loveland/LaPorta/Fannin/Pitts). Consensus loves him; not part of this build."],
 ["Ladd McConkey","WR","LAC",40.2,-4,"","Slot volume in PPR; consistently ranked ahead of ADP."],
 ["Davante Adams","WR","LAR",41.2,0,"","Genuinely split: DraftSharks has him WR12, others cite a 53% catch rate and age 33."],
 ["Travis Etienne Jr.","RB","NO",41.5,-3,"","Signed with NO. Kamara's knee (out a few weeks, Aug 18) locks in his lead role through camp."],
@@ -931,6 +939,8 @@ function depthChip(p){
 }
 const byId = id => P[id];
 
+const MY_STRATEGY="Pass on elite TEs (McBride, Bowers) before round 5 — a top-2 TE is not worth a round-3 RB/WR. Target TE in rounds 5-9 from Tyler Warren, Colston Loveland, Sam LaPorta, Harold Fannin or Kyle Pitts. RB order at the turn: Jeanty > Cook > Chase Brown > Achane (Achane demoted for Miami's bad offense).";
+
 /* ================= DRAFT MATH ================= */
 const takenIds  = () => new Set(S.taken.map(t=>t.id));
 const currentPick = () => S.taken.length + 1;
@@ -1005,7 +1015,8 @@ function needMult(pos){
     return 0.45;                              // wait on QB in 1QB leagues
   }
   if(pos==='TE'){
-    if(shortAt.TE) return 1.0;
+    // AIDAN'S CALL: no TE before round 5 — the TE window is rounds 5-9
+    if(shortAt.TE) return myMade()<4 ? 0.4 : (myMade()>=8 ? 1.15 : 1.0);
     return flexLeft>0 ? 0.45 : 0.18;
   }
   // RB / WR
@@ -1151,26 +1162,50 @@ function aiPrompt(){
     const d=p=>fx.info[p].now?`${p}: -${fx.info[p].cost} (${fx.info[p].now.name} now vs ${fx.info[p].later?fx.info[p].later.name:'shelf empty'} at my next pick)`:`${p}: none left`;
     posCtx=`\nPOSITIONAL SCARCITY — cost of waiting one turn, in picks of value: ${d('RB')}; ${d('WR')}; ${d('TE')}. Open FLEX spots: ${fx.flexLeft}.`;
   }
-  return `You are advising ONE pick in a live fantasy football snake draft. League: ${S.teams}-team full PPR; starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}${S.superflex?'/Superflex':''}/K/DST; ${S.rounds} rounds. I am on the clock at overall pick ${currentPick()} (round ${roundOf(currentPick())}). My following pick after this one is ${after??'(none left)'}.\nMY ROSTER SO FAR: ${roster}.\nTOP CANDIDATES in my board's order:\n${cands}${posCtx}\n\nIn 3-5 sentences: FIRST state which position this pick should target given my roster and the scarcity numbers, THEN which specific player and the fallback if he gets sniped. Be decisive, no hedging. Plain sentences only — no markdown, no asterisks, no headers.`;
+  return `You are advising ONE pick in a live fantasy football snake draft. MY STANDING STRATEGY (follow it unless I say otherwise): ${MY_STRATEGY}\n League: ${S.teams}-team full PPR; starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}${S.superflex?'/Superflex':''}/K/DST; ${S.rounds} rounds. I am on the clock at overall pick ${currentPick()} (round ${roundOf(currentPick())}). My following pick after this one is ${after??'(none left)'}.\nMY ROSTER SO FAR: ${roster}.\nTOP CANDIDATES in my board's order:\n${cands}${posCtx}\n\nIn 3-5 sentences: FIRST state which position this pick should target given my roster and the scarcity numbers, THEN which specific player and the fallback if he gets sniped. Be decisive, no hedging. Plain sentences only — no markdown, no asterisks, no headers.`;
 }
 async function askAI(){
-  const out=$('aiOut');
   if(!AIK.key){ $('aiSetup').style.display=''; $('aiModel').value=AIK.model; return; }
   S._aiAt=S.taken.length;
-  out.style.display='block'; out.innerHTML='<span style="color:var(--dim)">Asking Claude&hellip;</span>';
+  S._aiChat=[{role:'user',content:aiPrompt()}];
+  renderAIThread(true);
   try{
-    const text=await callClaude(aiPrompt());
-    out.innerHTML='<b>&#10022; AI second opinion:</b> '+mdLite(text);
+    const text=await callClaude(S._aiChat);
+    S._aiChat.push({role:'assistant',content:text});
+    renderAIThread(false);
   }catch(e){
     if(String(e.message).includes('rejected')) AIK.key='';
-    out.innerHTML='<span style="color:var(--bad)">'+esc(e.message||'Network error — the AI needs internet; the rest of the app works offline.')+'</span>';
+    $('aiOut').innerHTML='<span style="color:var(--bad)">'+esc(e.message||'Network error — the AI needs internet; the rest of the app works offline.')+'</span>';
   }
+}
+function renderAIThread(thinking){
+  const out=$('aiOut'); out.style.display='block';
+  const msgs=(S._aiChat||[]).slice(1);            // hide the big seed prompt
+  let html=msgs.map(m=> m.role==='assistant'
+    ? `<div class="aimsg"><b>&#10022; AI:</b> ${mdLite(m.content)}</div>`
+    : `<div class="aimsg you"><b>You:</b> ${esc(m.content)}</div>`).join('');
+  html += thinking
+    ? '<div class="aimsg" style="color:var(--dim)">Thinking&hellip;</div>'
+    : `<div class="aireply"><input id="aiReply" placeholder="Disagree? Push back or shift the strategy&hellip;"><button class="mini aibtn" id="aiSend">Send</button></div>`;
+  out.innerHTML=html;
+  const inp=$('aiReply');
+  if(inp){ $('aiSend').onclick=sendAIReply; inp.onkeydown=e=>{ if(e.key==='Enter') sendAIReply(); }; }
+}
+async function sendAIReply(){
+  const v=($('aiReply')?.value||'').trim(); if(!v || !S._aiChat) return;
+  S._aiChat.push({role:'user',content:v});
+  renderAIThread(true);
+  try{ const text=await callClaude(S._aiChat); S._aiChat.push({role:'assistant',content:text}); }
+  catch(e){ S._aiChat.push({role:'assistant',content:'(error: '+(e.message||'network')+')'}); }
+  renderAIThread(false);
 }
 async function callClaude(prompt){
   const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
     headers:{'content-type':'application/json','x-api-key':AIK.key,
       'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:AIK.model, max_tokens:300, messages:[{role:'user',content:prompt}]})});
+    body:JSON.stringify({model:AIK.model, max_tokens:350,
+      messages:Array.isArray(prompt) ? (prompt.length>12 ? [prompt[0],...prompt.slice(-11)] : prompt)
+                                     : [{role:'user',content:prompt}]})});
   if(!res.ok) throw new Error(res.status===401||res.status===403
     ? 'API key rejected — tap Ask AI again to re-enter it.'
     : 'API error '+res.status+' — try again in a moment.');
@@ -1244,7 +1279,7 @@ async function askCmpAI(aId,bId){
   out.innerHTML='<span style="color:var(--dim)">Asking Claude&hellip;</span>';
   try{
     const text=await callClaude(
-`Fantasy football snake draft, ${S.teams}-team full PPR (starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}). I'm at overall pick ${currentPick()}, my following pick is ${nextMyPick()??'none'}. MY ROSTER: ${roster}.
+`Fantasy football snake draft. MY STANDING STRATEGY: ${MY_STRATEGY}\n${S.teams}-team full PPR (starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}). I'm at overall pick ${currentPick()}, my following pick is ${nextMyPick()??'none'}. MY ROSTER: ${roster}.
 I'm stuck between two players:
 A) ${desc(A)}
 B) ${desc(B)}
@@ -1347,16 +1382,17 @@ function planText(){
       ? `You're at the turn, so picks ${next} and ${after} come back-to-back — plan them as a pair, not one at a time. Leave this pair with <b>one RB and one elite WR</b>. Only go WR-WR if two Tier-1 WRs are somehow both sitting there.`
       : `Your picks are evenly spaced, which means you can take the best player available and correct later. <b>Take the highest-ranked player, full stop</b> — do not reach for position this early.`;
   } else if(rnd<=4){
-    head='Round 3-4 — the first real decision';
-    body=`Get a starting WR. If <b>McBride or Bowers</b> is still on the board, take him instead — the TE drop after those two is the steepest cliff on the board. Avoid the round-3/4 RB traps (Jeremiyah Love, Josh Jacobs, Bucky Irving).`;
+    head='Round 3-4 — load up on WR/RB';
+    body=`Get your WR2 and RB2. <b>Your call: pass on McBride and Bowers</b> — a top-2 TE isn't worth a round-3 RB/WR, and your TE window opens in round 5. Avoid the round-3/4 RB traps (Jeremiyah Love, Josh Jacobs, Bucky Irving).`;
   } else if(rnd<=6){
     head='Rounds 5-6 — last comfortable TE';
     body= c.TE < r.TE
-      ? `<b>You still have no TE.</b> Loveland and Tyler Warren are the last two in the second tier — after them you're waiting until LaPorta/Kraft/Kittle in the 8-11 range. Decide now.`
+      ? `<b>Your TE window is open (rounds 5-9).</b> Targets in exit order: Loveland and Tyler Warren go first, then LaPorta, Fannin and Pitts hold into rounds 7-9. Take one when the value lines up — no panic yet.`
       : `TE is handled. Spend these on WR and RB depth. The only QB worth taking before round 8 is Lamar, and only if he falls.`;
   } else if(rnd<=8){
     head='Rounds 7-8 — fill the FLEX';
-    body=`This is where your flex spots actually get filled. Prioritise <b>WRs with locked-in target volume</b> over RBs stuck in committees. Still no QB, no K, no DST.`;
+    body=`This is where your flex spots actually get filled. Prioritise <b>WRs with locked-in target volume</b> over RBs stuck in committees. Still no QB, no K, no DST.`
+      + (c.TE < r.TE ? ` <b>Still no TE:</b> LaPorta, Fannin and Pitts are your last comfortable exits from the 5-9 window.` : '');
   } else if(rnd<=10){
     head='Rounds 9-10 — take your QB';
     body= c.QB < r.QB + (S.superflex?1:0)
@@ -1506,7 +1542,7 @@ function renderMini(){
 }
 
 function renderClock(){
-  if(S._aiAt!==undefined && S._aiAt!==S.taken.length && $('aiOut')){ $('aiOut').style.display='none'; S._aiAt=undefined; }
+  if(S._aiAt!==undefined && S._aiAt!==S.taken.length && $('aiOut')){ $('aiOut').style.display='none'; S._aiAt=undefined; S._aiChat=null; }
   const total=S.teams*S.rounds, over=currentPick()>total;
   const pick=Math.min(currentPick(),total), rnd=roundOf(pick), inR=pick-(rnd-1)*S.teams;
   const next=nextMyPick(), mine=isMyTurn();
