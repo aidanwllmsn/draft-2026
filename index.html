@@ -524,8 +524,9 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
         <input type="password" id="aiKey" placeholder="Anthropic API key (sk-ant-&hellip;)">
         <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
           <select id="aiModel">
-            <option value="claude-haiku-4-5">Fast &amp; cheap (Haiku)</option>
-            <option value="claude-sonnet-4-5">Smarter (Sonnet)</option>
+            <option value="claude-haiku-4-5">Fast &amp; cheap (Haiku 4.5)</option>
+            <option value="claude-sonnet-5">Smarter (Sonnet 5)</option>
+            <option value="claude-opus-5">Best reasoning (Opus 5, priciest)</option>
           </select>
           <button class="btn" id="aiSave">Save</button>
           <button class="btn" id="aiCancel">Cancel</button>
@@ -1176,7 +1177,14 @@ function mdLite(t){
 const AIK={
   get key(){ try{return localStorage.getItem('ffaikey2026')||''}catch(e){return ''} },
   set key(v){ try{ v?localStorage.setItem('ffaikey2026',v):localStorage.removeItem('ffaikey2026') }catch(e){} },
-  get model(){ try{return localStorage.getItem('ffaimodel2026')||'claude-haiku-4-5'}catch(e){return 'claude-haiku-4-5'} },
+  get model(){ try{
+    const VALID=['claude-haiku-4-5','claude-sonnet-5','claude-opus-5','claude-fable-5'];
+    let m=localStorage.getItem('ffaimodel2026')||'claude-haiku-4-5';
+    if(m==='claude-sonnet-4-5') m='claude-sonnet-5';          // retired id -> its successor
+    if(!VALID.includes(m)) m='claude-haiku-4-5';
+    localStorage.setItem('ffaimodel2026',m);
+    return m;
+  }catch(e){return 'claude-haiku-4-5'} },
   set model(v){ try{localStorage.setItem('ffaimodel2026',v)}catch(e){} }
 };
 function aiPrompt(){
@@ -1234,11 +1242,17 @@ async function callClaude(prompt){
     headers:{'content-type':'application/json','x-api-key':AIK.key,
       'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
     body:JSON.stringify({model:AIK.model, max_tokens:350,
-      messages:Array.isArray(prompt) ? (prompt.length>12 ? [prompt[0],...prompt.slice(-11)] : prompt)
-                                     : [{role:'user',content:prompt}]})});
-  if(!res.ok) throw new Error(res.status===401||res.status===403
-    ? 'API key rejected — tap Ask AI again to re-enter it.'
-    : 'API error '+res.status+' — try again in a moment.');
+      messages:(()=>{ if(!Array.isArray(prompt)) return [{role:'user',content:prompt}];
+        if(prompt.length<=12) return prompt;
+        let tail=prompt.slice(-11);
+        if(tail[0].role!=='assistant') tail=prompt.slice(-10);   // keep roles alternating after the seed
+        return [prompt[0],...tail]; })()})});
+  if(!res.ok){
+    if(res.status===401||res.status===403) throw new Error('API key rejected — tap Ask AI again to re-enter it.');
+    let detail=''; try{ const ej=await res.json(); detail=ej?.error?.message||''; }catch(e){}
+    throw new Error('API error '+res.status+(detail?': '+detail.slice(0,160):'')+
+      (/model/i.test(detail)?' — open the ⚙ AI settings and re-pick a model.':' — try again in a moment.'));
+  }
   const j=await res.json();
   return (j.content?.[0]?.text||'No answer returned.').trim();
 }
