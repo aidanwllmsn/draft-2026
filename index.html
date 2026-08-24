@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<script type="application/json" id="cowork-artifact-meta">
-{
-  "name": "Fantasy Draft Assistant 2026",
-  "schemaVersion": 1,
-  "description": "Live 2026 fantasy football draft assistant plus a mock draft simulator. Works from any draft slot and league size. 247-player board built from FantasyFootballCalculator PPR ADP (Aug 10-17, 6,665 drafts) adjusted against ESPN, FantasyPros, Bleacher Report, CBS, DraftSharks, PFF and NFL.com expert rankings, with camp/injury flags verified through Aug 16. Live mode recommends picks in real time based on roster need, positional tiers, and whether a player survives to your next pick. Mock mode drafts against 11 randomized CPU personalities with positional runs and simulated news, so no two practice drafts play out the same.",
-  "mcpTools": [],
-  "mcpServerNames": []
-}
-</script>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -672,14 +663,14 @@ const RAW = [
 ["Breece Hall","RB","NYJ",28.9,0,"inj","Groin — MRI confirmed a minor strain, week-to-week, 'not a big deal' per Glenn. Expected Week 1.",13.0,14.4],
 ["Josh Jacobs","RB","GB",30.0,12,"risk","Groin is better — returned to practice Aug 18 — but the NFL suspension review is still open with a ruling expected before the season. Real risk at full price.",15.8,14.4],
 ["Josh Allen","QB","BUF",30.6,8,"","Unanimous QB1 in ESPN's vote, but BR says his edge over QB10 is marginal. Went 26th overall in the RotoWire mock.",22.0,24.8],
-["Trey McBride","TE","ARI",31.7,14,"","AIDAN'S CALL (keep on refresh): passing on elite TEs at round-3 cost — not worth a round-3 RB/WR. Consensus TE1 and a fine pick for others, just not this build.",18.6,14.8],
+["Trey McBride","TE","ARI",31.7,14,"","AIDAN'S CALL (keep on refresh): passing at round-3 cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then the pass lifts and he's the pick. Consensus TE1.",18.6,14.8],
 ["Kyren Williams","RB","LAR",32.4,-2,"","Boring, but the touches are real. Corum eats the goal line.",15.5,14.6],
 ["Tetairoa McMillan","WR","CAR",33.6,0,"","Clear alpha target share.",12.4,13.1],
 ["Cam Skattebo","RB","NYG",34.1,8,"","Listed as co-starter with Tyrone Tracy — the RB1 job is a live battle, and Najee Harris just signed. The price ran ahead of the situation.",16.0,14.6],
 ["Tee Higgins","WR","CIN",36.6,-8,"","Experts have him WR18 against a WR23 price. ESPN ADP calls it a mispricing.",14.1,12.0],
 ["Emeka Egbuka","WR","TB",37.0,-5,"inj","Toe sprain is stable; likely skips the rest of preseason but Bucs are very optimistic for Week 1. Evans gone to SF.",11.5,13.2],
 ["Javonte Williams","RB","DAL",37.4,-3,"","Lead role in a high-total offense. BR calls him undervalued.",15.2,13.7],
-["Brock Bowers","TE","LV",38.0,12,"","AIDAN'S CALL (keep on refresh): passing at this cost — my TE window is rounds 5-9 (Warren/Loveland/LaPorta/Fannin/Pitts). Consensus loves him; not part of this build.",14.7,14.9],
+["Brock Bowers","TE","LV",38.0,12,"","AIDAN'S CALL (keep on refresh): passing at cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then take him. Otherwise my TE window is rounds 5-9.",14.7,14.9],
 ["Ladd McConkey","WR","LAC",40.2,-4,"","Slot volume in PPR; consistently ranked ahead of ADP.",11.3,12.2],
 ["Davante Adams","WR","LAR",41.2,0,"","Genuinely split: DraftSharks has him WR12, others cite a 53% catch rate and age 33.",15.9,13.0],
 ["Travis Etienne Jr.","RB","NO",41.5,-3,"","Signed with NO. Kamara's knee (out a few weeks, Aug 18) locks in his lead role through camp.",14.9,13.3],
@@ -952,7 +943,7 @@ function teamQB(team){
 }
 const byId = id => P[id];
 
-const MY_STRATEGY="Wait on QB as long as the room allows in 1QB — most teams already rostering a QB means the shelf barely decays, so rounds 10-12 is the target unless QB supply is genuinely tightening. Pass on elite TEs (McBride, Bowers) before round 5 — a top-2 TE is not worth a round-3 RB/WR. Target TE in rounds 5-9 from Tyler Warren, Colston Loveland, Sam LaPorta, Harold Fannin or Kyle Pitts. RB order at the turn: Jeanty > Cook > Chase Brown > Achane (Achane demoted for Miami's bad offense).";
+const MY_STRATEGY="Wait on QB as long as the room allows in 1QB — most teams already rostering a QB means the shelf barely decays, so rounds 10-12 is the target unless QB supply is genuinely tightening. Pass on elite TEs (McBride, Bowers) before round 5 — a top-2 TE is not worth a round-3 RB/WR. I never draft a kicker — that late pick goes to an RB handcuff and I grab a kicker from waivers after cuts. EXCEPTION on TEs: in rounds 2-3, if the top-11 RBs are already gone and I have no TE, the pass is LIFTED — take McBride/Bowers if available, else best WR, and never leave round 3 without at least one RB. Target TE in rounds 5-9 from Tyler Warren, Colston Loveland, Sam LaPorta, Harold Fannin or Kyle Pitts. RB order at the turn: Jeanty > Cook > Chase Brown > Achane (Achane demoted for Miami's bad offense).";
 
 /* ================= DRAFT MATH ================= */
 const takenIds  = () => new Set(S.taken.map(t=>t.id));
@@ -993,7 +984,8 @@ function unfilledStarters(){
   need += Math.max(0, r.RB - c.RB);
   need += Math.max(0, r.WR - c.WR);
   need += Math.max(0, r.TE - c.TE);
-  need += Math.max(0, r.K  - c.K);
+  /* AIDAN'S CALL: no kicker on draft day — that slot goes to an RB handcuff;
+     a kicker comes off waivers after final cuts. K is excluded from must-fill. */
   need += Math.max(0, r.DST- c.DST);
   const flexUsed = Math.max(0,c.RB-r.RB)+Math.max(0,c.WR-r.WR)+Math.max(0,c.TE-r.TE);
   need += Math.max(0, r.FLEX - flexUsed);
@@ -1016,8 +1008,9 @@ function needMult(pos){
 
   if(mustFill) return shortAt[pos] ? 5.0 : (flexLeft>0 && (pos==='RB'||pos==='WR'||pos==='TE') ? 2.0 : 0.05);
 
-  if(pos==='K' || pos==='DST'){
-    if(!shortAt[pos]) return 0.01;
+  if(pos==='K') return 0.005;                 // AIDAN'S CALL: never draft a kicker
+  if(pos==='DST'){
+    if(!shortAt.DST) return 0.01;
     return roundsLeft <= 2 ? 4.0 : 0.02;      // never before the last two rounds
   }
   if(pos==='QB'){
@@ -1046,6 +1039,18 @@ function needMult(pos){
   return Math.max(0.25, 0.62 - depth*0.07);
 }
 
+/* AIDAN'S CALL: elite-TE unlock. The standing pass on McBride/Bowers assumes a
+   round-2/3-caliber RB or WR exists to take instead. If the top-11 RBs are
+   already gone by my round-2 pick and I have no TE, the pass is lifted. */
+function eliteRBsGone(){
+  const tk=takenIds();
+  return P.filter(x=>x.pos==='RB' && x.posRank<=11).every(x=>tk.has(x.id));
+}
+function teUnlocked(pick){
+  const r=roundOf(pick);
+  return r>=2 && r<=3 && myCounts().TE===0 && eliteRBsGone();
+}
+
 function qbSupplyDemand(){
   let demand=0;
   for(let t=1;t<=S.teams;t++){
@@ -1070,9 +1075,13 @@ function survivalOdds(p, pick){
 
 /* ================= SCORING ================= */
 function scoreOf(p, pick, next){
-  const nm = needMult(p.pos);
+  let nm = needMult(p.pos);
   if(p.flag === 'out') return -1;
   let s = (P.length + 40 - p.rank) * nm;
+  if(p.pos==='TE' && p.tier===1 && teUnlocked(pick)){
+    nm = Math.max(nm, 1.0);
+    s = (P.length + 40 - p.rank) * nm + (Math.max(0,p.adj)*2 + 20) * nm;   // cancel the standing fade, push to the top
+  }
   const fall = Math.max(0, pick - p.adp);
   s += Math.min(fall, 45) * 0.55 * nm;
   const odds = survivalOdds(p, next);
@@ -1108,6 +1117,8 @@ function reasonsFor(p){
     out.push(`Fills your ${lbl}`);
   } else if(nm >= 0.8) out.push('Fills a FLEX');
 
+  if(p.pos==='TE' && p.tier===1 && teUnlocked(pick))
+    out.push(`<em>Elite-TE unlock is live</em> — the top-11 RBs are gone, so your pass on him is lifted`);
   if(fall >= 8) out.push(`Falling — ADP ${p.adp.toFixed(0)}, you're at ${pick}`);
   if(p.adj <= -8) out.push(`Experts rank him ~${-p.adj} picks above ADP`);
   if(tierLeft(p) === 1) out.push(`<em>Last ${p.pos} in Tier ${p.tier}</em>`);
@@ -1422,14 +1433,18 @@ function planText(){
   let head, body;
   if(!next){ return `<div class="hd">Draft complete</div>You have used all ${S.rounds} picks. Good luck.`; }
 
+  const unlockLive = teUnlocked(pick);
+  const unlockMsg = unlockLive
+    ? ` <b>Elite-TE unlock is LIVE:</b> the top-11 RBs are gone — the McBride/Bowers pass is lifted. Order: elite TE if one is there, else best WR, and do not leave round 3 without at least one RB.` : '';
   if(rnd<=2){
     head='Anchor rounds';
     body = turn
       ? `You're at the turn, so picks ${next} and ${after} come back-to-back — plan them as a pair, not one at a time. Leave this pair with <b>one RB and one elite WR</b>. Only go WR-WR if two Tier-1 WRs are somehow both sitting there.`
       : `Your picks are evenly spaced, which means you can take the best player available and correct later. <b>Take the highest-ranked player, full stop</b> — do not reach for position this early.`;
+    body += unlockMsg;
   } else if(rnd<=4){
     head='Round 3-4 — load up on WR/RB';
-    body=`Get your WR2 and RB2. <b>Your call: pass on McBride and Bowers</b> — a top-2 TE isn't worth a round-3 RB/WR, and your TE window opens in round 5. Avoid the round-3/4 RB traps (Jeremiyah Love, Josh Jacobs, Bucky Irving).`;
+    body=`Get your WR2 and RB2. <b>Your call: pass on McBride and Bowers</b> — a top-2 TE isn't worth a round-3 RB/WR, and your TE window opens in round 5. Avoid the round-3/4 RB traps (Jeremiyah Love, Josh Jacobs, Bucky Irving).` + unlockMsg;
   } else if(rnd<=6){
     head='Rounds 5-6 — last comfortable TE';
     body= c.TE < r.TE
@@ -1456,10 +1471,10 @@ function planText(){
       + (c.QB < r.QB ? ` <b>And take your QB here</b> — the waiting game ends in round 12.` : '');
   } else if(rnd <= S.rounds-1){
     head='Handcuffs';
-    body=`Handcuff <b>your own</b> RBs first — the backup to a back you already roster is worth more than a stranger's. Then take swings.`;
+    body=`Handcuff <b>your own</b> RBs first — the backup to a back you already roster is worth more than a stranger's. Then take swings. Remember: no kicker, ever — that pick is another handcuff.`;
   } else {
-    head='Last round — K and DST';
-    body=`Take a kicker and a defense now and stream both all season. Expert consensus puts every K and DST 60-100 picks below where they get drafted.`;
+    head='Last round — DST + one more handcuff';
+    body=`<b>Your call: no kicker on draft day.</b> Take your DST and spend the other pick on an RB handcuff — a backup one injury from a starting job beats any kicker's edge. Grab a kicker from waivers after final roster cuts (there is always one).`;
   }
 
   let extra = '';
