@@ -1534,7 +1534,7 @@ function applyState(o){
   $('cRounds').value=S.rounds; $('cQB').value=S.starters.QB; $('cRB').value=S.starters.RB;
   $('cWR').value=S.starters.WR; $('cTE').value=S.starters.TE; $('cFLEX').value=S.starters.FLEX;
   $('cSF').checked=S.superflex;
-  S.taken=o.d.map(x=>({id:x[0], mine:!!x[1]}));
+  S.taken=o.d.filter(x=>x[0]>=0 && x[0]<P.length).map(x=>({id:x[0], mine:!!x[1]}));
   if(o.notes && typeof o.notes==='object'){ Object.assign(NOTES,o.notes);
     try{ localStorage.setItem('ffnotes2026', JSON.stringify(NOTES)); }catch(e){} }
 }
@@ -1873,6 +1873,23 @@ function slpFind(meta){
   }
   return null;
 }
+/* A drafted player we don't have on the researched board still has to occupy his
+   pick slot — otherwise every later pick number shifts and on-the-clock math breaks.
+   So unknown players are added to the pool on the fly, straight from the feed. */
+function slpGhost(meta, pkno){
+  if(!meta) return null;
+  const pos = meta.position==='DEF' ? 'DST' : meta.position;
+  if(!['QB','RB','WR','TE','K','DST'].includes(pos)) return null;
+  const name = pos==='DST'
+    ? ((meta.first_name||'')+' Defense').trim()
+    : (((meta.first_name||'')+' '+(meta.last_name||'')).trim() || 'Sleeper pick '+pkno);
+  const p = { name, pos, team:(meta.team||'FA').toUpperCase(), adp:200, adj:0, flag:'', origFlag:'', sim:0,
+    note:'Added automatically from the Sleeper draft feed \u2014 not on the researched board.',
+    pg:0, pj:0, val:200, id:P.length, rank:P.length+1, posRank:999, tier:9 };
+  P.push(p);
+  const k=slpNorm(p.name); (SLP_IDX[k]=SLP_IDX[k]||[]).push(p);
+  return p;
+}
 function slpExtractId(s){ const m=(s||'').match(/\d{10,}/); return m?m[0]:null; }
 async function slpConnect(raw){
   const st=$('slpSt'), id=slpExtractId(raw);
@@ -1913,14 +1930,17 @@ async function slpPoll(){
     // Full reconciliation: while connected, the Sleeper feed IS the live board.
     // (Handles picks, undos on Sleeper's side, and leftover state from a finished mock.)
     const fresh=[], um=[];
+    let added=0;
     picks.forEach(pk=>{
-      const p=slpFind(pk.metadata);
+      let p=slpFind(pk.metadata);
+      if(!p){ p=slpGhost(pk.metadata, pk.pick_no); if(p) added++; }
       if(p){ if(!fresh.some(t=>t.id===p.id)) fresh.push({id:p.id, mine: pk.draft_slot===S.slot}); }
       else{
         const nm=(((pk.metadata||{}).first_name||'')+' '+((pk.metadata||{}).last_name||'')).trim()||('pick '+pk.pick_no);
         if(!um.includes(nm)) um.push(nm);
       }
     });
+    if(added) SLP.added=(SLP.added||0)+added;
     const changed = fresh.length!==S.taken.length ||
       fresh.some((t,i)=>!S.taken[i] || S.taken[i].id!==t.id || !!S.taken[i].mine!==t.mine);
     SLP.applied=picks.length; SLP.unmatched=um; SLP.lastOk=Date.now(); SLP.err='';
@@ -1936,6 +1956,7 @@ function slpBadge(){
   b.innerHTML = SLP.err
     ? 'SLEEPER SYNC \u2014 '+esc(SLP.err)+' \u2014 retrying every 5s <button class="slpx" id="slpOff">stop</button>'
     : 'SLEEPER SYNC ON &middot; '+SLP.applied+' picks'
+      + (SLP.added? ' &middot; '+SLP.added+' off-board pick'+(SLP.added>1?'s':'')+' added':'')
       + (SLP.unmatched.length? ' &middot; <span class="warn">unmatched: '+esc(SLP.unmatched.join(', '))+'</span>':'')
       + (age!=null? ' &middot; updated '+(age<3?'now':age+'s ago'):'')
       + ' <button class="slpx" id="slpOff">stop</button>';
