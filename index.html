@@ -2378,7 +2378,10 @@ function renderSim(){
   $('simTgl').innerHTML = 'Mock controls ' + (S.sim.collapsed ? '&#9656;' : '&#9662;');
   $('newsWrap').style.display = (on && S.sim.news.length) ? '' : 'none';
   $('leagueCard').style.display = on ? '' : 'none';
-  $('resultsCard').style.display = (on && S.sim.done) ? '' : 'none';
+  // a completed LIVE draft (e.g. fully synced from Sleeper) gets graded too
+  const liveDone = S.mode==='live' && !on && S.taken.length>0 && S.taken.length >= S.teams*S.rounds;
+  $('resultsCard').style.display = ((on && S.sim.done) || liveDone) ? '' : 'none';
+  if(liveDone) renderResults();
   if(S.mode!=='mock') return;
 
   $('bPause').textContent = S.sim.running ? '⏸ Pause' : '▶ Resume';
