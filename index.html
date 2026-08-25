@@ -639,19 +639,19 @@ const RAW = [
 ["Christian McCaffrey","RB","SF",6.4,8,"risk","RETURNED to practice Aug 23 after ~3 weeks (muscle tightness). Trending toward a full Week 1. Age 30 and 413 touches last year still argue for a modest fade, not a hard one.",24.5,20.3],
 ["Amon-Ra St. Brown","WR","DET",6.6,0,"","Consensus top-8 overall.",19.1,18.7],
 ["Jonathan Taylor","RB","IND",7.5,2,"","Entrenched workhorse, though the team has talked about reducing his workload.",21.3,16.9],
-["De'Von Achane","RB","MIA",10.1,4,"","AIDAN'S CALL (keep on refresh): demoted below Chase Brown/Jeanty/Cook — Miami's offense is gutted (Tua and Tyreek both gone) and the TD downside is real. Reception floor keeps him a late-1st option, not the auto-pick.",20.2,15.7],
+["De'Von Achane","RB","MIA",10.1,4,"","AIDAN'S CALL (keep on refresh): demoted below Cook/Chase Brown/Hampton/Jeanty — Miami's offense is gutted (Tua and Tyreek both gone) and the TD downside is real. Reception floor keeps him a late-1st option, not the auto-pick.",20.2,15.7],
 ["Drake London","WR","ATL",10.3,5,"","Bleacher Report: 'drafted at his ceiling.' Still a clear WR1, but the ATL QB job just reopened (Penix/Tua splitting reps Aug 24) — a little more uncertainty at cost.",16.8,16.0],
 ["CeeDee Lamb","WR","DAL",10.8,-2,"","Cheaper on CBS and ESPN than anywhere else.",14.3,14.9],
 ["Justin Jefferson","WR","MIN",13.0,-3,"","Tier-1 WR who slides in most mocks. Kyler Murray at QB is already priced in.",11.9,15.6],
-["James Cook III","RB","BUF",13.1,-1,"","Clean workload, zero camp noise. No. 2 in my RB order at the turn (Aidan's call).",17.8,16.2],
-["Chase Brown","RB","CIN",13.3,-1,"","Pass-game work in a Burrow offense. No. 3 in my RB order at the turn (Aidan's call). Watch: Samaje Perine eating into snaps in camp (Aug 24) — DraftSharks calls RB14 rich.",16.6,15.6],
+["James Cook III","RB","BUF",13.1,-1,"","Clean workload, zero camp noise. No. 1 in my RB order at the turn (Aidan's call, updated Aug 25 with Jeanty hurt).",17.8,16.2],
+["Chase Brown","RB","CIN",13.3,-1,"","Pass-game work in a Burrow offense. No. 2 in my RB order at the turn (Aidan's call). Watch: Samaje Perine eating into snaps in camp (Aug 24) — DraftSharks calls RB14 rich.",16.6,15.6],
 ["Rashee Rice","WR","KC",14.2,-2,"","May knee scope fully behind him, ramping up in camp. Riser.",18.8,14.7],
-["Ashton Jeanty","RB","LV",14.9,-3,"inj","AIDAN'S CALL (keep on refresh): my RB order at the turn is Jeanty > Cook > Brown > Achane. UPDATE Aug 25 (Rapoport): LOW ankle sprain, not major — but 'there is a chance he may not be on the field for Week 1.' Not practicing; Washington Jr. taking the lead reps. VERIFY draft morning: if he's trending out for Week 1, slide to Cook — and if you still take Jeanty at 22, Washington Jr. becomes a MUST-DRAFT handcuff.",14.4,15.5],
+["Ashton Jeanty","RB","LV",14.9,-1,"inj","AIDAN'S CALL (updated Aug 25, keep on refresh): DEMOTED for the ankle — my RB order at the turn is now Cook > Chase Brown > Hampton > Jeanty. Rapoport: LOW ankle sprain, not major, but 'a chance he may not be on the field for Week 1.' Not practicing; Washington Jr. taking lead reps. Only take Jeanty if Cook/Brown/Hampton are all gone — and then Washington Jr. is a MUST-DRAFT handcuff.",14.4,15.5],
 ["Derrick Henry","RB","BAL",17.1,9,"","Age fade: expert consensus now ranks him ~2 rounds below his ADP. Still fine if the room lets him slide.",16.4,15.3],
 ["A.J. Brown","WR","NE",17.5,0,"","Traded from PHI in June. Lifts Drake Maye; Maye lifts him back.",14.7,14.3],
 ["George Pickens","WR","DAL",19.9,-3,"","BR has him 9 spots above ADP.",17.2,13.3],
 ["Saquon Barkley","RB","PHI",20.1,0,"","Went 1.12 in the Yahoo mock.",14.5,15.4],
-["Omarion Hampton","RB","LAC",20.7,0,"","Rookie lead back. RotoWire flags him as a name that reaches the turn.",15.1,15.7],
+["Omarion Hampton","RB","LAC",20.7,-7,"","AIDAN'S CALL (added Aug 25, keep on refresh): No. 3 in my RB order at the turn, ahead of the injured Jeanty. Rookie lead back; RotoWire flags him as a name that reaches the turn.",15.1,15.7],
 ["Chris Olave","WR","NO",21.5,-3,"","Brief medical-tent visit at the Aug 18 joint practice but returned to the field — scare only, no designation.",16.8,14.5],
 ["Nico Collins","WR","HOU",22.2,-9,"","DraftSharks has him WR9 against a WR26 price — and Higgins' torn ACL concentrates the Houston target tree on him even further.",15.1,14.1],
 ["Kenneth Walker III","RB","KC",24.0,6,"","Signed with KC for $45M. BR has him 8 spots BELOW consensus — Andy Reid committee risk.",11.3,15.2],
@@ -943,7 +943,7 @@ function teamQB(team){
 }
 const byId = id => P[id];
 
-const MY_STRATEGY="Wait on QB as long as the room allows in 1QB — most teams already rostering a QB means the shelf barely decays, so rounds 10-12 is the target unless QB supply is genuinely tightening. Pass on elite TEs (McBride, Bowers) before round 5 — a top-2 TE is not worth a round-3 RB/WR. I never draft a kicker — that late pick goes to an RB handcuff and I grab a kicker from waivers after cuts. EXCEPTION on TEs: in rounds 2-3, if the top-11 RBs are already gone and I have no TE, the pass is LIFTED — take McBride/Bowers if available, else best WR, and never leave round 3 without at least one RB. Target TE in rounds 5-9 from Tyler Warren, Colston Loveland, Sam LaPorta, Harold Fannin or Kyle Pitts. RB order at the turn: Jeanty > Cook > Chase Brown > Achane (Achane demoted for Miami's bad offense).";
+const MY_STRATEGY="Wait on QB as long as the room allows in 1QB — most teams already rostering a QB means the shelf barely decays, so rounds 10-12 is the target unless QB supply is genuinely tightening. Pass on elite TEs (McBride, Bowers) before round 5 — a top-2 TE is not worth a round-3 RB/WR. I never draft a kicker — that late pick goes to an RB handcuff and I grab a kicker from waivers after cuts. EXCEPTION on TEs: in rounds 2-3, if the top-11 RBs are already gone and I have no TE, the pass is LIFTED — take McBride/Bowers if available, else best WR, and never leave round 3 without at least one RB. Target TE in rounds 5-9 from Tyler Warren, Colston Loveland, Sam LaPorta, Harold Fannin or Kyle Pitts. RB order at the turn: Cook > Chase Brown > Hampton > Jeanty > Achane (Jeanty demoted Aug 25 for his ankle sprain; Achane demoted for Miami's bad offense).";
 
 /* ================= DRAFT MATH ================= */
 const takenIds  = () => new Set(S.taken.map(t=>t.id));
