@@ -436,6 +436,18 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-thumb{background:#333c49; border-radius:5px}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- Sleeper live sync ---- */
+.slpwrap{display:inline-flex;align-items:center;gap:6px}
+.slpwrap input{width:150px}
+.slpst{font-size:11px;color:var(--dim)} .slpst.ok{color:var(--good)} .slpst.bad{color:var(--bad)}
+.slpbadge{display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:11.5px;letter-spacing:.02em;
+  background:linear-gradient(90deg,#12324f,#14213a);border-bottom:1px solid var(--line);color:#9fd0ff}
+.slpbadge.bad{background:#3a1c22;color:#ffb0ae}
+.slpbadge .warn{color:var(--warn)}
+.slpbadge .slpx{margin-left:auto;background:none;border:1px solid var(--line2);color:var(--dim);
+  border-radius:6px;font-size:10.5px;padding:2px 8px;cursor:pointer}
+@media (max-width:760px){ .slpwrap{display:flex;width:100%} .slpwrap input{flex:1;width:auto} }
 </style>
 </head>
 <body>
@@ -458,6 +470,9 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
     <label class="tgl"><input type="checkbox" id="cSF"> Superflex</label>
     <button class="btn" id="bUndo">&#8630; Undo</button>
     <button class="btn danger" id="bReset">Reset</button>
+    <span class="slpwrap"><label class="fld">Sleeper <input type="text" id="slpIn" placeholder="paste draft link or ID" spellcheck="false"></label>
+    <button class="btn" id="slpBtn">Sync</button>
+    <span class="slpst" id="slpSt"></span></span>
   </div>
   <button class="gear" id="bGear" aria-label="Settings">&#9881;</button>
 </div>
@@ -485,6 +500,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 </div>
 
 <div class="pstrip" id="mini"></div>
+<div id="slpBadge" class="slpbadge" style="display:none"></div>
 <div class="restore" id="restoreBar" style="display:none"></div>
 
 <div class="wrap">
@@ -1599,7 +1615,7 @@ function render(){
   if(typeof renderSim==='function') renderSim();
   renderRoster(); renderPlan(); renderRuns(); renderLog();
   $('state').value = JSON.stringify(snapshot());
-  renderMini(); autoSave();
+  renderMini(); autoSave(); slpBadge();
 }
 
 function renderMini(){
@@ -1835,6 +1851,97 @@ function renderLog(){
   }).join('') || `<div class="empty-msg" style="padding:12px">${S.taken.length?`No picks yet in round ${view}.`:'Nothing drafted yet.'}</div>`;
 }
 
+/* ================= SLEEPER LIVE SYNC =================
+   Read-only poll of Sleeper's public draft API. Strictly additive:
+   manual tapping keeps working; if sync errors it retries and says so.
+   While connected, the Sleeper feed is the source of truth for the live board. */
+const SLP = { id:null, timer:null, applied:0, lastOk:0, err:'', unmatched:[] };
+function slpNorm(s){ return (s||'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[.'-]/g,'').replace(/\b(jr|sr|ii|iii|iv|v)\b/g,'').replace(/\s+/g,' ').trim(); }
+const SLP_IDX = (()=>{ const m={}; P.forEach(p=>{ const k=slpNorm(p.name); (m[k]=m[k]||[]).push(p); }); return m; })();
+function slpFind(meta){
+  if(!meta) return null;
+  if(meta.position==='DEF') return P.find(p=>p.pos==='DST' && p.team===(meta.team||'').toUpperCase())||null;
+  const full = slpNorm((meta.first_name||'')+' '+(meta.last_name||''));
+  let c = SLP_IDX[full]||[];
+  if(c.length>1 && meta.position) c = c.filter(p=>p.pos===meta.position);
+  if(c.length===1) return c[0];
+  if(meta.position && meta.last_name){
+    const ln=' '+slpNorm(meta.last_name);
+    const c2=P.filter(p=>slpNorm(p.name).endsWith(ln) && p.pos===meta.position && p.team===(meta.team||'').toUpperCase());
+    if(c2.length===1) return c2[0];
+  }
+  return null;
+}
+function slpExtractId(s){ const m=(s||'').match(/\d{10,}/); return m?m[0]:null; }
+async function slpConnect(raw){
+  const st=$('slpSt'), id=slpExtractId(raw);
+  if(!id){ st.textContent='No draft ID found in that link.'; st.className='slpst bad'; return; }
+  st.textContent='Connecting\u2026'; st.className='slpst';
+  try{
+    const r=await fetch('https://api.sleeper.app/v1/draft/'+id);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(!d || !d.draft_id) throw new Error('not a draft');
+    SLP.id=id; SLP.applied=0; SLP.err=''; SLP.unmatched=[];
+    if(d.settings && d.settings.teams){
+      S.teams=d.settings.teams; $('cTeams').value=S.teams;
+      const slot=$('cSlot'); slot.innerHTML='';
+      for(let i=1;i<=S.teams;i++) slot.add(new Option(i,i));
+      slot.value=Math.min(S.slot,S.teams); S.slot=+slot.value;
+    }
+    try{ localStorage.setItem('ffsleeper2026', id); }catch(e){}
+    st.textContent='Connected \u2713'; st.className='slpst ok';
+    if(SLP.timer) clearInterval(SLP.timer);
+    SLP.timer=setInterval(slpPoll, 5000);
+    slpPoll();
+  }catch(e){ st.textContent='Could not reach that draft ('+e.message+').'; st.className='slpst bad'; }
+}
+function slpStop(){
+  if(SLP.timer) clearInterval(SLP.timer);
+  SLP.timer=null; SLP.id=null;
+  try{ localStorage.removeItem('ffsleeper2026'); }catch(e){}
+  slpBadge();
+}
+async function slpPoll(){
+  if(!SLP.id || S.sim.on) return;                       // never touch a running mock
+  try{
+    const r=await fetch('https://api.sleeper.app/v1/draft/'+SLP.id+'/picks');
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const picks=await r.json();
+    picks.sort((a,b)=>a.pick_no-b.pick_no);
+    // Full reconciliation: while connected, the Sleeper feed IS the live board.
+    // (Handles picks, undos on Sleeper's side, and leftover state from a finished mock.)
+    const fresh=[], um=[];
+    picks.forEach(pk=>{
+      const p=slpFind(pk.metadata);
+      if(p){ if(!fresh.some(t=>t.id===p.id)) fresh.push({id:p.id, mine: pk.draft_slot===S.slot}); }
+      else{
+        const nm=(((pk.metadata||{}).first_name||'')+' '+((pk.metadata||{}).last_name||'')).trim()||('pick '+pk.pick_no);
+        if(!um.includes(nm)) um.push(nm);
+      }
+    });
+    const changed = fresh.length!==S.taken.length ||
+      fresh.some((t,i)=>!S.taken[i] || S.taken[i].id!==t.id || !!S.taken[i].mine!==t.mine);
+    SLP.applied=picks.length; SLP.unmatched=um; SLP.lastOk=Date.now(); SLP.err='';
+    if(changed){ S.taken=fresh; render(); } else slpBadge();
+  }catch(e){ SLP.err=e.message||'network error'; slpBadge(); }
+}
+function slpBadge(){
+  const b=$('slpBadge'); if(!b) return;
+  if(!SLP.id){ b.style.display='none'; return; }
+  b.style.display='flex';
+  b.className='slpbadge'+(SLP.err?' bad':'');
+  const age=SLP.lastOk?Math.round((Date.now()-SLP.lastOk)/1000):null;
+  b.innerHTML = SLP.err
+    ? 'SLEEPER SYNC \u2014 '+esc(SLP.err)+' \u2014 retrying every 5s <button class="slpx" id="slpOff">stop</button>'
+    : 'SLEEPER SYNC ON &middot; '+SLP.applied+' picks'
+      + (SLP.unmatched.length? ' &middot; <span class="warn">unmatched: '+esc(SLP.unmatched.join(', '))+'</span>':'')
+      + (age!=null? ' &middot; updated '+(age<3?'now':age+'s ago'):'')
+      + ' <button class="slpx" id="slpOff">stop</button>';
+  const x=$('slpOff'); if(x) x.onclick=()=>{ slpStop(); const st=$('slpSt'); if(st){ st.textContent=''; st.className='slpst'; } };
+}
+
 /* ================= ACTIONS ================= */
 function markTaken(id, mine){
   if(takenIds().has(id)) return;
@@ -1939,6 +2046,13 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
     window.scrollTo({top:0, behavior:'instant'});
   });
   $('bGear').onclick=()=>document.body.classList.toggle('cfgopen');
+
+  $('slpBtn').onclick=()=>slpConnect($('slpIn').value);
+  $('slpIn').addEventListener('keydown',e=>{ if(e.key==='Enter') slpConnect($('slpIn').value); });
+  try{
+    const savedSlp=localStorage.getItem('ffsleeper2026');
+    if(savedSlp){ $('slpIn').value=savedSlp; slpConnect(savedSlp); }   // draft-day reload: reconnect automatically
+  }catch(e){}
 
   offerRestore();
   render();
