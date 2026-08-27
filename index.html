@@ -453,7 +453,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 <body>
 
 <div class="top"><div class="top-in">
-  <div class="brand">2026 Draft Assistant <span>Full PPR</span></div>
+  <div class="brand">2026 Draft Assistant <span id="fmtTag">Full PPR</span></div>
   <div class="modes">
     <button class="mode on" data-mode="live">Live draft</button>
     <button class="mode" data-mode="mock">Mock draft</button>
@@ -468,6 +468,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
     <label class="fld">TE <input type="number" id="cTE" min="0" max="3" value="1"></label>
     <label class="fld">FLEX <input type="number" id="cFLEX" min="0" max="4" value="2"></label>
     <label class="tgl"><input type="checkbox" id="cSF"> Superflex</label>
+    <label class="tgl" title="Switch the whole board to dynasty startup values (career value, age-aware)"><input type="checkbox" id="cDyn"> Dynasty</label>
     <button class="btn" id="bUndo">&#8630; Undo</button>
     <button class="btn danger" id="bReset">Reset</button>
     <span class="slpwrap"><label class="fld">Sleeper <input type="text" id="slpIn" placeholder="paste draft link or ID" spellcheck="false"></label>
@@ -647,234 +648,234 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 */
 const RAW = [
 // ---- top of the board ----
-["Bijan Robinson","RB","ATL",2.1,0,"","Extension signed Aug 4, hold-in over. Draft normally.",21.8,21.6],
-["Jahmyr Gibbs","RB","DET",1.5,0,"","Extension signed Aug 6, full-go in practice since Aug 9.",21.6,21.6],
-["Puka Nacua","WR","LAR",3.1,6,"risk","PICK-3 DECISION: still hasn't practiced (psoas) — side work only, nothing new through Aug 26 — and the league review is STILL unresolved; Schefter has floated a possible Week 1 (Australia) absence. Two unpriced risks at ADP 3. Chase is the cleaner WR at 3 (verify his knee below).",23.4,20.0],
-["Ja'Marr Chase","WR","CIN",3.8,0,"inj","Knee (slight hyperextension Aug 25): sat Wednesday as a PRECAUTIONARY rest day, sleeve on the leg, skipping the meaningless preseason finale. No MRI red flags; he says he'd play if there were a game tomorrow. Still the best WR at pick 3 barring a late setback.",19.6,19.4],
-["Jaxon Smith-Njigba","WR","SEA",5.4,0,"","Top-3 WR on every list.",21.2,18.1],
-["Christian McCaffrey","RB","SF",6.6,8,"risk","RETURNED to practice Aug 23 after ~3 weeks (muscle tightness). Trending toward a full Week 1. Age 30 and 413 touches last year still argue for a modest fade, not a hard one.",24.5,20.3],
-["Amon-Ra St. Brown","WR","DET",6.4,0,"","Consensus top-8 overall.",19.1,18.7],
-["Jonathan Taylor","RB","IND",7.5,2,"","Entrenched workhorse, though the team has talked about reducing his workload.",21.3,16.9],
-["De'Von Achane","RB","MIA",10.4,4,"","AIDAN'S CALL (keep on refresh): demoted below Cook/Chase Brown/Hampton/Jeanty — Miami's offense is gutted (Tua and Tyreek both gone) and the TD downside is real. Reception floor keeps him a late-1st option, not the auto-pick.",20.2,15.7],
-["Drake London","WR","ATL",10.1,5,"","Bleacher Report: 'drafted at his ceiling.' Still a clear WR1, but ATL's QB is unsettled — Rapoport now says the job is Penix's to take (Aug 25). More uncertainty than a top-10 pick should carry.",16.8,16.0],
-["CeeDee Lamb","WR","DAL",10.7,-2,"","Cheaper on CBS and ESPN than anywhere else.",14.3,14.9],
-["Justin Jefferson","WR","MIN",11.7,-3,"","Tier-1 WR who slides in most mocks. Kyler Murray at QB is already priced in.",11.9,15.6],
-["James Cook III","RB","BUF",12.8,-1,"","Clean workload, zero camp noise. No. 1 in my RB order at the turn (Aidan's call, updated Aug 25 with Jeanty hurt).",17.8,16.2],
-["Chase Brown","RB","CIN",13.2,-1,"","Pass-game work in a Burrow offense. No. 2 in my RB order at the turn (Aidan's call). Watch: Samaje Perine eating into snaps in camp (Aug 24) — DraftSharks calls RB14 rich.",16.6,15.6],
-["Rashee Rice","WR","KC",14.8,-2,"","May knee scope fully behind him, ramping up in camp. Riser.",18.8,14.7],
-["Ashton Jeanty","RB","LV",16.7,-3,"inj","AIDAN'S CALL (updated Aug 25, keep on refresh): DEMOTED for the ankle — my RB order at the turn is Cook > Chase Brown > Hampton > Jeanty. Aug 26: confirmed LOW ankle (not high — avoids the 6-8 week scenario) but STILL not practicing and Kubiak won't discuss it; Week 1 uncertain. ADP has slid to 16.7. Only take him if Cook/Brown/Hampton are gone — and then Washington Jr. is a MUST-DRAFT handcuff.",14.4,15.5],
-["Derrick Henry","RB","BAL",17.6,9,"","Age fade: expert consensus now ranks him ~2 rounds below his ADP. Still fine if the room lets him slide.",16.4,15.3],
-["A.J. Brown","WR","NE",18.2,0,"","Traded from PHI in June. Lifts Drake Maye; Maye lifts him back.",14.7,14.3],
-["George Pickens","WR","DAL",20.6,-3,"","BR has him 9 spots above ADP.",17.2,13.3],
-["Saquon Barkley","RB","PHI",19.5,0,"","Went 1.12 in the Yahoo mock.",14.5,15.4],
-["Omarion Hampton","RB","LAC",23.2,-10,"","AIDAN'S CALL (added Aug 25, keep on refresh): No. 3 in my RB order at the turn, ahead of the injured Jeanty. Rookie lead back; RotoWire flags him as a name that reaches the turn.",15.1,15.7],
-["Chris Olave","WR","NO",19.5,-3,"","Brief medical-tent visit at the Aug 18 joint practice but returned to the field — scare only, no designation.",16.8,14.5],
-["Nico Collins","WR","HOU",21,-9,"","DraftSharks has him WR9 against a WR26 price — and Higgins' torn ACL concentrates the Houston target tree on him even further.",15.1,14.1],
-["Kenneth Walker III","RB","KC",21.8,6,"inj","Foot: sat Tue/Wed, but Andy Reid says the swelling came from a SHOE ISSUE — no boot, not considered serious. Committee risk in KC still makes the price a touch rich. Emmett Johnson is the handcuff.",11.3,15.2],
-["Zay Flowers","WR","BAL",26.1,0,"","",14.3,13.7],
-["Garrett Wilson","WR","NYJ",25.7,-2,"","NFL.com counters: outside the top-20 PPR in 3 of 4 seasons.",14.2,14.4],
-["Malik Nabers","WR","NYG",27.3,0,"","ACL comeback on track: full-speed team drills since Aug 17, called a safe bet for Week 1. Sources still split on how fast the target volume returns.",14.3,13.6],
-["DeVonta Smith","WR","PHI",29.8,-3,"","",11.9,13.6],
-["Jeremiyah Love","RB","ARI",27.7,22,"inj","FADE. High ankle sprain — LaFleur says 'more sore than anticipated' and won't commit to Week 1. ECR ~39 vs ADP 29: the most agreed-on overpay in the draft.",0,15.3],
-["Breece Hall","RB","NYJ",35.3,0,"inj","Groin trending well — agility drills on the side field Aug 24, 'moving well,' on track for Week 1.",13.0,14.4],
-["Josh Jacobs","RB","GB",30.6,16,"risk","Risk RISING: GM Gutekunst said Aug 26 the Packers are 'prepared' for a possible suspension and planning for it — first public lean-in. No ruling or game count yet. Fade at cost; MarShawn Lloyd is the free hedge.",15.8,14.4],
-["Josh Allen","QB","BUF",34.2,8,"","Unanimous QB1 in ESPN's vote, but BR says his edge over QB10 is marginal. Went 26th overall in the RotoWire mock.",22.0,24.8],
-["Trey McBride","TE","ARI",29,14,"","AIDAN'S CALL (keep on refresh): passing at round-3 cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then the pass lifts and he's the pick. Consensus TE1.",18.6,14.8],
-["Kyren Williams","RB","LAR",31.6,-2,"","Boring, but the touches are real. Corum eats the goal line.",15.5,14.6],
-["Tetairoa McMillan","WR","CAR",32.2,0,"","Clear alpha target share.",12.4,13.1],
-["Cam Skattebo","RB","NYG",37.1,4,"","Co-starter battle with Tracy is tilting his way — Tracy lost a red-zone fumble and ceded snaps to Singletary in preseason Wk2. Najee (Achilles rehab) is noise for now.",16.0,14.6],
-["Tee Higgins","WR","CIN",36.8,-8,"","Experts have him WR18 against a WR23 price. ESPN ADP calls it a mispricing.",14.1,12.0],
-["Emeka Egbuka","WR","TB",34.8,4,"inj","Correction Aug 25 (RotoWire): STILL sidelined by the toe — no team drills in ~2 weeks, Bowles calls him 'day-to-day and week-to-week,' Week 1 a mystery until he practices. Real risk at a round-3 price.",11.5,13.2],
-["Javonte Williams","RB","DAL",36.5,-3,"","Lead role in a high-total offense. BR calls him undervalued.",15.2,13.7],
-["Brock Bowers","TE","LV",35.4,12,"","AIDAN'S CALL (keep on refresh): passing at cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then take him. Otherwise my TE window is rounds 5-9.",14.7,14.9],
-["Ladd McConkey","WR","LAC",37.8,-4,"","Slot volume in PPR; consistently ranked ahead of ADP.",11.3,12.2],
-["Davante Adams","WR","LAR",42,0,"","Genuinely split: DraftSharks has him WR12, others cite a 53% catch rate and age 33.",15.9,13.0],
-["Travis Etienne Jr.","RB","NO",39.1,-3,"","Signed with NO. Kamara's knee (out a few weeks, Aug 18) locks in his lead role through camp.",14.9,13.3],
-["Jameson Williams","WR","DET",44.2,0,"","",12.9,13.0],
-["Bucky Irving","RB","TB",44.7,10,"risk","Fade softened: OC Zac Robinson now on record that Irving is the lead ('a stud') with Gainwell the pass-down complement. Still 3.4 YPC last year at a round-4 price.",13.8,13.5],
-["Terry McLaurin","WR","WAS",46.9,10,"","Downgraded by the Diggs signing on Aug 7 — still the WR1 there, but the target share shrinks.",11.4,11.5],
-["D'Andre Swift","RB","CHI",45.7,-8,"","DraftSharks and FantasySixPack both have him roughly two rounds above ADP.",14.3,13.1],
-["Jaylen Waddle","WR","DEN",46,0,"","Traded to DEN. Back in full-team drills Aug 17 after 11 days out; Payton says he is coming along really good.",12.1,12.2],
-["Rome Odunze","WR","CHI",52.6,-4,"","Del Don ranks him 49th overall. Benefits directly from Burden's groin.",12.2,11.9],
-["Drake Maye","QB","NE",51.8,0,"","Jumped to QB3 after the A.J. Brown trade.",21.2,22.6],
-["DJ Moore","WR","BUF",48.5,-3,"","Traded from CHI. Ankle scare cleared — officially good to go per the OC on Aug 15.",10.0,12.2],
-["Quinshon Judkins","RB","CLE",50.4,0,"","Returned to team drills Aug 25 — trending right. Volume is there; Watson (named the Week 1 starter) caps the ceiling.",12.1,12.3],
-["Bhayshul Tuten","RB","JAX",52.2,-10,"","Leading the JAX backfield outright with LeQuint Allen (soft tissue) out through camp — excelling as a pass catcher (PFF Aug 24). Rodriguez keeps goal-line work.",5.9,13.3],
-["Mike Evans","WR","SF",54.3,8,"inj","ANOTHER new injury — groin, did not practice Tuesday Aug 25 (third separate issue this camp: quad, ankle, now groin). Fade at this price until he strings practices together.",10.6,12.1],
-["Lamar Jackson","QB","BAL",56.9,-12,"","Consensus ranks him ~2 rounds above this ADP. A genuine steal if he slides past 50.",17.1,21.9],
-["Joe Burrow","QB","CIN",57.9,-2,"","BR has him QB2.",17.4,21.3],
-["Colston Loveland","TE","CHI",57,-10,"","Tier-1 TE per ESPN and CBS; consensus nearly two rounds above ADP. 28.5% target share in camp.",10.3,11.4],
-["Luther Burden III","WR","CHI",58.3,5,"inj","Groin — about a month of practice missed, hoped back Week 1. Consensus still ranks him ABOVE this ADP, so the discount is mostly priced in already.",8.5,11.9],
-["Alec Pierce","WR","IND",66.7,22,"inj","FADE at this price. On active/PUP (no mandatory missed games) but has missed ALL of camp; team says return 'around September,' and Keenan Allen's signing squeezes targets. Downs is the safer buy.",12.2,11.6],
-["TreVeyon Henderson","RB","NE",61.5,20,"inj","FADE. Rhamondre Stevenson is the clear starter — and now an ankle injury has Henderson out of Tuesday's practice with no severity report. Take Stevenson two rounds later instead.",12.1,11.6],
-["Courtland Sutton","WR","DEN",59.6,8,"","Waddle is solidifying as the DEN WR1 — Sutton's ADP is falling and consensus is below it.",12.9,11.2],
-["David Montgomery","RB","HOU",58.4,-6,"","The one dead-zone RB analysts endorse. HC has publicly backed him as the lead.",9.8,11.8],
-["Christian Watson","WR","GB",58.8,-8,"","Named repeatedly as a round 5-6 value. ESPN ADP is 30+ picks later than other sites.",13.2,12.1],
-["Tyler Warren","TE","IND",65.5,-6,"inj","Groin — may miss the whole practice week but is expected ready for Week 1. Still my top TE target in rounds 5-9; just know the flag exists.",11.1,11.3],
-["Jaylen Warren","RB","PIT",58.4,10,"","Footballguys uses him to define the RB dead zone. Take Rico Dowdle 10 picks later instead.",13.6,11.8],
-["Marvin Harrison Jr.","WR","ARI",65.8,-12,"","BR has him 10 spots above consensus. Went 7.08 in the DK mock — may last much later than ADP.",10.7,11.4],
-["DK Metcalf","WR","PIT",64.5,0,"","RETURNED to practice Monday Aug 24 after two-plus weeks out. On track for Week 1.",12.5,11.6],
-["Dak Prescott","QB","DAL",65.6,6,"","CBS's model likes him, but broader consensus is a round below this ADP. Late QB target only.",19.0,21.1],
-["Parker Washington","WR","JAX",64.8,-15,"","The most-cited value in the entire market — NFL.com, PFF and DraftSharks all list him.",11.5,10.2],
-["Tony Pollard","RB","TEN",69.3,4,"","",10.9,11.6],
-["Rhamondre Stevenson","RB","NE",66.4,2,"","Clear NE starter over Henderson, but consensus now sits right at his price. Fine RB3; don't reach.",12.8,10.7],
-["Jayden Daniels","QB","WAS",72.2,-4,"","Diggs signing raises his floor.",16.7,21.7],
-["Michael Pittman Jr.","WR","PIT",74.8,0,"inj","In pads at Monday's (Aug 24) practice — listed with a right ankle issue but trending toward Week 1.",11.9,11.4],
-["Brian Thomas Jr.","WR","JAX",72.5,0,"inj","Shoulder — practicing Wed Aug 26 in a no-contact jersey. Trending up but still limited 2.5 weeks before the opener.",9.9,9.8],
-["Rico Dowdle","RB","PIT",74.5,4,"","Still the preferred PIT back over Jaylen Warren, but consensus has cooled to around his ADP.",12.7,9.8],
-["Chuba Hubbard","RB","CAR",79,12,"inj","Canales announced Aug 24 it's a COMMITTEE if both are healthy. Hamstring expected ready Week 1, but the solo-lead upside is gone. ADP down 12 in a week.",8.4,11.1],
-["Carnell Tate","WR","TEN",77.3,-4,"","No. 4 overall pick, starting from day one. Daboll plans to move him around rather than lock him at X.",0,10.7],
-["Kyle Pitts Sr.","TE","ATL",75.5,-6,"","Yahoo-specific bargain; a fine TE1 if you punted.",12.4,10.9],
-["Harold Fannin Jr.","TE","CLE",78.9,-4,"","ESPN's analyst vote has him TE5.",11.7,11.0],
-["Jalen Hurts","QB","PHI",78.8,-6,"","Camp is split: rushing-volume concerns vs a consensus that ranks him ~2 rounds above ADP. Good pick if he slides.",19.1,21.4],
-["Jadarian Price","RB","SEA",76.5,0,"","Rookie working with the first, second and third teams. Committee-leader upside.",0,10.9],
-["Matthew Stafford","QB","LAR",76.9,8,"","7.7% TD rate is unsustainable per ESPN.",21.1,20.4],
-["Michael Wilson","WR","ARI",76,4,"","",13.0,10.1],
-["Wan'Dale Robinson","WR","TEN",85.9,-6,"","PPR-friendly slot role. Yahoo-specific bargain.",13.6,10.6],
-["RJ Harvey","RB","DEN",88.1,-4,"","Started preseason Wk3 vs GB with a TD catch — now clearly ahead of Dobbins in the Denver committee (SI, Aug 23).",12.2,9.8],
-["Jakobi Meyers","WR","JAX",87.7,8,"","Reliable floor, but consensus is ~1.5 rounds below this cost.",11.0,10.4],
-["Chris Godwin Jr.","WR","TB",80,-4,"","Evans gone; target share should climb.",9.2,10.3],
+["Bijan Robinson","RB","ATL",2.1,0,"","Extension signed Aug 4, hold-in over. Draft normally.",21.8,21.6,24,2],
+["Jahmyr Gibbs","RB","DET",1.5,0,"","Extension signed Aug 6, full-go in practice since Aug 9.",21.6,21.6,24,1],
+["Puka Nacua","WR","LAR",3.1,6,"risk","PICK-3 DECISION: still hasn't practiced (psoas) — side work only, nothing new through Aug 26 — and the league review is STILL unresolved; Schefter has floated a possible Week 1 (Australia) absence. Two unpriced risks at ADP 3. Chase is the cleaner WR at 3 (verify his knee below).",23.4,20.0,25,5],
+["Ja'Marr Chase","WR","CIN",3.8,0,"inj","Knee (slight hyperextension Aug 25): sat Wednesday as a PRECAUTIONARY rest day, sleeve on the leg, skipping the meaningless preseason finale. No MRI red flags; he says he'd play if there were a game tomorrow. Still the best WR at pick 3 barring a late setback.",19.6,19.4,26,3],
+["Jaxon Smith-Njigba","WR","SEA",5.4,0,"","Top-3 WR on every list.",21.2,18.1,24,4],
+["Christian McCaffrey","RB","SF",6.6,8,"risk","RETURNED to practice Aug 23 after ~3 weeks (muscle tightness). Trending toward a full Week 1. Age 30 and 413 touches last year still argue for a modest fade, not a hard one.",24.5,20.3,30,30],
+["Amon-Ra St. Brown","WR","DET",6.4,0,"","Consensus top-8 overall.",19.1,18.7,26,6],
+["Jonathan Taylor","RB","IND",7.5,2,"","Entrenched workhorse, though the team has talked about reducing his workload.",21.3,16.9,27,17],
+["De'Von Achane","RB","MIA",10.4,4,"","AIDAN'S CALL (keep on refresh): demoted below Cook/Chase Brown/Hampton/Jeanty — Miami's offense is gutted (Tua and Tyreek both gone) and the TD downside is real. Reception floor keeps him a late-1st option, not the auto-pick.",20.2,15.7,24,15],
+["Drake London","WR","ATL",10.1,5,"","Bleacher Report: 'drafted at his ceiling.' Still a clear WR1, but ATL's QB is unsettled — Rapoport now says the job is Penix's to take (Aug 25). More uncertainty than a top-10 pick should carry.",16.8,16.0,25,18],
+["CeeDee Lamb","WR","DAL",10.7,-2,"","Cheaper on CBS and ESPN than anywhere else.",14.3,14.9,27,13],
+["Justin Jefferson","WR","MIN",11.7,-3,"","Tier-1 WR who slides in most mocks. Kyler Murray at QB is already priced in.",11.9,15.6,27,10],
+["James Cook III","RB","BUF",12.8,-1,"","Clean workload, zero camp noise. No. 1 in my RB order at the turn (Aidan's call, updated Aug 25 with Jeanty hurt).",17.8,16.2,26,16],
+["Chase Brown","RB","CIN",13.2,-1,"","Pass-game work in a Burrow offense. No. 2 in my RB order at the turn (Aidan's call). Watch: Samaje Perine eating into snaps in camp (Aug 24) — DraftSharks calls RB14 rich.",16.6,15.6,26,23],
+["Rashee Rice","WR","KC",14.8,-2,"","May knee scope fully behind him, ramping up in camp. Riser.",18.8,14.7,26,48],
+["Ashton Jeanty","RB","LV",16.7,-3,"inj","AIDAN'S CALL (updated Aug 25, keep on refresh): DEMOTED for the ankle — my RB order at the turn is Cook > Chase Brown > Hampton > Jeanty. Aug 26: confirmed LOW ankle (not high — avoids the 6-8 week scenario) but STILL not practicing and Kubiak won't discuss it; Week 1 uncertain. ADP has slid to 16.7. Only take him if Cook/Brown/Hampton are gone — and then Washington Jr. is a MUST-DRAFT handcuff.",14.4,15.5,22,8],
+["Derrick Henry","RB","BAL",17.6,9,"","Age fade: expert consensus now ranks him ~2 rounds below his ADP. Still fine if the room lets him slide.",16.4,15.3,32,63],
+["A.J. Brown","WR","NE",18.2,0,"","Traded from PHI in June. Lifts Drake Maye; Maye lifts him back.",14.7,14.3,29,38],
+["George Pickens","WR","DAL",20.6,-3,"","BR has him 9 spots above ADP.",17.2,13.3,25,19],
+["Saquon Barkley","RB","PHI",19.5,0,"","Went 1.12 in the Yahoo mock.",14.5,15.4,29,35],
+["Omarion Hampton","RB","LAC",23.2,-10,"","AIDAN'S CALL (added Aug 25, keep on refresh): No. 3 in my RB order at the turn, ahead of the injured Jeanty. Rookie lead back; RotoWire flags him as a name that reaches the turn.",15.1,15.7,23,14],
+["Chris Olave","WR","NO",19.5,-3,"","Brief medical-tent visit at the Aug 18 joint practice but returned to the field — scare only, no designation.",16.8,14.5,26,27],
+["Nico Collins","WR","HOU",21,-9,"","DraftSharks has him WR9 against a WR26 price — and Higgins' torn ACL concentrates the Houston target tree on him even further.",15.1,14.1,27,26],
+["Kenneth Walker III","RB","KC",21.8,6,"inj","Foot: sat Tue/Wed, but Andy Reid says the swelling came from a SHOE ISSUE — no boot, not considered serious. Committee risk in KC still makes the price a touch rich. Emmett Johnson is the handcuff.",11.3,15.2,25,22],
+["Zay Flowers","WR","BAL",26.1,0,"","",14.3,13.7,26,41],
+["Garrett Wilson","WR","NYJ",25.7,-2,"","NFL.com counters: outside the top-20 PPR in 3 of 4 seasons.",14.2,14.4,26,33],
+["Malik Nabers","WR","NYG",27.3,0,"","ACL comeback on track: full-speed team drills since Aug 17, called a safe bet for Week 1. Sources still split on how fast the target volume returns.",14.3,13.6,23,11],
+["DeVonta Smith","WR","PHI",29.8,-3,"","",11.9,13.6,27,39],
+["Jeremiyah Love","RB","ARI",27.7,22,"inj","FADE. High ankle sprain — LaFleur says 'more sore than anticipated' and won't commit to Week 1. ECR ~39 vs ADP 29: the most agreed-on overpay in the draft.",0,15.3,21,9],
+["Breece Hall","RB","NYJ",35.3,0,"inj","Groin trending well — agility drills on the side field Aug 24, 'moving well,' on track for Week 1.",13.0,14.4,25,36],
+["Josh Jacobs","RB","GB",30.6,16,"risk","Risk RISING: GM Gutekunst said Aug 26 the Packers are 'prepared' for a possible suspension and planning for it — first public lean-in. No ruling or game count yet. Fade at cost; MarShawn Lloyd is the free hedge.",15.8,14.4,28,69],
+["Josh Allen","QB","BUF",34.2,8,"","Unanimous QB1 in ESPN's vote, but BR says his edge over QB10 is marginal. Went 26th overall in the RotoWire mock.",22.0,24.8,30,24],
+["Trey McBride","TE","ARI",29,14,"","AIDAN'S CALL (keep on refresh): passing at round-3 cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then the pass lifts and he's the pick. Consensus TE1.",18.6,14.8,26,12],
+["Kyren Williams","RB","LAR",31.6,-2,"","Boring, but the touches are real. Corum eats the goal line.",15.5,14.6,26,44],
+["Tetairoa McMillan","WR","CAR",32.2,0,"","Clear alpha target share.",12.4,13.1,23,21],
+["Cam Skattebo","RB","NYG",37.1,4,"","Co-starter battle with Tracy is tilting his way — Tracy lost a red-zone fumble and ceded snaps to Singletary in preseason Wk2. Najee (Achilles rehab) is noise for now.",16.0,14.6,24,53],
+["Tee Higgins","WR","CIN",36.8,-8,"","Experts have him WR18 against a WR23 price. ESPN ADP calls it a mispricing.",14.1,12.0,27,49],
+["Emeka Egbuka","WR","TB",34.8,4,"inj","Correction Aug 25 (RotoWire): STILL sidelined by the toe — no team drills in ~2 weeks, Bowles calls him 'day-to-day and week-to-week,' Week 1 a mystery until he practices. Real risk at a round-3 price.",11.5,13.2,23,25],
+["Javonte Williams","RB","DAL",36.5,-3,"","Lead role in a high-total offense. BR calls him undervalued.",15.2,13.7,26,54],
+["Brock Bowers","TE","LV",35.4,12,"","AIDAN'S CALL (keep on refresh): passing at cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then take him. Otherwise my TE window is rounds 5-9.",14.7,14.9,23,7],
+["Ladd McConkey","WR","LAC",37.8,-4,"","Slot volume in PPR; consistently ranked ahead of ADP.",11.3,12.2,24,31],
+["Davante Adams","WR","LAR",42,0,"","Genuinely split: DraftSharks has him WR12, others cite a 53% catch rate and age 33.",15.9,13.0,33,87],
+["Travis Etienne Jr.","RB","NO",39.1,-3,"","Signed with NO. Kamara's knee (out a few weeks, Aug 18) locks in his lead role through camp.",14.9,13.3,27,71],
+["Jameson Williams","WR","DET",44.2,0,"","",12.9,13.0,25,59],
+["Bucky Irving","RB","TB",44.7,10,"risk","Fade softened: OC Zac Robinson now on record that Irving is the lead ('a stud') with Gainwell the pass-down complement. Still 3.4 YPC last year at a round-4 price.",13.8,13.5,24,56],
+["Terry McLaurin","WR","WAS",46.9,10,"","Downgraded by the Diggs signing on Aug 7 — still the WR1 there, but the target share shrinks.",11.4,11.5,31,90],
+["D'Andre Swift","RB","CHI",45.7,-8,"","DraftSharks and FantasySixPack both have him roughly two rounds above ADP.",14.3,13.1,27,76],
+["Jaylen Waddle","WR","DEN",46,0,"","Traded to DEN. Back in full-team drills Aug 17 after 11 days out; Payton says he is coming along really good.",12.1,12.2,27,50],
+["Rome Odunze","WR","CHI",52.6,-4,"","Del Don ranks him 49th overall. Benefits directly from Burden's groin.",12.2,11.9,24,43],
+["Drake Maye","QB","NE",51.8,0,"","Jumped to QB3 after the A.J. Brown trade.",21.2,22.6,24,29],
+["DJ Moore","WR","BUF",48.5,-3,"","Traded from CHI. Ankle scare cleared — officially good to go per the OC on Aug 15.",10.0,12.2,29,78],
+["Quinshon Judkins","RB","CLE",50.4,0,"","Returned to team drills Aug 25 — trending right. Volume is there; Watson (named the Week 1 starter) caps the ceiling.",12.1,12.3,22,37],
+["Bhayshul Tuten","RB","JAX",52.2,-10,"","Leading the JAX backfield outright with LeQuint Allen (soft tissue) out through camp — excelling as a pass catcher (PFF Aug 24). Rodriguez keeps goal-line work.",5.9,13.3,23,66],
+["Mike Evans","WR","SF",54.3,8,"inj","ANOTHER new injury — groin, did not practice Tuesday Aug 25 (third separate issue this camp: quad, ankle, now groin). Fade at this price until he strings practices together.",10.6,12.1,33,117],
+["Lamar Jackson","QB","BAL",56.9,-12,"","Consensus ranks him ~2 rounds above this ADP. A genuine steal if he slides past 50.",17.1,21.9,29,32],
+["Joe Burrow","QB","CIN",57.9,-2,"","BR has him QB2.",17.4,21.3,29,51],
+["Colston Loveland","TE","CHI",57,-10,"","Tier-1 TE per ESPN and CBS; consensus nearly two rounds above ADP. 28.5% target share in camp.",10.3,11.4,22,20],
+["Luther Burden III","WR","CHI",58.3,5,"inj","Groin — about a month of practice missed, hoped back Week 1. Consensus still ranks him ABOVE this ADP, so the discount is mostly priced in already.",8.5,11.9,22,40],
+["Alec Pierce","WR","IND",66.7,22,"inj","FADE at this price. On active/PUP (no mandatory missed games) but has missed ALL of camp; team says return 'around September,' and Keenan Allen's signing squeezes targets. Downs is the safer buy.",12.2,11.6,26,91],
+["TreVeyon Henderson","RB","NE",61.5,20,"inj","FADE. Rhamondre Stevenson is the clear starter — and now an ankle injury has Henderson out of Tuesday's practice with no severity report. Take Stevenson two rounds later instead.",12.1,11.6,23,47],
+["Courtland Sutton","WR","DEN",59.6,8,"","Waddle is solidifying as the DEN WR1 — Sutton's ADP is falling and consensus is below it.",12.9,11.2,30,121],
+["David Montgomery","RB","HOU",58.4,-6,"","The one dead-zone RB analysts endorse. HC has publicly backed him as the lead.",9.8,11.8,29,93],
+["Christian Watson","WR","GB",58.8,-8,"","Named repeatedly as a round 5-6 value. ESPN ADP is 30+ picks later than other sites.",13.2,12.1,27,77],
+["Tyler Warren","TE","IND",65.5,-6,"inj","Groin — may miss the whole practice week but is expected ready for Week 1. Still my top TE target in rounds 5-9; just know the flag exists.",11.1,11.3,24,28],
+["Jaylen Warren","RB","PIT",58.4,10,"","Footballguys uses him to define the RB dead zone. Take Rico Dowdle 10 picks later instead.",13.6,11.8,27,105],
+["Marvin Harrison Jr.","WR","ARI",65.8,-12,"","BR has him 10 spots above consensus. Went 7.08 in the DK mock — may last much later than ADP.",10.7,11.4,24,57],
+["DK Metcalf","WR","PIT",64.5,0,"","RETURNED to practice Monday Aug 24 after two-plus weeks out. On track for Week 1.",12.5,11.6,28,102],
+["Dak Prescott","QB","DAL",65.6,6,"","CBS's model likes him, but broader consensus is a round below this ADP. Late QB target only.",19.0,21.1,33,89],
+["Parker Washington","WR","JAX",64.8,-15,"","The most-cited value in the entire market — NFL.com, PFF and DraftSharks all list him.",11.5,10.2,24,72],
+["Tony Pollard","RB","TEN",69.3,4,"","",10.9,11.6,29,150],
+["Rhamondre Stevenson","RB","NE",66.4,2,"","Clear NE starter over Henderson, but consensus now sits right at his price. Fine RB3; don't reach.",12.8,10.7,28,114],
+["Jayden Daniels","QB","WAS",72.2,-4,"","Diggs signing raises his floor.",16.7,21.7,25,42],
+["Michael Pittman Jr.","WR","PIT",74.8,0,"inj","In pads at Monday's (Aug 24) practice — listed with a right ankle issue but trending toward Week 1.",11.9,11.4,28,107],
+["Brian Thomas Jr.","WR","JAX",72.5,0,"inj","Shoulder — practicing Wed Aug 26 in a no-contact jersey. Trending up but still limited 2.5 weeks before the opener.",9.9,9.8,23,65],
+["Rico Dowdle","RB","PIT",74.5,4,"","Still the preferred PIT back over Jaylen Warren, but consensus has cooled to around his ADP.",12.7,9.8,28,120],
+["Chuba Hubbard","RB","CAR",79,12,"inj","Canales announced Aug 24 it's a COMMITTEE if both are healthy. Hamstring expected ready Week 1, but the solo-lead upside is gone. ADP down 12 in a week.",8.4,11.1,27,130],
+["Carnell Tate","WR","TEN",77.3,-4,"","No. 4 overall pick, starting from day one. Daboll plans to move him around rather than lock him at X.",0,10.7,21,34],
+["Kyle Pitts Sr.","TE","ATL",75.5,-6,"","Yahoo-specific bargain; a fine TE1 if you punted.",12.4,10.9,25,73],
+["Harold Fannin Jr.","TE","CLE",78.9,-4,"","ESPN's analyst vote has him TE5.",11.7,11.0,22,61],
+["Jalen Hurts","QB","PHI",78.8,-6,"","Camp is split: rushing-volume concerns vs a consensus that ranks him ~2 rounds above ADP. Good pick if he slides.",19.1,21.4,28,62],
+["Jadarian Price","RB","SEA",76.5,0,"","Rookie working with the first, second and third teams. Committee-leader upside.",0,10.9,22,46],
+["Matthew Stafford","QB","LAR",76.9,8,"","7.7% TD rate is unsustainable per ESPN.",21.1,20.4,38,126],
+["Michael Wilson","WR","ARI",76,4,"","",13.0,10.1,26,88],
+["Wan'Dale Robinson","WR","TEN",85.9,-6,"","PPR-friendly slot role. Yahoo-specific bargain.",13.6,10.6,25,96],
+["RJ Harvey","RB","DEN",88.1,-4,"","Started preseason Wk3 vs GB with a TD catch — now clearly ahead of Dobbins in the Denver committee (SI, Aug 23).",12.2,9.8,25,103],
+["Jakobi Meyers","WR","JAX",87.7,8,"","Reliable floor, but consensus is ~1.5 rounds below this cost.",11.0,10.4,29,146],
+["Chris Godwin Jr.","WR","TB",80,-4,"","Evans gone; target share should climb.",9.2,10.3,30,134],
 ["Josh Downs","WR","IND",85.9,-2,"inj","Held out of Tuesday's practice, undisclosed — verify before drafting. Full-time slot role; Keenan Allen's signing crowds the tree a bit.",8.5,10.5],
-["Brock Purdy","QB","SF",88,0,"","QB9-12 range by consensus — a fine round-9+ pick, no longer a screaming value.",20.8,21.1],
-["Sam LaPorta","TE","DET",106.7,-4,"inj","RETURNED to practice Tuesday Aug 25 — a real positive sign for Week 1 after the hip scare. Back on the rounds-5-9 TE target list, now at a discounted ADP (fell ~18 picks on the injury).",11.9,9.7],
-["Kenny Gainwell","RB","TB",91.5,6,"","Loud camp practices (big Aug 18 day) but no depth-chart shift — Irving remains full-go as the lead.",13.0,8.1],
+["Brock Purdy","QB","SF",88,0,"","QB9-12 range by consensus — a fine round-9+ pick, no longer a screaming value.",20.8,21.1,26,82],
+["Sam LaPorta","TE","DET",106.7,-4,"inj","RETURNED to practice Tuesday Aug 25 — a real positive sign for Week 1 after the hip scare. Back on the rounds-5-9 TE target list, now at a discounted ADP (fell ~18 picks on the injury).",11.9,9.7,25,70],
+["Kenny Gainwell","RB","TB",91.5,6,"","Loud camp practices (big Aug 18 day) but no depth-chart shift — Irving remains full-go as the lead.",13.0,8.1,27,132],
 ["Denver Defense","DST","DEN",88.1,45,"","DST1 by ADP. Expert consensus says never pay this. Stream."],
 ["Seattle Defense","DST","SEA",83.2,45,"","Stream."],
-["Trevor Lawrence","QB","JAX",91.2,-8,"","Coen offense. CBS lists him as a late-round QB value.",20.6,20.7],
-["Quentin Johnston","WR","LAC",96.3,2,"","",12.2,9.2],
-["Stefon Diggs","WR","WAS",91.2,6,"","Signed Aug 7. Clear WR2 behind McLaurin; consensus about a round below this price. A fine FLEX, not a steal.",12.4,9.9],
-["Jayden Reed","WR","GB",95,0,"","",6.9,10.8],
-["Jordyn Tyson","WR","NO",139.8,400,"out","OUT ~2 MONTHS. Hamstring from the Aug 14 joint practice; NFL Media reports an IR-to-start candidate. Deep-league stash only.",0,0],
+["Trevor Lawrence","QB","JAX",91.2,-8,"","Coen offense. CBS lists him as a late-round QB value.",20.6,20.7,26,74],
+["Quentin Johnston","WR","LAC",96.3,2,"","",12.2,9.2,25,95],
+["Stefon Diggs","WR","WAS",91.2,6,"","Signed Aug 7. Clear WR2 behind McLaurin; consensus about a round below this price. A fine FLEX, not a steal.",12.4,9.9,32,158],
+["Jayden Reed","WR","GB",95,0,"","",6.9,10.8,26,104],
+["Jordyn Tyson","WR","NO",139.8,400,"out","OUT ~2 MONTHS. Hamstring from the Aug 14 joint practice; NFL Media reports an IR-to-start candidate. Deep-league stash only.",0,0,22,52],
 ["Jordan James","RB","SF",139,0,"","49ers RB2 behind CMC — age-30 CMC makes this a relevant handcuff.",4.2,4.0],
-["Caleb Williams","QB","CHI",90.6,-15,"","Consensus ~2.5 rounds above ADP and his price is already rising.",19.1,20.9],
-["J.K. Dobbins","RB","DEN",88.5,10,"inj","Hamstring — may play the preseason finale, but RJ Harvey started Wk3 and is clearly ahead now. Committee back on the wrong side of the split.",11.6,10.2],
-["Aaron Jones Sr.","RB","MIN",101.8,8,"","Jordan Mason is viewed as the likely lead runner over him.",9.9,8.7],
-["Patrick Mahomes","QB","KC",102.7,-12,"","Fully cleared from the torn ACL/LCL, no practice limitations, full playbook. Fell to 8.09 in one mock.",21.2,20.5],
-["Jordan Addison","WR","MIN",97.4,0,"","",9.7,9.6],
+["Caleb Williams","QB","CHI",90.6,-15,"","Consensus ~2.5 rounds above ADP and his price is already rising.",19.1,20.9,24,45],
+["J.K. Dobbins","RB","DEN",88.5,10,"inj","Hamstring — may play the preseason finale, but RJ Harvey started Wk3 and is clearly ahead now. Committee back on the wrong side of the split.",11.6,10.2,27,138],
+["Aaron Jones Sr.","RB","MIN",101.8,8,"","Jordan Mason is viewed as the likely lead runner over him.",9.9,8.7,31,206],
+["Patrick Mahomes","QB","KC",102.7,-12,"","Fully cleared from the torn ACL/LCL, no practice limitations, full playbook. Fell to 8.09 in one mock.",21.2,20.5,31,67],
+["Jordan Addison","WR","MIN",97.4,0,"","",9.7,9.6,24,83],
 ["Houston Defense","DST","HOU",98.4,45,"","Stream."],
-["Khalil Shakir","WR","BUF",101.8,10,"","Consensus ranks him nearly two rounds below ADP — DJ Moore's arrival caps the slot share.",10.4,10.2],
-["Keon Coleman","WR","BUF",102.1,0,"","Buffalo's X receiver — market has him just inside round 9.",8.9,8.5],
-["Tucker Kraft","TE","GB",100.4,-18,"inj","Activated off PUP, running routes with Love. Consensus ranks him ~3 rounds above ADP — top-8 TE upside at a TE12 price.",14.6,9.4],
-["Rachaad White","RB","WAS",111.2,4,"","Platoon with Croskey-Merritt.",8.4,10.3],
-["Justin Herbert","QB","LAC",105.9,-18,"","Consensus ranks him ~3 rounds above this ADP — arguably the best QB value on the board.",18.7,20.7],
-["Jared Goff","QB","DET",99.8,4,"","",17.9,20.9],
-["Xavier Worthy","WR","KC",105.6,8,"","Healthy shoulder and PFF hype, but broader consensus is ~1.5 rounds below ADP.",7.9,9.9],
-["Travis Kelce","TE","KC",106.7,4,"","TE10 by consensus. The name is worth more than the production now.",11.4,10.2],
-["Jonathon Brooks","RB","CAR",97.5,-8,"","Started vs Buffalo, but Canales announced Aug 24 a COMMITTEE with Hubbard if both are healthy. Still a value at ADP 108 — just a capped one, not a league-winner.",0,7.7],
-["Deebo Samuel Sr.","WR","SF",109.7,14,"","Volume is real with Pearsall out and Kirk hurt — but expert consensus ranks him ~3 rounds BELOW this price on age and efficiency. Opportunity play, not a value.",11.8,7.7],
-["Jaxson Dart","QB","NYG",116.4,-5,"","Consensus is ~1.5 rounds above his falling ADP.",17.6,20.6],
-["Makai Lemon","WR","PHI",115.6,10,"inj","Hamstring, out ~2 weeks — rookie losing key camp reps in the race for the PHI No. 2 job.",0,0],
-["Kyle Monangai","RB","CHI",108.7,25,"inj","Worse than first thought — Week 1 in doubt and he may BEGIN THE SEASON ON IR. Swift consolidates the CHI backfield.",8.6,8.1],
-["Romeo Doubs","WR","NE",114.3,2,"","",10.3,9.6],
-["George Kittle","TE","SF",116.7,-8,"inj","ACTIVATED off PUP Sunday Aug 23 and practiced in pads — the reserve/PUP 4-game risk is GONE. Week 1 in Australia not guaranteed but trending yes. Late-round TE steal at this ADP.",14.7,9.0],
+["Khalil Shakir","WR","BUF",101.8,10,"","Consensus ranks him nearly two rounds below ADP — DJ Moore's arrival caps the slot share.",10.4,10.2,26,145],
+["Keon Coleman","WR","BUF",102.1,0,"","Buffalo's X receiver — market has him just inside round 9.",8.9,8.5,23,198],
+["Tucker Kraft","TE","GB",100.4,-18,"inj","Activated off PUP, running routes with Love. Consensus ranks him ~3 rounds above ADP — top-8 TE upside at a TE12 price.",14.6,9.4,25,55],
+["Rachaad White","RB","WAS",111.2,4,"","Platoon with Croskey-Merritt.",8.4,10.3,27,154],
+["Justin Herbert","QB","LAC",105.9,-18,"","Consensus ranks him ~3 rounds above this ADP — arguably the best QB value on the board.",18.7,20.7,28,60],
+["Jared Goff","QB","DET",99.8,4,"","",17.9,20.9,31,112],
+["Xavier Worthy","WR","KC",105.6,8,"","Healthy shoulder and PFF hype, but broader consensus is ~1.5 rounds below ADP.",7.9,9.9,23,119],
+["Travis Kelce","TE","KC",106.7,4,"","TE10 by consensus. The name is worth more than the production now.",11.4,10.2,36,185],
+["Jonathon Brooks","RB","CAR",97.5,-8,"","Started vs Buffalo, but Canales announced Aug 24 a COMMITTEE with Hubbard if both are healthy. Still a value at ADP 108 — just a capped one, not a league-winner.",0,7.7,23,79],
+["Deebo Samuel Sr.","WR","SF",109.7,14,"","Volume is real with Pearsall out and Kirk hurt — but expert consensus ranks him ~3 rounds BELOW this price on age and efficiency. Opportunity play, not a value.",11.8,7.7,30,197],
+["Jaxson Dart","QB","NYG",116.4,-5,"","Consensus is ~1.5 rounds above his falling ADP.",17.6,20.6,23,68],
+["Makai Lemon","WR","PHI",115.6,10,"inj","Hamstring, out ~2 weeks — rookie losing key camp reps in the race for the PHI No. 2 job.",0,0,22,58],
+["Kyle Monangai","RB","CHI",108.7,25,"inj","Worse than first thought — Week 1 in doubt and he may BEGIN THE SEASON ON IR. Swift consolidates the CHI backfield.",8.6,8.1,24,98],
+["Romeo Doubs","WR","NE",114.3,2,"","",10.3,9.6,26,122],
+["George Kittle","TE","SF",116.7,-8,"inj","ACTIVATED off PUP Sunday Aug 23 and practiced in pads — the reserve/PUP 4-game risk is GONE. Week 1 in Australia not guaranteed but trending yes. Late-round TE steal at this ADP.",14.7,9.0,32,110],
 ["Minnesota Defense","DST","MIN",109.4,45,"","Stream."],
-["Jacory Croskey-Merritt","RB","WAS",115.6,0,"inj","Momentum paused — lower-body injury, targeted return to practice 'next week' (Aug 24). The starter-treatment buzz is real, but verify his status before paying the risen price.",8.3,8.0],
-["Dallas Goedert","TE","PHI",101,6,"","NFL.com: 11 TDs was an outlier.",12.3,9.2],
-["Matthew Golden","WR","GB",106.2,-4,"","Deep dart with a real route share.",5.0,9.1],
+["Jacory Croskey-Merritt","RB","WAS",115.6,0,"inj","Momentum paused — lower-body injury, targeted return to practice 'next week' (Aug 24). The starter-treatment buzz is real, but verify his status before paying the risen price.",8.3,8.0,25,116],
+["Dallas Goedert","TE","PHI",101,6,"","NFL.com: 11 TDs was an outlier.",12.3,9.2,31,175],
+["Matthew Golden","WR","GB",106.2,-4,"","Deep dart with a real route share.",5.0,9.1,23,84],
 ["LA Rams Defense","DST","LAR",109.1,45,"","Stream."],
-["Bo Nix","QB","DEN",111.9,-12,"","Recovered from a fractured ankle. CBS lists him as a late-round value.",18.6,21.2],
-["Blake Corum","RB","LAR",121.4,-6,"","Goal-line work now, league-winner if Kyren misses time.",7.2,7.8],
+["Bo Nix","QB","DEN",111.9,-12,"","Recovered from a fractured ankle. CBS lists him as a late-round value.",18.6,21.2,26,75],
+["Blake Corum","RB","LAR",121.4,-6,"","Goal-line work now, league-winner if Kyren misses time.",7.2,7.8,25,94],
 ["John Metchie III","WR","CAR",122.8,60,"","HARD FADE. Expert consensus ranks him outside the top 300 — the market is drafting a name, not a role.",4.5,0],
-["Jordan Mason","RB","MIN",117.4,-8,"","Viewed as the likely lead runner over Aaron Jones.",8.1,7.7],
-["Jalen Coker","WR","CAR",121.6,-12,"","Locked in as CAR's WR2 and just extended. 10.1 PPG over his final 9 games.",8.2,7.7],
-["KC Concepcion","WR","CLE",120.9,-2,"","First-rounder already starting alongside Jeudy. QB room caps it.",0,9.0],
-["Rashid Shaheed","WR","SEA",129,-12,"","Extended; the WR2 behind Smith-Njigba.",8.7,8.4],
+["Jordan Mason","RB","MIN",117.4,-8,"","Viewed as the likely lead runner over Aaron Jones.",8.1,7.7,27,137],
+["Jalen Coker","WR","CAR",121.6,-12,"","Locked in as CAR's WR2 and just extended. 10.1 PPG over his final 9 games.",8.2,7.7,24,109],
+["KC Concepcion","WR","CLE",120.9,-2,"","First-rounder already starting alongside Jeudy. QB room caps it.",0,9.0,21,64],
+["Rashid Shaheed","WR","SEA",129,-12,"","Extended; the WR2 behind Smith-Njigba.",8.7,8.4,28,155],
 ["New England Defense","DST","NE",130.2,45,"","Stream."],
-["Jayden Higgins","WR","HOU",130.3,400,"out","OUT FOR THE SEASON — tore his ACL at the Aug 19 joint practice vs the Raiders (NFL Network). Was the market's favorite sleeper; someone in your league may not have heard.",7.6,0],
-["Baker Mayfield","QB","TB",129.2,0,"","",16.6,19.2],
+["Jayden Higgins","WR","HOU",130.3,400,"out","OUT FOR THE SEASON — tore his ACL at the Aug 19 joint practice vs the Raiders (NFL Network). Was the market's favorite sleeper; someone in your league may not have heard.",7.6,0,23,131],
+["Baker Mayfield","QB","TB",129.2,0,"","",16.6,19.2,31,111],
 ["Brandon Aubrey","K","DAL",129.4,90,"","NEVER. ADP 85 on some sites against an expert consensus rank of 184 — a ~100-pick overpay, the worst value on any board."],
 ["Detroit Defense","DST","DET",128.6,45,"","Stream."],
 ["Philadelphia Defense","DST","PHI",139.9,45,"","Stream."],
 ["Jerry Jeudy","WR","CLE",126.1,0,"","Volume, capped by the QB room.",7.1,7.9],
-["Tre Tucker","WR","LV",132,-10,"","Emerging as the Raiders' WR1.",9.5,8.0],
-["Tyjae Spears","RB","TEN",130.1,0,"","",8.6,6.8],
-["Jake Ferguson","TE","DAL",132.7,-20,"","NFL.com and CBS both flag him as going a full round later than he should.",11.1,9.4],
-["Isaiah Likely","TE","NYG",136.6,-8,"","Signed with NYG. First real shot as a primary receiving TE.",4.4,8.6],
+["Tre Tucker","WR","LV",132,-10,"","Emerging as the Raiders' WR1.",9.5,8.0,25,183],
+["Tyjae Spears","RB","TEN",130.1,0,"","",8.6,6.8,25,176],
+["Jake Ferguson","TE","DAL",132.7,-20,"","NFL.com and CBS both flag him as going a full round later than he should.",11.1,9.4,27,127],
+["Isaiah Likely","TE","NYG",136.6,-8,"","Signed with NYG. First real shot as a primary receiving TE.",4.4,8.6,26,100],
 ["David Njoku","TE","LAC",136,0,"","Signed with the Chargers — Herbert's new middle-of-field target.",9.5,7.0],
-["Mark Andrews","TE","BAL",127.8,4,"","Slid to TE15.",7.7,9.5],
-["Calvin Ridley","WR","TEN",142.9,2,"","Squeezed by Tate's arrival.",6.8,6.7],
-["Tyler Shough","QB","NO",134,0,"","",14.9,20.7],
+["Mark Andrews","TE","BAL",127.8,4,"","Slid to TE15.",7.7,9.5,31,178],
+["Calvin Ridley","WR","TEN",142.9,2,"","Squeezed by Tate's arrival.",6.8,6.7,31,270],
+["Tyler Shough","QB","NO",134,0,"","",14.9,20.7,26,106],
 ["Theo Wease Jr.","WR","MIA",138.2,-4,"","Wide-open Miami room with Hill gone.",0,0],
-["Kyler Murray","QB","MIN",133.3,-25,"","Named the Week 1 starter over McCarthy. DraftSharks: 'the ADP doesn't make sense' — they have him QB11.",16.2,20.2],
+["Kyler Murray","QB","MIN",133.3,-25,"","Named the Week 1 starter over McCarthy. DraftSharks: 'the ADP doesn't make sense' — they have him QB11.",16.2,20.2,29,129],
 ["Will Levis","QB","TEN",149.6,0,"","Titans starter; deep-league QB2 only.",11.2,10.0],
-["Zach Charbonnet","RB","SEA",134.2,8,"inj","Post-ACL, still on camp PUP — Week 1 unlikely. NOTE: cutdowns are Aug 30, AFTER your draft — a reserve/PUP move (4+ games) won't be official when you're on the clock. Price/Holani benefit.",11.3,6.5],
+["Zach Charbonnet","RB","SEA",134.2,8,"inj","Post-ACL, still on camp PUP — Week 1 unlikely. NOTE: cutdowns are Aug 30, AFTER your draft — a reserve/PUP move (4+ games) won't be official when you're on the clock. Price/Holani benefit.",11.3,6.5,25,108],
 ["Jason Myers","K","SEA",138.6,30,"","Stream kickers. Never draft one early."],
 ["Pittsburgh Defense","DST","PIT",133,35,"","Perfectly fine at this cost."],
 ["Ka'imi Fairbairn","K","HOU",140,30,"","Stream."],
-["Alvin Kamara","RB","NO",145.3,18,"inj","MCL sprain, out ~a month — the Sep 13 opener vs DET is in serious doubt and a short IR stint is possible. Etienne owns the job; NO even traded for Zamir White for depth (Aug 23).",9.2,7.3],
-["Sam Darnold","QB","SEA",142.4,0,"","",14.7,19.4],
-["Jalen McMillan","WR","TB",135.8,-2,"inj","Knee — not seen at Tuesday's (Aug 25) practice. Expanded role with Evans gone, but the injury news keeps coming; verify before drafting.",7.5,7.0],
+["Alvin Kamara","RB","NO",145.3,18,"inj","MCL sprain, out ~a month — the Sep 13 opener vs DET is in serious doubt and a short IR stint is possible. Etienne owns the job; NO even traded for Zamir White for depth (Aug 23).",9.2,7.3,31,240],
+["Sam Darnold","QB","SEA",142.4,0,"","",14.7,19.4,29,128],
+["Jalen McMillan","WR","TB",135.8,-2,"inj","Knee — not seen at Tuesday's (Aug 25) practice. Expanded role with Evans gone, but the injury news keeps coming; verify before drafting.",7.5,7.0,24,143],
 ["Cameron Dicker","K","LAC",142.6,30,"","Stream."],
 ["San Francisco Defense","DST","SF",142.1,35,"","Stream."],
-["Jordan Love","QB","GB",146.8,-4,"","",16.1,18.9],
+["Jordan Love","QB","GB",146.8,-4,"","",16.1,18.9,27,92],
 ["LA Chargers Defense","DST","LAC",140.9,35,"","Stream."],
 ["Jauan Jennings","WR","MIN",148.2,0,"","",11.6,6.0],
-["Denzel Boston","WR","CLE",138.6,-6,"","Second-rounder already starting as the 6-4 boundary X.",0,0],
-["Pat Bryant","WR","DEN",156.6,0,"","",0,0],
+["Denzel Boston","WR","CLE",138.6,-6,"","Second-rounder already starting as the 6-4 boundary X.",0,0,22,80],
+["Pat Bryant","WR","DEN",156.6,0,"","",0,0,23,162],
 ["Rashod Bateman","WR","BAL",151.6,4,"","Ja'Kobi Lane is pushing him for the No. 2 job.",4.3,7.4],
 ["Jake Bates","K","DET",147.7,30,"","Stream."],
-["Braelon Allen","RB","NYJ",159.2,-6,"","Leads for the Hall handcuff job, but Isaiah Davis genuinely contests it (Davis out a couple weeks, knee).",3.8,4.3],
-["Mike Washington Jr.","RB","LV",148.2,-6,"","Jeanty handcuff — 7.9 YPC this preseason and DraftSharks' No. 1 handcuff (Aug 24). PRIORITY late pick if you land Jeanty, especially with Jeanty's Aug 23 ankle sprain.",0,0],
-["De'Zhaun Stribling","WR","SF",135.7,-10,"","7-of-8 for 63 yards in the preseason opener — rising fast with Pearsall out and Evans/Kirk sidelined.",0,0],
-["Woody Marks","RB","HOU",140.9,-4,"","Montgomery handcuff.",9.4,7.0],
+["Braelon Allen","RB","NYJ",159.2,-6,"","Leads for the Hall handcuff job, but Isaiah Davis genuinely contests it (Davis out a couple weeks, knee).",3.8,4.3,22,157],
+["Mike Washington Jr.","RB","LV",148.2,-6,"","Jeanty handcuff — 7.9 YPC this preseason and DraftSharks' No. 1 handcuff (Aug 24). PRIORITY late pick if you land Jeanty, especially with Jeanty's Aug 23 ankle sprain.",0,0,23,133],
+["De'Zhaun Stribling","WR","SF",135.7,-10,"","7-of-8 for 63 yards in the preseason opener — rising fast with Pearsall out and Evans/Kirk sidelined.",0,0,23,81],
+["Woody Marks","RB","HOU",140.9,-4,"","Montgomery handcuff.",9.4,7.0,25,151],
 ["Chimere Dike","WR","TEN",150.8,0,"","",0,0],
-["Cyrus Allen","WR","KC",150.2,-8,"","Standout Chiefs rookie; Mahomes has praised his separation by name.",0,0],
-["Tyrone Tracy Jr.","RB","NYG",154.6,-6,"","Stock falling — lost a red-zone fumble and ceded snaps to Devin Singletary in preseason Wk2, and Najee's arrival crowds the room. Still cheap, but no longer the screaming value.",10.7,7.6],
-["Malik Washington","WR","MIA",148.7,0,"","",6.9,0],
+["Cyrus Allen","WR","KC",150.2,-8,"","Standout Chiefs rookie; Mahomes has praised his separation by name.",0,0,23,156],
+["Tyrone Tracy Jr.","RB","NYG",154.6,-6,"","Stock falling — lost a red-zone fumble and ceded snaps to Devin Singletary in preseason Wk2, and Najee's arrival crowds the room. Still cheap, but no longer the screaming value.",10.7,7.6,26,192],
+["Malik Washington","WR","MIA",148.7,0,"","",6.9,0,25,166],
 ["Harrison Mevis","K","LAR",148.4,30,"","Stream."],
-["Dalton Kincaid","TE","BUF",148.9,-25,"","4th among TEs in yards per route run since 2023. Effectively a free TE2.",10.5,8.6],
-["Daniel Jones","QB","IND",160.7,0,"","Back to full team work after Achilles and fibula injuries.",18.0,18.5],
+["Dalton Kincaid","TE","BUF",148.9,-25,"","4th among TEs in yards per route run since 2023. Effectively a free TE2.",10.5,8.6,26,115],
+["Daniel Jones","QB","IND",160.7,0,"","Back to full team work after Achilles and fibula injuries.",18.0,18.5,29,152],
 ["Kimani Vidal","RB","LAC",153.2,-8,"","Listed 'Mitchell OR Vidal' as Hampton's backup on the first official depth chart — a shared handcuff.",9.1,3.5],
-["Tank Dell","WR","HOU",156.5,-25,"","Riser: Higgins' torn ACL clears the WR2 job and Dell is back in pads. Minor caution: HOU traded for Kayshon Boutte Aug 24 — insurance, not a takeover. Still worth a 2-round reach.",0,1.5],
-["Isiah Pacheco","RB","DET",153.9,-6,"inj","The Gibbs handcuff. Grade 1 MCL sprain but expected Week 1.",6.7,5.9],
-["Jalen Nailor","WR","LV",155.4,0,"","",5.9,0],
-["Juwan Johnson","TE","NO",143.5,6,"","Fant and Tyson added; regressing.",10.6,0],
+["Tank Dell","WR","HOU",156.5,-25,"","Riser: Higgins' torn ACL clears the WR2 job and Dell is back in pads. Minor caution: HOU traded for Kayshon Boutte Aug 24 — insurance, not a takeover. Still worth a 2-round reach.",0,1.5,26,169],
+["Isiah Pacheco","RB","DET",153.9,-6,"inj","The Gibbs handcuff. Grade 1 MCL sprain but expected Week 1.",6.7,5.9,27,218],
+["Jalen Nailor","WR","LV",155.4,0,"","",5.9,0,27,186],
+["Juwan Johnson","TE","NO",143.5,6,"","Fant and Tyson added; regressing.",10.6,0,30,194],
 ["Dalton Schultz","TE","HOU",163,0,"","",10.5,8.8],
 // ---- outside the FFC top 180: estimated ADP ----
-["Chig Okonkwo","TE","WAS",156.3,-12,"","Replaces Ertz and possibly some of Deebo's old role.",7.3,7.3],
-["Brenton Strange","TE","JAX",162.7,-8,"","Extended 3yr/$48M; the TE1 in Coen's system.",9.8,7.8],
+["Chig Okonkwo","TE","WAS",156.3,-12,"","Replaces Ertz and possibly some of Deebo's old role.",7.3,7.3,27,159],
+["Brenton Strange","TE","JAX",162.7,-8,"","Extended 3yr/$48M; the TE1 in Coen's system.",9.8,7.8,25,140],
 ["Mason Taylor","TE","NYJ",168,-6,"","Now the preferred Jets TE after Sadiq's hernia setback.",6.8,6.5],
 ["Darren Waller","TE","CAR",172,0,"","Signed a one-year deal; kills Ja'Tavion Sanders' outlook.",9.9,3.9],
-["Cam Ward","QB","TEN",168.4,0,"","",11.4,16.8],
-["C.J. Stroud","QB","HOU",158.1,-8,"","Cited as a viable round 9+ QB target.",15.5,17.6],
-["Chris Rodriguez Jr.","RB","JAX",157.2,-8,"","Listed as a CO-STARTER ('Tuten OR Rodriguez') on the Jaguars' depth chart — the power half of the split, back from foot surgery.",7.1,5.7],
-["Dylan Sampson","RB","CLE",157.7,-8,"","1.86 yards per route run, 2nd among RBs. Led the CLE backfield in targets.",5.8,6.7],
-["Keaton Mitchell","RB","LAC",157.7,-6,"","Co-listed with Vidal as the Hampton backup. 6.3 YPC speed role.",4.3,4.2],
-["Tank Bigsby","RB","PHI",159.6,-6,"","Barkley's primary backup.",3.4,3.7],
+["Cam Ward","QB","TEN",168.4,0,"","",11.4,16.8,24,99],
+["C.J. Stroud","QB","HOU",158.1,-8,"","Cited as a viable round 9+ QB target.",15.5,17.6,24,118],
+["Chris Rodriguez Jr.","RB","JAX",157.2,-8,"","Listed as a CO-STARTER ('Tuten OR Rodriguez') on the Jaguars' depth chart — the power half of the split, back from foot surgery.",7.1,5.7,25,161],
+["Dylan Sampson","RB","CLE",157.7,-8,"","1.86 yards per route run, 2nd among RBs. Led the CLE backfield in targets.",5.8,6.7,21,163],
+["Keaton Mitchell","RB","LAC",157.7,-6,"","Co-listed with Vidal as the Hampton backup. 6.3 YPC speed role.",4.3,4.2,24,160],
+["Tank Bigsby","RB","PHI",159.6,-6,"","Barkley's primary backup.",3.4,3.7,25,168],
 ["Ray Davis","RB","BUF",160.4,-4,"","Cook handcuff — 'must-start if Cook gets injured'.",3.8,4.0],
-["MarShawn Lloyd","RB","GB",154.6,-30,"","Led backup work with the first team and caught a TD from Love in preseason Wk3 — the clear Jacobs handcuff, and Jacobs still faces an open suspension review. Best free lottery ticket on the board.",0,4.3],
-["Tyler Allgeier","RB","ARI",153.3,-30,"","The ARI backfield collapsed onto him: Love (high ankle) iffy for Week 1, Conner has no timeline, and Trey Benson was WAIVED Aug 24. Best pure-volume sleeper on the board.",7.2,5.1],
-["Jonah Coleman","RB","DEN",153.4,0,"","All-rookie buzz and Payton praise, but listed just SIXTH on Denver's first depth chart. Deep stash only.",0,0],
+["MarShawn Lloyd","RB","GB",154.6,-30,"","Led backup work with the first team and caught a TD from Love in preseason Wk3 — the clear Jacobs handcuff, and Jacobs still faces an open suspension review. Best free lottery ticket on the board.",0,4.3,25,182],
+["Tyler Allgeier","RB","ARI",153.3,-30,"","The ARI backfield collapsed onto him: Love (high ankle) iffy for Week 1, Conner has no timeline, and Trey Benson was WAIVED Aug 24. Best pure-volume sleeper on the board.",7.2,5.1,26,153],
+["Jonah Coleman","RB","DEN",153.4,0,"","All-rookie buzz and Payton praise, but listed just SIXTH on Denver's first depth chart. Deep stash only.",0,0,23,97],
 ["Emari Demercado","RB","KC",146.9,-4,"","Kenneth Walker's direct backup.",4.5,0],
 ["Jaydon Blue","RB","DAL",167.6,0,"inj","Missed the Aug 18 joint practice with a shoulder. Pass-catching upside behind Javonte when healthy.",0,0],
 ["George Holani","RB","SEA",192,0,"","Listed RB1 in Seattle with Charbonnet recovering.",0,0],
-["James Conner","RB","ARI",169.1,0,"inj","Recovering from foot surgery; down to RB56.",8.3,2.1],
-["Nicolas Singleton","RB","TEN",200,0,"","Rookie scheme fit.",0,0],
-["Ja'Kobi Lane","WR","BAL",157.1,-15,"","6-4 red-zone target pushing Bateman for the No. 2 job with Lamar.",0,0],
-["Adonai Mitchell","WR","NYJ",163.4,-10,"","Starting opposite Garrett Wilson.",5.5,6.4],
-["Jaylin Noel","WR","HOU",162.8,-14,"","Bumped up by Higgins' torn ACL — now the Texans WR3 with a real path to snaps once his finger heals.",4.0,4.8],
-["Isaac TeSlaa","WR","DET",162.8,-8,"","16 catches turned into 6 TDs. WR3 role.",4.5,0],
-["Zachariah Branch","WR","ATL",198,-6,"","4.35 speed opposite Drake London.",0,0],
+["James Conner","RB","ARI",169.1,0,"inj","Recovering from foot surgery; down to RB56.",8.3,2.1,31,298],
+["Nicolas Singleton","RB","TEN",200,0,"","Rookie scheme fit.",0,0,22,135],
+["Ja'Kobi Lane","WR","BAL",157.1,-15,"","6-4 red-zone target pushing Bateman for the No. 2 job with Lamar.",0,0,22,123],
+["Adonai Mitchell","WR","NYJ",163.4,-10,"","Starting opposite Garrett Wilson.",5.5,6.4,23,174],
+["Jaylin Noel","WR","HOU",162.8,-14,"","Bumped up by Higgins' torn ACL — now the Texans WR3 with a real path to snaps once his finger heals.",4.0,4.8,24,167],
+["Isaac TeSlaa","WR","DET",162.8,-8,"","16 catches turned into 6 TDs. WR3 role.",4.5,0,24,189],
+["Zachariah Branch","WR","ATL",198,-6,"","4.35 speed opposite Drake London.",0,0,22,144],
 ["Xavier Legette","WR","CAR",176.6,-4,"","Beneficiary of Brazzell's LCL tear.",6.0,0],
-["Antonio Williams","WR","WAS",161,-4,"","Slot, vacated targets.",0,0],
-["Elijah Sarratt","WR","BAL",204,-4,""," ",0,0],
-["Ted Hurst III","WR","TB",206,-4,"","Path to snaps with Evans gone.",0,0],
-["Caleb Douglas","WR","MIA",172.8,0,"","Dark horse to start in a wide-open Miami room.",0,0],
+["Antonio Williams","WR","WAS",161,-4,"","Slot, vacated targets.",0,0,22,141],
+["Elijah Sarratt","WR","BAL",204,-4,""," ",0,0,23,177],
+["Ted Hurst III","WR","TB",206,-4,"","Path to snaps with Evans gone.",0,0,22,170],
+["Caleb Douglas","WR","MIA",172.8,0,"","Dark horse to start in a wide-open Miami room.",0,0,23,171],
 ["Christian Kirk","WR","SF",174,4,"inj","Calf sprain plus Deebo's return. Falling.",4.5,3.7],
 ["Jonnu Smith","TE","PIT",186,0,"","",5.0,0],
-["Terrance Ferguson","TE","LAR",160.2,-6,"","Potential No. 3 receiving option in LA.",0,0],
-["Keenan Allen","WR","IND",131.8,0,"","Signed with the Colts Aug 18 (1yr, up to $8.3M). Supporting role behind Pierce, Downs and Warren — crowds the target tree more than he earns one.",10.7,0],
+["Terrance Ferguson","TE","LAR",160.2,-6,"","Potential No. 3 receiving option in LA.",0,0,23,147],
+["Keenan Allen","WR","IND",131.8,0,"","Signed with the Colts Aug 18 (1yr, up to $8.3M). Supporting role behind Pierce, Downs and Warren — crowds the target tree more than he earns one.",10.7,0,34,292],
 ["Najee Harris","RB","NYG",163.6,4,"inj","Signed with the Giants Aug 18 off a torn Achilles — 'not in football shape yet' per Harbaugh. Muddies the Skattebo/Tracy room; stash only.",3.9,0],
 ["Isaiah Davis","RB","NYJ",190,-4,"","Contesting Braelon Allen for the Breece Hall handcuff job; out a couple weeks with a knee.",4.5,0],
-["Elic Ayomanor","WR","TEN",155,-8,"","Second-year Titan hyped as a top target for Cam Ward. Worth a late-round look.",0,2.2],
+["Elic Ayomanor","WR","TEN",155,-8,"","Second-year Titan hyped as a top target for Cam Ward. Worth a late-round look.",0,2.2,23,196],
 // ---- do not draft ----
-["Ricky Pearsall","WR","SF",110.9,400,"out","OUT FOR THE SEASON. PCL surgery announced by GM John Lynch. Still carries a round-10 ADP — someone in your league will draft him.",8.9,0],
-["Tyreek Hill","WR","FA",165,400,"out","UNSIGNED FREE AGENT. Released by Miami in February. Ten months after a multi-ligament knee reconstruction he says he has 'no power in my left leg at all.' No timeline.",13.4,0],
-["J.J. McCarthy","QB","MIN",160,400,"out","Lost the job outright to Kyler Murray. Zero standalone value.",13.7,0],
-["Michael Penix Jr.","QB","ATL",180,400,"out","Rapoport (Aug 25): 'this is Penix's job for the taking' after Tua's rough camp — but no starter named yet, and an unsettled QB off an ACL is undraftable in 1QB.",13.7,0],
+["Ricky Pearsall","WR","SF",110.9,400,"out","OUT FOR THE SEASON. PCL surgery announced by GM John Lynch. Still carries a round-10 ADP — someone in your league will draft him.",8.9,0,26,181],
+["Tyreek Hill","WR","FA",165,400,"out","UNSIGNED FREE AGENT. Released by Miami in February. Ten months after a multi-ligament knee reconstruction he says he has 'no power in my left leg at all.' No timeline.",13.4,0,32,345],
+["J.J. McCarthy","QB","MIN",160,400,"out","Lost the job outright to Kyler Murray. Zero standalone value.",13.7,0,23,282],
+["Michael Penix Jr.","QB","ATL",180,400,"out","Rapoport (Aug 25): 'this is Penix's job for the taking' after Tua's rough camp — but no starter named yet, and an unsettled QB off an ACL is undraftable in 1QB.",13.7,0,26,219],
 ["Ja'Tavion Sanders","TE","CAR",210,400,"out","Darren Waller's signing kills his outlook. TE69.",0,0],
-["Chris Brazzell","WR","CAR",212,400,"out","LCL tear, season over.",0,0],
-["Kenyon Sadiq","TE","NYJ",160,400,"out","Hernia surgery setback; will miss significant time.",0,0],
+["Chris Brazzell","WR","CAR",212,400,"out","LCL tear, season over.",0,0,22,199],
+["Kenyon Sadiq","TE","NYJ",160,400,"out","Hernia surgery setback; will miss significant time.",0,0,21,85],
 
 ["Baltimore Defense","DST","BAL",165.3,35,"","Stream."],
 ["Buffalo Defense","DST","BUF",160.6,35,"","Stream."],
@@ -901,6 +902,35 @@ const RAW = [
 ["Cairo Santos","K","CHI",166.1,30,"","Stream."],
 ["Wil Lutz","K","DEN",160.5,30,"","Stream."],
 ["Will Reichard","K","MIN",162.2,30,"","Stream."],
+["Fernando Mendoza","QB","LV",250,0,"","Dynasty-relevant add (startup rank 86) — minimal 2026 redraft value.",0,0,22,86],
+["Omar Cooper Jr.","WR","NYJ",250,0,"","Dynasty-relevant add (startup rank 101) — minimal 2026 redraft value.",0,0,22,101],
+["Eli Stowers","TE","PHI",250,0,"","Dynasty-relevant add (startup rank 113) — minimal 2026 redraft value.",0,0,23,113],
+["Oronde Gadsden","TE","LAC",250,0,"","Dynasty-relevant add (startup rank 124) — minimal 2026 redraft value.",0,0,23,124],
+["Travis Hunter","WR","JAX",250,0,"","Dynasty-relevant add (startup rank 125) — minimal 2026 redraft value.",0,0,23,125],
+["Chris Bell","WR","MIA",250,0,"","Dynasty-relevant add (startup rank 136) — minimal 2026 redraft value.",0,0,22,136],
+["Germie Bernard","WR","PIT",250,0,"","Dynasty-relevant add (startup rank 139) — minimal 2026 redraft value.",0,0,22,139],
+["Malik Willis","QB","MIA",250,0,"","Dynasty-relevant add (startup rank 142) — minimal 2026 redraft value.",0,0,27,142],
+["Malachi Fields","WR","NYG",250,0,"","Dynasty-relevant add (startup rank 148) — minimal 2026 redraft value.",0,0,23,148],
+["Bryce Young","QB","CAR",250,0,"","Dynasty-relevant add (startup rank 149) — minimal 2026 redraft value.",0,0,25,149],
+["Tre Harris","WR","LAC",250,0,"","Dynasty-relevant add (startup rank 164) — minimal 2026 redraft value.",0,0,24,164],
+["Ty Simpson","QB","LAR",250,0,"","Dynasty-relevant add (startup rank 165) — minimal 2026 redraft value.",0,0,23,165],
+["Emmett Johnson","RB","KC",250,0,"","Dynasty-relevant add (startup rank 172) — minimal 2026 redraft value.",0,0,22,172],
+["AJ Barner","TE","SEA",250,0,"","Dynasty-relevant add (startup rank 173) — minimal 2026 redraft value.",0,0,24,173],
+["Kayshon Boutte","WR","HOU",250,0,"","Dynasty-relevant add (startup rank 179) — traded to Houston Aug 24; minimal 2026 redraft value.",0,0,24,179],
+["Dontayvion Wicks","WR","PHI",250,0,"","Dynasty-relevant add (startup rank 180) — minimal 2026 redraft value.",0,0,25,180],
+["Kaytron Allen","RB","WAS",250,0,"","Dynasty-relevant add (startup rank 184) — minimal 2026 redraft value.",0,0,23,184],
+["Tory Horton","WR","SEA",250,0,"","Dynasty-relevant add (startup rank 187) — minimal 2026 redraft value.",0,0,23,187],
+["Gunnar Helm","TE","TEN",250,0,"","Dynasty-relevant add (startup rank 188) — minimal 2026 redraft value.",0,0,24,188],
+["Troy Franklin","WR","DEN",250,0,"","Dynasty-relevant add (startup rank 190) — minimal 2026 redraft value.",0,0,23,190],
+["T.J. Hockenson","TE","MIN",250,0,"","Dynasty-relevant add (startup rank 191) — minimal 2026 redraft value.",0,0,29,191],
+["Kaelon Black","RB","SF",250,0,"","Dynasty-relevant add (startup rank 193) — minimal 2026 redraft value.",0,0,24,193],
+["Demond Claiborne","RB","MIN",250,0,"","Dynasty-relevant add (startup rank 195) — minimal 2026 redraft value.",0,0,22,195],
+["Elijah Arroyo","TE","SEA",250,0,"","Dynasty-relevant add (startup rank 200) — minimal 2026 redraft value.",0,0,23,200],
+["Shedeur Sanders","QB","CLE",250,0,"","Dynasty-relevant add (startup rank 251) — minimal 2026 redraft value.",0,0,24,251],
+["Tua Tagovailoa","QB","ATL",250,0,"","Dynasty-relevant add (startup rank 258) — minimal 2026 redraft value.",0,0,28,258],
+["Cooper Kupp","WR","SEA",250,0,"","Dynasty-relevant add (startup rank 286) — minimal 2026 redraft value.",0,0,33,286],
+["Anthony Richardson","QB","IND",250,0,"","Dynasty-relevant add (startup rank 287) — minimal 2026 redraft value.",0,0,24,287],
+["Aaron Rodgers","QB","PIT",250,0,"","Dynasty-relevant add (startup rank 325) — minimal 2026 redraft value.",0,0,42,325],
 ];
 
 </script>
@@ -911,6 +941,7 @@ const S = {
   starters: { QB:1, RB:2, WR:3, TE:1, FLEX:2, K:1, DST:1 },
   superflex: false,
   taken: [],            // [{id, mine}]
+  dyn: false,             // dynasty mode: values from dynasty startup ranks, age-aware
   filter: 'ALL', q: '', showGone: false, openNote: null, logRound: null, cmpA: null,
   sim: { on:false, running:false, news:[], gms:[], done:false, clockLen:0, clockLeft:0 }
 };
@@ -921,14 +952,24 @@ const TIER_BREAKS = {
   TE:[3,7,13,20,30], QB:[6,12,20,30], K:[6,14], DST:[6,14]
 };
 let P = [];
-(function build(){
+/* Rebuilds the whole pool. Redraft mode: FFC ADP + expert adj. Dynasty mode:
+   dynasty startup rank IS the value (adj muted), 2026-only 'out' players become
+   draftable stashes, and unranked-in-dynasty players sink to the bottom. */
+function rebuildPool(){
+  P.length = 0;
   const seen = new Set();
   RAW.forEach(r=>{
-    const [name,pos,team,adp,adj,flag,note,pg,pj] = r;
+    const [name,pos,team,adp,adj,flag,note,pg,pj,age,dyn] = r;
     if(!adp || seen.has(name) || !['QB','RB','WR','TE','K','DST'].includes(pos)) return;
     seen.add(name);
-    P.push({ name, pos, team, adp, adj:adj||0, flag:flag||'', origFlag:flag||'', sim:0, note:note||'',
-             pg:+pg||0, pj:+pj||0, val: adp+(adj||0) });
+    let f=flag||'', eAdp=adp, eAdj=adj||0;
+    if(S.dyn){
+      if(dyn){ eAdp=dyn; eAdj=0; if(f==='out') f='inj'; }         // stashes are draftable in dynasty
+      else if(pos==='K'||pos==='DST'){ eAdp=200+adp/2; eAdj=0; }  // K/DST: bottom, in redraft order
+      else { eAdp=210+adp/4; eAdj=0; }                            // not dynasty-ranked
+    }
+    P.push({ name, pos, team, adp:eAdp, adj:eAdj, flag:f, origFlag:f, sim:0, note:note||'',
+             pg:+pg||0, pj:+pj||0, age:+age||0, val: eAdp+eAdj });
   });
   P.sort((a,b)=>a.val-b.val);
   P.forEach((p,i)=>{ p.id=i; p.rank=i+1; });
@@ -938,12 +979,14 @@ let P = [];
     const br = TIER_BREAKS[p.pos]||[];
     let t = br.length+1;
     for(let i=0;i<br.length;i++){ if(p.posRank<=br[i]){ t=i+1; break; } }
-    p.tier=t;
+    p.tier=t; p.depthRank=undefined;
     if(['QB','RB','WR','TE'].includes(p.pos) && p.team!=='FA'){
       const k=p.team+'|'+p.pos; dep[k]=(dep[k]||0)+1; p.depthRank=dep[k];
     }
   });
-})();
+  try{ slpReindex(); }catch(e){} // SLP index not yet initialized on the first build
+}
+rebuildPool();
 /* clickable "LAR RB1"-style chip; derived from this board's own pool ordered by
    adjusted value — a fantasy depth chart, not the official one */
 function depthChip(p){
@@ -952,10 +995,11 @@ function depthChip(p){
 }
 /* "'25: 14.2 → proj 15.1" — full-PPR points per game, last season then this season's consensus */
 function ppgTxt(p){
-  if(!p.pg && !p.pj) return '';
+  const agePart = (S.dyn && p.age) ? `age ${p.age}` : '';
+  if(!p.pg && !p.pj) return agePart;
   const A=p.pg?`'25: ${p.pg.toFixed(1)}`:'rookie';
   const B=p.pj?`proj ${p.pj.toFixed(1)}`:'';
-  return A+(B?' &rarr; '+B:'');
+  return (agePart?agePart+' &middot; ':'')+A+(B?' &rarr; '+B:'');
 }
 function teamQB(team){
   const q=P.filter(x=>x.pos==='QB'&&x.team===team&&x.flag!=='out').sort((x,y)=>(x.depthRank||9)-(y.depthRank||9))[0];
@@ -964,6 +1008,8 @@ function teamQB(team){
 const byId = id => P[id];
 
 const MY_STRATEGY="Wait on QB as long as the room allows in 1QB — most teams already rostering a QB means the shelf barely decays, so rounds 10-12 is the target unless QB supply is genuinely tightening. Pass on elite TEs (McBride, Bowers) before round 5 — a top-2 TE is not worth a round-3 RB/WR. I never draft a kicker — that late pick goes to an RB handcuff and I grab a kicker from waivers after cuts. EXCEPTION on TEs: in rounds 2-3, if the top-11 RBs are already gone and I have no TE, the pass is LIFTED — take McBride/Bowers if available, else best WR, and never leave round 3 without at least one RB. Target TE in rounds 5-9 from Tyler Warren, Colston Loveland, Sam LaPorta, Harold Fannin or Kyle Pitts. RB order at the turn: Cook > Chase Brown > Hampton > Jeanty > Achane (Jeanty demoted Aug 25 for his ankle sprain; Achane demoted for Miami's bad offense).";
+const DYN_STRATEGY="DYNASTY STARTUP (12-team, 1QB, full PPR, snake — I have pick 12). Value the CAREER, not Week 1: 2026-only injury discounts are muted (Jeanty's ankle, Egbuka's toe, even Higgins' torn ACL are buying opportunities, not fades). Age curves rule everything: WRs prime 22-27 and age gracefully; RBs cliff around 28 — avoid 29+ RBs and 31+ WRs except as cheap win-now pieces. MY PLAN AT THE 12/13 TURN: RB-RB with YOUNG RBs (Jeanty / Love / Hampton tier) — but an elite young WR falling to 12 (e.g. Justin Jefferson) OVERRIDES the plan; take him and get my RBs at the 3/4 turn. Rounds 3-5: young upside WRs (McConkey, Egbuka, Tate, Burden, Odunze). In 1QB dynasty, wait even longer on QB and prefer a young one late (Dart, Mendoza, Ward) over an aging vet. Rookies and second-year players get the benefit of the doubt over proven-but-old production. I never draft a kicker.";
+const stratNow=()=>S.dyn?DYN_STRATEGY:MY_STRATEGY;
 
 /* ================= DRAFT MATH ================= */
 const takenIds  = () => new Set(S.taken.map(t=>t.id));
@@ -1231,7 +1277,7 @@ function aiPrompt(){
     const d=p=>fx.info[p].now?`${p}: -${fx.info[p].cost} (${fx.info[p].now.name} now vs ${fx.info[p].later?fx.info[p].later.name:'shelf empty'} at my next pick)`:`${p}: none left`;
     posCtx=`\nPOSITIONAL SCARCITY — cost of waiting one turn, in picks of value: ${d('RB')}; ${d('WR')}; ${d('TE')}. Open FLEX spots: ${fx.flexLeft}.`;
   }
-  return `You are advising ONE pick in a live fantasy football snake draft. DATA DISCIPLINE: rosters changed drastically this offseason — your memory of NFL teams, QBs and depth charts is OUT OF DATE. Trust ONLY the facts in this prompt (each candidate lists his current team and that team's current QB). Never assert a roster fact that is not written here.\nMY STANDING STRATEGY (follow it unless I say otherwise): ${MY_STRATEGY}\n League: ${S.teams}-team full PPR; starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}${S.superflex?'/Superflex':''}/K/DST; ${S.rounds} rounds. I am on the clock at overall pick ${currentPick()} (round ${roundOf(currentPick())}). My following pick after this one is ${after??'(none left)'}.\nMY ROSTER SO FAR: ${roster}.\nTOP CANDIDATES in my board's order:\n${cands}${posCtx}\n\nIn 3-5 sentences: FIRST state which position this pick should target given my roster and the scarcity numbers, THEN which specific player and the fallback if he gets sniped. CONSISTENCY RULE: the player you recommend MUST play the position you named — if the best available pick is a different position, name THAT position instead. Position call, player pick and fallback must all agree; never say one position and pick another. Be decisive, no hedging. Plain sentences only — no markdown, no asterisks, no headers.`;
+  return `You are advising ONE pick in a live fantasy football snake draft. DATA DISCIPLINE: rosters changed drastically this offseason — your memory of NFL teams, QBs and depth charts is OUT OF DATE. Trust ONLY the facts in this prompt (each candidate lists his current team and that team's current QB). Never assert a roster fact that is not written here.\nMY STANDING STRATEGY (follow it unless I say otherwise): ${stratNow()}\n League: ${S.teams}-team full PPR; starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}${S.superflex?'/Superflex':''}/K/DST; ${S.rounds} rounds. I am on the clock at overall pick ${currentPick()} (round ${roundOf(currentPick())}). My following pick after this one is ${after??'(none left)'}.\nMY ROSTER SO FAR: ${roster}.\nTOP CANDIDATES in my board's order:\n${cands}${posCtx}\n\nIn 3-5 sentences: FIRST state which position this pick should target given my roster and the scarcity numbers, THEN which specific player and the fallback if he gets sniped. CONSISTENCY RULE: the player you recommend MUST play the position you named — if the best available pick is a different position, name THAT position instead. Position call, player pick and fallback must all agree; never say one position and pick another. Be decisive, no hedging. Plain sentences only — no markdown, no asterisks, no headers.`;
 }
 async function askAI(){
   if(!AIK.key){ $('aiSetup').style.display=''; $('aiModel').value=AIK.model; return; }
@@ -1356,7 +1402,7 @@ async function askCmpAI(aId,bId){
   out.innerHTML='<span style="color:var(--dim)">Asking Claude&hellip;</span>';
   try{
     const text=await callClaude(
-`Fantasy football snake draft. DATA DISCIPLINE: your memory of NFL rosters is out of date — trust ONLY the team/QB/injury facts written in this prompt; never assert a roster fact not given here.\nMY STANDING STRATEGY: ${MY_STRATEGY}\n${S.teams}-team full PPR (starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}). I'm at overall pick ${currentPick()}, my following pick is ${nextMyPick()??'none'}. MY ROSTER: ${roster}.
+`Fantasy football snake draft. DATA DISCIPLINE: your memory of NFL rosters is out of date — trust ONLY the team/QB/injury facts written in this prompt; never assert a roster fact not given here.\nMY STANDING STRATEGY: ${stratNow()}\n${S.teams}-team full PPR (starters QB${S.starters.QB}/RB${S.starters.RB}/WR${S.starters.WR}/TE${S.starters.TE}/FLEX${S.starters.FLEX}). I'm at overall pick ${currentPick()}, my following pick is ${nextMyPick()??'none'}. MY ROSTER: ${roster}.
 I'm stuck between two players:
 A) ${desc(A)}
 B) ${desc(B)}
@@ -1514,7 +1560,7 @@ function planText(){
 const KEY='ffdraft2026';
 let storageOK=true;
 function snapshot(){
-  return {t:S.teams,s:S.slot,r:S.rounds,st:S.starters,sf:S.superflex,
+  return {t:S.teams,s:S.slot,r:S.rounds,st:S.starters,sf:S.superflex,dy:S.dyn?1:0,
           d:S.taken.map(x=>[x.id, x.mine?1:0]), notes:NOTES};
 }
 function autoSave(){
@@ -1526,6 +1572,8 @@ function autoSave(){
 }
 function clearSaved(){ try{ localStorage.removeItem(KEY); }catch(e){} }
 function applyState(o){
+  const wantDyn=!!o.dy;
+  if(wantDyn!==S.dyn){ S.dyn=wantDyn; const c=$('cDyn'); if(c) c.checked=S.dyn; rebuildPool(); }
   S.teams=o.t; S.rounds=o.r; S.starters=o.st; S.superflex=!!o.sf;
   const teams=$('cTeams'), slot=$('cSlot');
   teams.value=S.teams;
@@ -1615,6 +1663,7 @@ function render(){
   if(typeof renderSim==='function') renderSim();
   renderRoster(); renderPlan(); renderRuns(); renderLog();
   $('state').value = JSON.stringify(snapshot());
+  const ft=$('fmtTag'); if(ft) ft.textContent = S.dyn ? 'DYNASTY \u00b7 1QB PPR' : 'Full PPR';
   renderMini(); autoSave(); slpBadge();
 }
 
@@ -1858,7 +1907,9 @@ function renderLog(){
 const SLP = { id:null, timer:null, applied:0, lastOk:0, err:'', unmatched:[] };
 function slpNorm(s){ return (s||'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
   .replace(/[.'-]/g,'').replace(/\b(jr|sr|ii|iii|iv|v)\b/g,'').replace(/\s+/g,' ').trim(); }
-const SLP_IDX = (()=>{ const m={}; P.forEach(p=>{ const k=slpNorm(p.name); (m[k]=m[k]||[]).push(p); }); return m; })();
+let SLP_IDX = {};
+function slpReindex(){ SLP_IDX={}; P.forEach(p=>{ const k=slpNorm(p.name); (SLP_IDX[k]=SLP_IDX[k]||[]).push(p); }); }
+slpReindex();
 function slpFind(meta){
   if(!meta) return null;
   if(meta.position==='DEF') return P.find(p=>p.pos==='DST' && p.team===(meta.team||'').toUpperCase())||null;
@@ -1994,6 +2045,14 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
     $(el).onchange=e=>{ S.starters[k]=Math.max(0,+e.target.value||0); render(); };
   });
   $('cSF').onchange=e=>{ S.superflex=e.target.checked; render(); };
+  $('cDyn').onchange=e=>{
+    if(S.taken.length && !confirm('Switching board modes clears the current draft. Continue?')){
+      e.target.checked=S.dyn; return;
+    }
+    S.dyn=e.target.checked;
+    S.taken=[]; S.sim.on=false; S.sim.running=false; S.sim.done=false; SLP.applied=0;
+    rebuildPool(); clearSaved(); $('restoreBar').style.display='none'; render();
+  };
   $('bUndo').onclick=undo;
   $('bReset').onclick=()=>{ if(confirm('Clear every pick and start over?')){ S.taken=[]; clearSaved(); $('restoreBar').style.display='none'; render(); } };
 
