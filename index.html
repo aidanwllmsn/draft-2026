@@ -448,6 +448,31 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 .slpbadge .slpx{margin-left:auto;background:none;border:1px solid var(--line2);color:var(--dim);
   border-radius:6px;font-size:10.5px;padding:2px 8px;cursor:pointer}
 @media (max-width:760px){ .slpwrap{display:flex;width:100%} .slpwrap input{flex:1;width:auto} }
+
+/* ---- Sleeper-style draft board grid ---- */
+.gridcard{margin:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+.gridhead{display:flex;align-items:center;gap:14px;padding:8px 12px;border-bottom:1px solid var(--line);font-size:13px}
+.gridlgnd{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--dim)}
+.gridlgnd .gl{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:-3px}
+.gridwrap{overflow-x:auto;padding:8px}
+.grid{display:grid;gap:3px;min-width:920px}
+.gcell{border-radius:6px;padding:4px 6px 3px;min-height:44px;font-size:10.5px;line-height:1.25;
+  color:#0d1420;position:relative;overflow:hidden}
+.gcell b{display:block;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcell .gm{opacity:.78;font-size:9.5px;display:flex;justify-content:space-between}
+.gcell .gpk{position:absolute;top:3px;right:5px;font-size:9px;opacity:.62;font-variant-numeric:tabular-nums}
+.gcell.empty{background:var(--panel2);border:1px dashed var(--line);min-height:44px}
+.gcell.onclock{outline:2px solid var(--acc);animation:gpulse 1.2s infinite}
+@keyframes gpulse{50%{outline-color:transparent}}
+.gcell.minecell{box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+.ghdr{font-size:10.5px;color:var(--dim);text-align:center;padding:2px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ghdr.me{color:var(--acc);font-weight:700}
+.gc-RB{background:#41b699} .gc-WR{background:#4f93d6} .gc-TE{background:#cf8f45}
+.gc-QB{background:#c4608f} .gc-K{background:#8d7fd0} .gc-DST{background:#a07b56}
+@media (max-width:760px){ .gridcard{margin:8px 8px} .grid{min-width:860px} }
+.gridtgl{background:none;border:1px solid var(--line2);color:var(--dim);border-radius:8px;
+  padding:5px 11px;font-size:12.5px;cursor:pointer;margin-left:6px}
+.gridtgl.on{background:var(--acc);border-color:var(--acc);color:#fff}
 </style>
 </head>
 <body>
@@ -457,6 +482,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
   <div class="modes">
     <button class="mode on" data-mode="live">Live draft</button>
     <button class="mode" data-mode="mock">Mock draft</button>
+    <button class="gridtgl" id="bGrid" title="Sleeper-style draft board">&#8862; Board</button>
   </div>
   <div class="cfg">
     <label class="fld">Teams <select id="cTeams"></select></label>
@@ -503,6 +529,15 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 <div class="pstrip" id="mini"></div>
 <div id="slpBadge" class="slpbadge" style="display:none"></div>
 <div class="restore" id="restoreBar" style="display:none"></div>
+
+<div class="gridcard" id="gridCard" data-mp="board" style="display:none">
+  <div class="gridhead">
+    <b>Draft board</b>
+    <span class="gridlgnd"><i class="gl gc-RB"></i>RB <i class="gl gc-WR"></i>WR <i class="gl gc-TE"></i>TE <i class="gl gc-QB"></i>QB <i class="gl gc-K"></i>K <i class="gl gc-DST"></i>DEF</span>
+    <button class="btn" id="bGridX" style="margin-left:auto">Close</button>
+  </div>
+  <div class="gridwrap"><div id="grid" class="grid"></div></div>
+</div>
 
 <div class="wrap">
 
@@ -1664,7 +1699,7 @@ function render(){
   renderRoster(); renderPlan(); renderRuns(); renderLog();
   $('state').value = JSON.stringify(snapshot());
   const ft=$('fmtTag'); if(ft) ft.textContent = S.dyn ? 'DYNASTY \u00b7 1QB PPR' : 'Full PPR';
-  renderMini(); autoSave(); slpBadge();
+  renderMini(); autoSave(); slpBadge(); renderGrid();
 }
 
 function renderMini(){
@@ -2014,6 +2049,48 @@ function slpBadge(){
   const x=$('slpOff'); if(x) x.onclick=()=>{ slpStop(); const st=$('slpSt'); if(st){ st.textContent=''; st.className='slpst'; } };
 }
 
+/* ================= SLEEPER-STYLE DRAFT BOARD GRID =================
+   Columns = draft slots, rows = rounds, cells color-coded by position,
+   snake arrows, pick numbers. Works for mocks AND live/synced drafts. */
+function gShort(name){
+  const parts=(name||'').split(' ');
+  if(parts.length<2) return name;
+  if(parts[1]==='Defense') return name;                       // "Seattle Defense"
+  return parts[0][0]+'. '+parts.slice(1).join(' ');
+}
+function renderGrid(){
+  const card=$('gridCard'); if(!card) return;
+  card.style.display = S.gridOpen ? '' : 'none';
+  if(!S.gridOpen) return;
+  const g=$('grid'), T=S.teams, R=S.rounds, cur=currentPick(), done=S.taken.length;
+  g.style.gridTemplateColumns=`repeat(${T},minmax(72px,1fr))`;
+  const byPick={};                                            // pick_no -> player
+  S.taken.forEach((t,i)=>{ byPick[i+1]=byId(t.id); });
+  let html='';
+  for(let s=1;s<=T;s++){
+    const me=s===S.slot;
+    html+=`<div class="ghdr ${me?'me':''}">${me?'YOU':'T'+s}</div>`;
+  }
+  const maxR=Math.min(R, Math.max(1, Math.ceil((done+1)/T)+1, R));   // render all rounds
+  for(let r=1;r<=R;r++){
+    for(let s=1;s<=T;s++){
+      const inR = (r%2===1)? s : T-s+1;                       // pick-in-round at this column
+      const pk  = (r-1)*T + inR;
+      const p   = byPick[pk];
+      const arrow = (r%2===1)?'&rarr;':'&larr;';
+      const lbl = `${r}.${inR}`;
+      if(p){
+        html+=`<div class="gcell gc-${p.pos} ${s===S.slot?'minecell':''}" title="${esc(p.name)} — pick ${pk}">
+          <span class="gpk">${lbl}</span><b>${esc(gShort(p.name))}</b>
+          <span class="gm"><span>${p.pos} - ${esc(p.team)}</span><span>${arrow}</span></span></div>`;
+      } else {
+        html+=`<div class="gcell empty ${pk===cur?'onclock':''}" title="Pick ${pk}">
+          <span class="gpk">${lbl}</span>${pk===cur?'<b style="color:var(--acc)">On the clock</b>':''}</div>`;
+      }
+    }
+  }
+  g.innerHTML=html;
+}
 /* ================= ACTIONS ================= */
 function markTaken(id, mine){
   if(takenIds().has(id)) return;
@@ -2126,6 +2203,9 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
     window.scrollTo({top:0, behavior:'instant'});
   });
   $('bGear').onclick=()=>document.body.classList.toggle('cfgopen');
+  $('bGrid').onclick=()=>{ S.gridOpen=!S.gridOpen; $('bGrid').classList.toggle('on',S.gridOpen); renderGrid();
+    if(S.gridOpen) $('gridCard').scrollIntoView({behavior:'smooth',block:'nearest'}); };
+  $('bGridX').onclick=()=>{ S.gridOpen=false; $('bGrid').classList.remove('on'); renderGrid(); };
 
   $('slpBtn').onclick=()=>slpConnect($('slpIn').value);
   $('slpIn').addEventListener('keydown',e=>{ if(e.key==='Enter') slpConnect($('slpIn').value); });
