@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2026 Fantasy Draft Assistant — PPR</title>
+<title>The Front Office</title>
 <style>
 :root{
   --bg:#0e1116; --panel:#161b23; --panel2:#1d232d; --line:#2a323e; --line2:#39434f;
@@ -473,9 +473,194 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 .gridtgl{background:none;border:1px solid var(--line2);color:var(--dim);border-radius:8px;
   padding:5px 11px;font-size:12.5px;cursor:pointer;margin-left:6px}
 .gridtgl.on{background:var(--acc);border-color:var(--acc);color:#fff}
+
+/* ================= APP-LEVEL NAV + VIEWS ================= */
+.appnav{background:linear-gradient(180deg,#141a24,#10151d);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:70}
+.appnav-in{display:flex;align-items:center;gap:6px;max-width:1500px;margin:0 auto;padding:9px 14px}
+.applogo{font-weight:800;font-size:15px;margin-right:14px;letter-spacing:.01em}
+.applogo em{font-style:normal;color:var(--acc);font-size:11px;vertical-align:super}
+.avtab{background:none;border:none;color:var(--dim);font-size:13.5px;font-weight:700;padding:7px 13px;border-radius:8px;cursor:pointer}
+.avtab:hover{color:var(--txt)}
+.avtab.on{background:var(--acc);color:#fff}
+.avlg{margin-left:auto;font-size:11.5px;color:var(--dim)}
+body:not([data-view="draft"]) .top, body:not([data-view="draft"]) .pstrip,
+body:not([data-view="draft"]) .slpbadge, body:not([data-view="draft"]) .restore,
+body:not([data-view="draft"]) .gridcard, body:not([data-view="draft"]) .wrap,
+body:not([data-view="draft"]) .mtabs{display:none!important}
+body:not([data-view="home"]) #viewHome{display:none!important}
+body:not([data-view="trade"]) #viewTrade{display:none!important}
+.vwrap{max-width:1100px;margin:14px auto;padding:0 14px;display:flex;flex-direction:column;gap:14px}
+.syncrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.syncrow input{background:var(--panel2);border:1px solid var(--line2);color:var(--txt);border-radius:8px;padding:8px 12px;font-size:13.5px;width:230px}
+.lglist{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.lgrow{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 13px;cursor:pointer}
+.lgrow:hover{border-color:var(--acc)}
+.lgrow.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.lgrow b{font-size:13.5px}
+.lgrow .lgi{color:var(--dim);font-size:11.5px}
+.lgrow .lgdyn{margin-left:auto;font-size:10px;font-weight:800;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:1px 7px}
+.tmeta{color:var(--dim);font-size:11.5px;font-weight:400;margin-left:10px}
+.tanalysis{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tstat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:11.5px;color:var(--dim)}
+.tstat b{display:block;font-size:16px;color:var(--txt)}
+.tstat.warn b{color:var(--warn)} .tstat.good b{color:var(--good)}
+.rospos{margin:10px 0 4px;font-size:11px;font-weight:800;color:var(--dim);letter-spacing:.06em}
+.rosrow{display:flex;align-items:center;gap:9px;padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:6px}
+.rosrow:hover{background:var(--panel2)}
+.rosrow .pos{width:34px;text-align:center;border-radius:5px;font-size:10px;font-weight:800;padding:2px 0}
+.rosrow b{font-size:13.5px}
+.rosrow .rmeta{color:var(--dim2);font-size:11px;margin-left:auto;text-align:right}
+.rosnote{display:none;padding:8px 12px 10px 53px;font-size:12px;color:var(--dim);border-bottom:1px solid var(--line);line-height:1.5}
+.rosnote.open{display:block}
+.pos.RB{background:#173d34;color:#5adbb7}.pos.WR{background:#16314d;color:#6cb5ff}.pos.TE{background:#3d2c14;color:#eeb063}
+.pos.QB{background:#3d1830;color:#ef8bbb}.pos.K{background:#2a2545;color:#b3a7ee}.pos.DST{background:#332619;color:#cfa06e}
+.trpick{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.trcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.trside h4{margin:0 0 8px;font-size:12.5px;color:var(--dim)}
+.trval{color:var(--acc);font-variant-numeric:tabular-nums}
+.trros{display:flex;flex-direction:column;gap:3px;max-height:430px;overflow-y:auto}
+.trrow{display:flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:12.5px;background:var(--panel2)}
+.trrow:hover{border-color:var(--line2)}
+.trrow.sel{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc);background:#152436}
+.trrow .rmeta{margin-left:auto;color:var(--dim2);font-size:10.5px}
+.trverdict-head{font-size:17px;font-weight:800;margin-bottom:6px}
+.trverdict-head.good{color:var(--good)} .trverdict-head.bad{color:var(--bad)} .trverdict-head.mid{color:var(--warn)}
+.trbars{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.trbar{display:flex;align-items:center;gap:10px;font-size:12px}
+.trbar .lbl{width:130px;color:var(--dim)}
+.trbar .bar{flex:1;height:8px;background:var(--panel2);border-radius:4px;overflow:hidden}
+.trbar .bar i{display:block;height:100%;background:var(--acc)}
+.sugrow{border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:8px;font-size:12.5px;line-height:1.5}
+.sugrow b{color:var(--txt)}
+.sugrow .sughead{font-weight:800;font-size:13px;margin-bottom:3px}
+@media (max-width:760px){ .trcols{grid-template-columns:1fr} .syncrow input{flex:1;width:auto} .appnav-in{padding:8px 8px} .avtab{padding:6px 9px;font-size:12.5px} .applogo{font-size:13px;margin-right:6px} .avlg{display:none} }
+
+/* ================= THE FRONT OFFICE — HOME OVERHAUL ================= */
+.logobadge{display:inline-block;background:linear-gradient(135deg,var(--acc),#7c5cff);color:#fff;font-weight:900;
+  font-size:11px;border-radius:7px;padding:3px 6px;margin-right:7px;letter-spacing:.05em}
+.avtab.on{background:none;color:var(--txt);box-shadow:inset 0 -2px 0 var(--acc);border-radius:0}
+.vwrap.wide{max-width:1240px}
+.card.slim{padding:10px 14px}
+.card h3{display:flex;align-items:center}
+.synclabel{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--dim)}
+.lgchips{display:flex;gap:8px;flex-wrap:wrap;margin-left:6px}
+.lgchip{display:flex;align-items:center;gap:7px;background:var(--panel2);border:1px solid var(--line);border-radius:20px;
+  padding:5px 13px 5px 6px;cursor:pointer;font-size:12px;font-weight:700}
+.lgchip img{width:22px;height:22px;border-radius:50%}
+.lgchip:hover{border-color:var(--line2)}
+.lgchip.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc);background:#152436}
+.lgchip .lgdyn{font-size:9px;color:var(--acc);border:1px solid var(--acc);border-radius:4px;padding:0 5px}
+.hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-radius:14px;padding:16px 20px;
+  background:linear-gradient(120deg,#16233a 0%,#131a26 55%,#171426 100%);border:1px solid #26324a}
+.heroav{width:56px;height:56px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.heroname{font-size:20px;font-weight:800}
+.herometa{font-size:12px;color:var(--dim);margin-top:2px}
+.hero .tanalysis{margin:0 0 0 auto}
+.homegrid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+.homeside{display:flex;flex-direction:column;gap:14px}
+.rosrow{position:relative;padding-left:14px}
+.rosrow::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--line2)}
+.rosrow.pRB::before{background:#41b699}.rosrow.pWR::before{background:#4f93d6}.rosrow.pTE::before{background:#cf8f45}
+.rosrow.pQB::before{background:#c4608f}.rosrow.pK::before{background:#8d7fd0}.rosrow.pDST::before{background:#a07b56}
+.hshot{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--panel2);flex:none}
+.valbar{width:64px;height:5px;background:var(--panel2);border-radius:3px;overflow:hidden;flex:none}
+.valbar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),#7c5cff)}
+.hlrow{display:flex;gap:9px;padding:8px 2px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.45}
+.hlrow:last-child{border-bottom:none}
+.hlrow .hshot{width:28px;height:28px}
+.hlrow b{font-size:12.5px}
+.hltag{font-size:9px;font-weight:800;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.hltag.out{background:#3a1c22;color:#ff8d8a}.hltag.inj{background:#4a3016;color:#eeb063}.hltag.risk{background:#173d34;color:#5adbb7}
+.lurow{padding:8px 2px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.5}
+.lurow:last-child{border-bottom:none}
+.lurow b{color:var(--good)} .lurow s{color:var(--dim);text-decoration:none;font-weight:700}
+.wvrow{display:flex;align-items:center;gap:9px;padding:7px 2px;border-bottom:1px solid var(--line);font-size:12px}
+.wvrow:last-child{border-bottom:none}
+.wvrow .adds{margin-left:auto;color:var(--good);font-size:10.5px;font-variant-numeric:tabular-nums}
+.prrow{display:flex;align-items:center;gap:9px;padding:6px 2px;font-size:12px}
+.prrow .prn{width:18px;text-align:right;color:var(--dim2);font-weight:800;font-variant-numeric:tabular-nums}
+.prrow img{width:24px;height:24px;border-radius:50%}
+.prrow .prbar{flex:1;height:6px;background:var(--panel2);border-radius:3px;overflow:hidden}
+.prrow .prbar i{display:block;height:100%;background:var(--line2)}
+.prrow.me .prbar i{background:linear-gradient(90deg,var(--acc),#7c5cff)}
+.prrow.me b{color:var(--acc)}
+.emptymsg{color:var(--dim2);font-size:12px;padding:6px 2px}
+.trrow .hshot{width:26px;height:26px}
+@media (max-width:900px){ .homegrid{grid-template-columns:1fr} .hero .tanalysis{margin:8px 0 0} }
 </style>
 </head>
 <body>
+
+<nav class="appnav"><div class="appnav-in">
+  <span class="applogo">&#127944; The Front Office</span>
+  <button class="avtab" data-view="home">Home</button>
+  <button class="avtab on" data-view="draft">Draft Room</button>
+  <button class="avtab" data-view="trade">Trade Advisor</button>
+  <span class="avlg" id="avLeague"></span>
+</div></nav>
+
+<!-- ============ HOME VIEW ============ -->
+<div id="viewHome" class="viewpane">
+  <div class="vwrap wide">
+    <div class="card slim">
+      <div class="syncrow">
+        <span class="synclabel">MY LEAGUES</span>
+        <input type="text" id="lgUser" placeholder="Sleeper username" spellcheck="false">
+        <button class="btn go" id="lgFind">Sync</button>
+        <span class="slpst" id="lgSt"></span>
+        <div id="lgList" class="lgchips"></div>
+      </div>
+    </div>
+
+    <div id="teamHero" class="hero" style="display:none">
+      <img id="heroAv" class="heroav" alt="" onerror="this.style.visibility='hidden'">
+      <div class="herotxt">
+        <div class="heroname" id="teamTitle"></div>
+        <div class="herometa" id="teamMeta"></div>
+      </div>
+      <div id="teamAnalysis" class="tanalysis"></div>
+    </div>
+
+    <div class="homegrid" id="homeGrid" style="display:none">
+      <div class="homemain">
+        <div class="card" id="teamCard"><h3>Roster</h3><div id="teamRoster"></div></div>
+      </div>
+      <div class="homeside">
+        <div class="card" id="hlCard"><h3>&#128240; Your headlines</h3><div id="hlFeed"></div></div>
+        <div class="card" id="luCard"><h3>&#9888;&#65039; Lineup alerts</h3><div id="luFeed"></div></div>
+        <div class="card" id="wvCard"><h3>&#128225; Waiver radar</h3><div id="wvFeed"></div></div>
+        <div class="card" id="prCard"><h3>&#127942; Power rankings</h3><div id="prFeed"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TRADE ADVISOR VIEW ============ -->
+<div id="viewTrade" class="viewpane">
+  <div class="vwrap">
+    <div class="card" id="tradeNeedsLeague" style="display:none">
+      <h3>Trade Advisor</h3>
+      <p style="color:var(--dim);font-size:13px">Sync a league on the Home tab first &mdash; the advisor works from your real rosters.</p>
+    </div>
+    <div id="tradeUI" style="display:none">
+      <div class="card">
+        <h3>Build a trade <span class="tmeta" id="trMode"></span></h3>
+        <div class="trpick">
+          <label class="fld">Trade with <select id="trTeam"></select></label>
+          <button class="btn" id="trSuggest">&#10024; Suggest trades</button>
+          <button class="btn go" id="trAnalyze">Analyze trade</button>
+          <button class="btn" id="trClear">Clear</button>
+        </div>
+        <div class="trcols">
+          <div class="trside"><h4>You send <span id="trOutVal" class="trval"></span></h4><div id="trMyRoster" class="trros"></div></div>
+          <div class="trside"><h4>You receive <span id="trInVal" class="trval"></span></h4><div id="trTheirRoster" class="trros"></div></div>
+        </div>
+      </div>
+      <div class="card" id="trVerdictCard" style="display:none"><h3>Verdict</h3><div id="trVerdict"></div></div>
+      <div class="card" id="trSugCard" style="display:none"><h3>Suggested targets</h3><div id="trSugs"></div></div>
+    </div>
+  </div>
+</div>
 
 <div class="top"><div class="top-in">
   <div class="brand">2026 Draft Assistant <span id="fmtTag">Full PPR</span></div>
@@ -2093,6 +2278,327 @@ function renderGrid(){
   }
   g.innerHTML=html;
 }
+/* ================= LEAGUE HUB (Home + Trade Advisor) =================
+   Read-only Sleeper league sync: username -> leagues -> rosters.
+   Player-ID map comes from Sleeper's players dump, slimmed and cached. */
+const LG = { user:null, userId:null, leagues:[], league:null, rosters:[], users:[], pmap:null, myRosterId:null,
+             out:new Set(), inn:new Set(), theirRosterId:null };
+function lgSave(){ try{ localStorage.setItem('ffleague2026', JSON.stringify({u:LG.user, id:LG.league&&LG.league.league_id})); }catch(e){} }
+async function lgFetch(url){ const r=await fetch(url); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
+async function lgPlayerMap(){
+  if(LG.pmap) return LG.pmap;
+  try{ const c=JSON.parse(localStorage.getItem('ffplmap2026')||'null');
+       if(c && c.ts && Date.now()-c.ts < 3*864e5){ LG.pmap=c.m; return c.m; } }catch(e){}
+  const dump=await lgFetch('https://api.sleeper.app/v1/players/nfl');
+  const m={};
+  Object.keys(dump).forEach(id=>{ const p=dump[id];
+    if(p && ['QB','RB','WR','TE','K','DEF'].includes(p.position) && (p.team||p.position==='DEF'))
+      m[id]=[ (p.full_name || ((p.first_name||'')+' '+(p.last_name||'')).trim() || id), p.position, p.team||'FA' ];
+  });
+  LG.pmap=m;
+  try{ localStorage.setItem('ffplmap2026', JSON.stringify({ts:Date.now(), m})); }catch(e){}
+  return m;
+}
+function lgBoardMatch(name,pos,team){
+  const meta = pos==='DEF' ? {first_name:(team||''), last_name:'Defense', position:'DEF', team}
+                           : {first_name:name.split(' ')[0], last_name:name.split(' ').slice(1).join(' '), position:pos, team};
+  return slpFind(meta);
+}
+async function lgFind(){
+  const st=$('lgSt'), u=($('lgUser').value||'').trim();
+  if(!u){ st.textContent='Enter your Sleeper username.'; st.className='slpst bad'; return; }
+  st.textContent='Looking up…'; st.className='slpst';
+  try{
+    const user=await lgFetch('https://api.sleeper.app/v1/user/'+encodeURIComponent(u));
+    if(!user||!user.user_id) throw new Error('user not found');
+    LG.user=user.username||u; LG.userId=user.user_id;
+    LG.leagues=await lgFetch('https://api.sleeper.app/v1/user/'+user.user_id+'/leagues/nfl/2026');
+    st.textContent=LG.leagues.length? 'Found '+LG.leagues.length+' league'+(LG.leagues.length>1?'s':'') : 'No 2026 leagues on this account.';
+    st.className='slpst '+(LG.leagues.length?'ok':'bad');
+    renderLgList();
+  }catch(e){ st.textContent='Could not find that user ('+e.message+').'; st.className='slpst bad'; }
+}
+function avUrl(av){ return av? 'https://sleepercdn.com/avatars/thumbs/'+av : ''; }
+function hshot(pl){
+  if(pl.pos==='DST') return `<img class="hshot" src="https://sleepercdn.com/images/team_logos/nfl/${(pl.team||'').toLowerCase()}.png" onerror="this.style.visibility='hidden'">`;
+  return `<img class="hshot" src="https://sleepercdn.com/content/nfl/players/thumb/${pl.pid}.jpg" onerror="this.style.visibility='hidden'">`;
+}
+function renderLgList(){
+  $('lgList').innerHTML=(LG.leagues||[]).map(l=>{
+    const dyn=(l.settings&&l.settings.type===2);
+    const on=LG.league&&LG.league.league_id===l.league_id;
+    return `<div class="lgchip ${on?'on':''}" data-lg="${l.league_id}">
+      ${l.avatar?`<img src="${avUrl(l.avatar)}">`:''}<span>${esc(l.name||'League')}</span>${dyn?'<span class="lgdyn">DYN</span>':''}</div>`;
+  }).join('');
+  document.querySelectorAll('.lgchip').forEach(el=>el.onclick=()=>lgOpen(el.dataset.lg));
+}
+async function lgOpen(id){
+  const st=$('lgSt'); st.textContent='Loading league…'; st.className='slpst';
+  try{
+    const l=(LG.leagues||[]).find(x=>x.league_id===id) || await lgFetch('https://api.sleeper.app/v1/league/'+id);
+    LG.league=l;
+    const [rosters,users]=await Promise.all([
+      lgFetch('https://api.sleeper.app/v1/league/'+id+'/rosters'),
+      lgFetch('https://api.sleeper.app/v1/league/'+id+'/users')]);
+    LG.rosters=rosters; LG.users=users;
+    const mine=rosters.find(r=>r.owner_id===LG.userId);
+    LG.myRosterId=mine?mine.roster_id:null;
+    await lgPlayerMap();
+    lgSave(); st.textContent='Synced ✓'; st.className='slpst ok';
+    renderLgList(); renderTeam(); trInit();
+    const tag=$('avLeague'); if(tag) tag.textContent=(l.name||'')+(LG.myDyn()?' · dynasty':'');
+  }catch(e){ st.textContent='Could not load league ('+e.message+').'; st.className='slpst bad'; }
+}
+LG.myDyn=()=>!!(LG.league&&LG.league.settings&&LG.league.settings.type===2);
+function lgTeamName(rosterId){
+  const r=(LG.rosters||[]).find(x=>x.roster_id===rosterId); if(!r) return 'Team '+rosterId;
+  const u=(LG.users||[]).find(x=>x.user_id===r.owner_id);
+  return (u&&((u.metadata&&u.metadata.team_name)||u.display_name)) || 'Team '+rosterId;
+}
+function lgPlayers(rosterId){
+  const r=(LG.rosters||[]).find(x=>x.roster_id===rosterId); if(!r||!LG.pmap) return [];
+  return (r.players||[]).map(pid=>{
+    const m=LG.pmap[pid]; if(!m) return null;
+    const [name,pos,team]=m; const bp=lgBoardMatch(name,pos,team);
+    return { pid, name, pos:pos==='DEF'?'DST':pos, team, bp,
+      starter:(r.starters||[]).includes(pid),
+      dyn: bp&&bp.age!==undefined ? (RAW.find(x=>x[0]===bp.name)||[])[10]||0 : 0 };
+  }).filter(Boolean);
+}
+function lgValue(pl){
+  const dynMode=LG.myDyn();
+  if(dynMode){
+    const r=pl.dyn||0;
+    if(r>0) return Math.round(10000*Math.exp(-0.024*(r-1)));
+    return pl.bp ? Math.max(60, Math.round(1400 - 4*pl.bp.adp)) : 40;
+  }
+  if(pl.bp) return Math.max(60, Math.round(9000*Math.exp(-0.028*(pl.bp.rank-1))));
+  return 40;
+}
+function lgNeeds(rosterId){
+  const rp=(LG.league&&LG.league.roster_positions)||[];
+  const req={QB:0,RB:0,WR:0,TE:0,FLEX:0,K:0,DST:0};
+  rp.forEach(s=>{ if(s==='QB')req.QB++; else if(s==='RB')req.RB++; else if(s==='WR')req.WR++;
+    else if(s==='TE')req.TE++; else if(s==='FLEX'||s==='WRRB'||s==='SUPER_FLEX')req.FLEX++;
+    else if(s==='K')req.K++; else if(s==='DEF')req.DST++; });
+  const have={QB:0,RB:0,WR:0,TE:0,K:0,DST:0};
+  lgPlayers(rosterId).forEach(p=>{ if(have[p.pos]!==undefined) have[p.pos]++; });
+  const surplus={};
+  ['QB','RB','WR','TE'].forEach(pos=>{
+    const startable=req[pos]+( (pos==='RB'||pos==='WR'||pos==='TE') ? req.FLEX/3 : 0 );
+    surplus[pos]=+(have[pos]-(startable+1.5)).toFixed(1);
+  });
+  return {req, have, surplus};
+}
+function renderTeam(){ renderHome(); }
+function renderHome(){
+  const hero=$('teamHero'), grid=$('homeGrid');
+  if(!hero) return;
+  if(!LG.league||!LG.myRosterId){ hero.style.display='none'; grid.style.display='none'; return; }
+  hero.style.display='flex'; grid.style.display='grid';
+  const me=(LG.users||[]).find(u=>u.user_id===LG.userId);
+  const av=(me&&((me.metadata&&me.metadata.avatar)||avUrl(me.avatar)))||avUrl(LG.league.avatar);
+  const avEl=$('heroAv'); avEl.src=av||''; avEl.style.visibility=av?'':'hidden';
+  $('teamTitle').textContent=lgTeamName(LG.myRosterId);
+  $('teamMeta').textContent=(LG.league.name||'')+' · '+(LG.myDyn()?'dynasty':'redraft')+' · '+(LG.league.total_rosters||'?')+' teams';
+  const pls=lgPlayers(LG.myRosterId);
+  const tot=pls.reduce((s,p)=>s+lgValue(p),0);
+  const flags=pls.filter(p=>p.bp&&(p.bp.flag==='out'||p.bp.flag==='inj')).length;
+  const n=lgNeeds(LG.myRosterId);
+  const weak=Object.entries(n.surplus).filter(([,v])=>v<0).map(([k])=>k);
+  const strong=Object.entries(n.surplus).filter(([,v])=>v>=1.5).map(([k])=>k);
+  const pr=powerRank();
+  const myPr=pr.findIndex(x=>x.rid===LG.myRosterId)+1;
+  $('teamAnalysis').innerHTML=
+    `<div class="tstat"><b>#${myPr||'—'}</b>power rank</div>
+     <div class="tstat"><b>${tot.toLocaleString()}</b>roster value</div>
+     <div class="tstat ${flags?'warn':'good'}"><b>${flags}</b>injury flags</div>
+     <div class="tstat ${weak.length?'warn':'good'}"><b>${weak.length?weak.join(' '):'none'}</b>thin spots</div>
+     <div class="tstat"><b>${strong.length?strong.join(' '):'—'}</b>surplus</div>`;
+  // ----- roster -----
+  const maxV=Math.max(...pls.map(p=>lgValue(p)),1);
+  let html='';
+  ['QB','RB','WR','TE','K','DST'].forEach(pos=>{
+    const grp=pls.filter(p=>p.pos===pos).sort((a,b)=>lgValue(b)-lgValue(a));
+    if(!grp.length) return;
+    html+=`<div class="rospos">${pos} · ${grp.length}</div>`;
+    grp.forEach((p,gi)=>{
+      const b=p.bp;
+      const chips=b?`${b.flag==='out'?'<span class="dt outt">OUT</span>':b.flag==='inj'?'<span class="dt cuff" style="background:#4a3016;color:#eeb063">INJ</span>':''}`:'';
+      const meta=b?`${LG.myDyn()&&p.dyn?('dyn #'+p.dyn+' · '):''}${b.pj?('proj '+b.pj.toFixed(1)+'/g'):''}`:'';
+      html+=`<div class="rosrow p${p.pos}" data-ri="${pos}${gi}">${hshot(p)}<b>${esc(p.name)}</b>
+        <span style="color:var(--dim2);font-size:11px">${esc(p.team)}</span>${chips}${p.starter?'<span class="dt you">STARTER</span>':''}
+        <span class="rmeta">${meta}</span><span class="valbar"><i style="width:${Math.round(100*lgValue(p)/maxV)}%"></i></span></div>
+        <div class="rosnote" data-rn="${pos}${gi}">${b?esc(b.note||'No news on the board.'):'Not on the researched board — no analysis available.'}</div>`;
+    });
+  });
+  $('teamRoster').innerHTML=html;
+  document.querySelectorAll('.rosrow').forEach(el=>el.onclick=()=>{
+    const nEl=document.querySelector(`.rosnote[data-rn="${el.dataset.ri}"]`); if(nEl) nEl.classList.toggle('open');
+  });
+  renderHeadlines(pls); renderLineupAlerts(); renderWaiverRadar(); renderPowerRank(pr);
+}
+function renderHeadlines(pls){
+  const flagged=pls.filter(p=>p.bp&&p.bp.flag).sort((a,b)=>({out:0,inj:1,risk:2}[a.bp.flag]??3)-({out:0,inj:1,risk:2}[b.bp.flag]??3));
+  $('hlFeed').innerHTML = flagged.length ? flagged.map(p=>
+    `<div class="hlrow">${hshot(p)}<div><b>${esc(p.name)}</b><span class="hltag ${p.bp.flag}">${p.bp.flag.toUpperCase()}</span><br>
+     <span style="color:var(--dim)">${esc((p.bp.note||'').slice(0,180))}${(p.bp.note||'').length>180?'…':''}</span></div></div>`).join('')
+    : '<div class="emptymsg">No injury or risk flags on your roster — clean bill of health.</div>';
+}
+function renderLineupAlerts(){
+  const pls=lgPlayers(LG.myRosterId);
+  const starters=pls.filter(p=>p.starter), bench=pls.filter(p=>!p.starter);
+  const proj=p=>(p.bp&&p.bp.pj)||0;
+  const alerts=[];
+  ['QB','RB','WR','TE'].forEach(pos=>{
+    const st=starters.filter(p=>p.pos===pos), bn=bench.filter(p=>p.pos===pos&&proj(p)>0);
+    if(!st.length||!bn.length) return;
+    const worst=st.reduce((a,b)=>proj(a)<=proj(b)?a:b), best=bn.reduce((a,b)=>proj(a)>=proj(b)?a:b);
+    if(proj(best) > proj(worst)+0.4)
+      alerts.push(`<div class="lurow">Start <b>${esc(best.name)}</b> (${proj(best).toFixed(1)}/g) over <s>${esc(worst.name)}</s> (${proj(worst).toFixed(1)}/g) at ${pos}.</div>`);
+  });
+  starters.forEach(p=>{ if(p.bp&&p.bp.flag==='out')
+    alerts.unshift(`<div class="lurow" style="color:var(--bad)"><b style="color:var(--bad)">${esc(p.name)}</b> is flagged OUT and is in your starting lineup.</div>`); });
+  $('luFeed').innerHTML=alerts.length?alerts.join(''):'<div class="emptymsg">Lineup looks right — every starter out-projects your bench.</div>';
+}
+async function renderWaiverRadar(){
+  const el=$('wvFeed'); el.innerHTML='<div class="emptymsg">Scanning trending adds…</div>';
+  try{
+    const tr=await lgFetch('https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=24&limit=40');
+    const owned=new Set(); (LG.rosters||[]).forEach(r=>(r.players||[]).forEach(id=>owned.add(id)));
+    const rows=tr.filter(t=>!owned.has(String(t.player_id)) && LG.pmap[t.player_id]).slice(0,8).map(t=>{
+      const [name,pos,team]=LG.pmap[t.player_id];
+      const pl={pid:String(t.player_id),name,pos:pos==='DEF'?'DST':pos,team,bp:lgBoardMatch(name,pos,team)};
+      return `<div class="wvrow">${hshot(pl)}<span class="pos ${pl.pos}">${pl.pos}</span><b>${esc(name)}</b>
+        <span style="color:var(--dim2);font-size:10.5px">${esc(team||'')}</span>
+        <span class="adds">+${(t.count||0).toLocaleString()} adds</span></div>`;
+    });
+    el.innerHTML=rows.length?rows.join(''):'<div class="emptymsg">Nothing trending that\'s unowned in this league.</div>';
+  }catch(e){ el.innerHTML='<div class="emptymsg">Trending data unavailable right now.</div>'; }
+}
+function powerRank(){
+  return (LG.rosters||[]).map(r=>({rid:r.roster_id,
+    val:lgPlayers(r.roster_id).reduce((s,p)=>s+lgValue(p),0)})).sort((a,b)=>b.val-a.val);
+}
+function renderPowerRank(pr){
+  pr=pr||powerRank();
+  const max=pr.length?pr[0].val:1;
+  $('prFeed').innerHTML=pr.map((t,i)=>{
+    const r=(LG.rosters||[]).find(x=>x.roster_id===t.rid);
+    const u=(LG.users||[]).find(x=>x.user_id===(r&&r.owner_id));
+    const me=t.rid===LG.myRosterId;
+    return `<div class="prrow ${me?'me':''}"><span class="prn">${i+1}</span>
+      ${u&&u.avatar?`<img src="${avUrl(u.avatar)}">`:'<span style="width:24px"></span>'}
+      <b>${esc(lgTeamName(t.rid))}</b>
+      <span class="prbar"><i style="width:${Math.round(100*t.val/max)}%"></i></span>
+      <span style="color:var(--dim2);font-size:10.5px">${t.val.toLocaleString()}</span></div>`;
+  }).join('');
+}
+/* ---------------- Trade Advisor ---------------- */
+function trInit(){
+  const has=!!(LG.league&&LG.myRosterId);
+  $('tradeNeedsLeague').style.display=has?'none':'';
+  $('tradeUI').style.display=has?'':'none';
+  if(!has) return;
+  $('trMode').textContent=LG.myDyn()?'dynasty values (3-yr window)':'redraft values';
+  const sel=$('trTeam'); sel.innerHTML='';
+  (LG.rosters||[]).filter(r=>r.roster_id!==LG.myRosterId)
+    .forEach(r=>sel.add(new Option(lgTeamName(r.roster_id), r.roster_id)));
+  LG.theirRosterId=+sel.value||null;
+  sel.onchange=()=>{ LG.theirRosterId=+sel.value; LG.out.clear(); LG.inn.clear(); trRenderSides(); $('trVerdictCard').style.display='none'; };
+  $('trAnalyze').onclick=trAnalyze;
+  $('trClear').onclick=()=>{ LG.out.clear(); LG.inn.clear(); trRenderSides(); $('trVerdictCard').style.display='none'; };
+  $('trSuggest').onclick=trSuggest;
+  trRenderSides();
+}
+function trRenderSides(){
+  const draw=(rid,el,set)=>{
+    const pls=lgPlayers(rid).sort((a,b)=>lgValue(b)-lgValue(a));
+    $(el).innerHTML=pls.map(p=>`<div class="trrow ${set.has(p.pid)?'sel':''}" data-pid="${p.pid}">
+      ${hshot(p)}<span class="pos ${p.pos}">${p.pos}</span><b>${esc(p.name)}</b>
+      <span class="rmeta">${LG.myDyn()&&p.dyn?('#'+p.dyn+' · '):''}${lgValue(p).toLocaleString()}</span></div>`).join('');
+    document.querySelectorAll('#'+el+' .trrow').forEach(row=>row.onclick=()=>{
+      const id=row.dataset.pid; set.has(id)?set.delete(id):set.add(id); trRenderSides(); });
+  };
+  draw(LG.myRosterId,'trMyRoster',LG.out);
+  if(LG.theirRosterId) draw(LG.theirRosterId,'trTheirRoster',LG.inn);
+  const val=(rid,set)=>lgPlayers(rid).filter(p=>set.has(p.pid)).reduce((s,p)=>s+lgValue(p),0);
+  $('trOutVal').textContent=LG.out.size? '−'+val(LG.myRosterId,LG.out).toLocaleString():'';
+  $('trInVal').textContent=LG.inn.size? '+'+val(LG.theirRosterId,LG.inn).toLocaleString():'';
+}
+function trAnalyze(){
+  const my=lgPlayers(LG.myRosterId), th=lgPlayers(LG.theirRosterId);
+  const out=my.filter(p=>LG.out.has(p.pid)), inn=th.filter(p=>LG.inn.has(p.pid));
+  if(!out.length&&!inn.length){ $('trVerdictCard').style.display=''; $('trVerdict').innerHTML='<span style="color:var(--dim)">Select players on both sides first.</span>'; return; }
+  const vOut=out.reduce((s,p)=>s+lgValue(p),0), vIn=inn.reduce((s,p)=>s+lgValue(p),0);
+  const ledger=vIn-vOut, pct=vOut?Math.round(100*ledger/vOut):100;
+  const n=lgNeeds(LG.myRosterId);
+  let fit=0; const fitNotes=[];
+  inn.forEach(p=>{ if(n.surplus[p.pos]!==undefined && n.surplus[p.pos]<0){ fit+=1; fitNotes.push('adds '+p.pos+' where you are thin'); } });
+  out.forEach(p=>{ if(n.surplus[p.pos]!==undefined && n.surplus[p.pos]>=1.5){ fit+=1; fitNotes.push('sends from your '+p.pos+' surplus'); }
+                   if(n.surplus[p.pos]!==undefined && n.surplus[p.pos]<0){ fit-=1.5; fitNotes.push('weakens '+p.pos+' where you are ALREADY thin'); } });
+  const ageNote=[];
+  if(LG.myDyn()){
+    const avg=a=>a.length?a.reduce((s,p)=>s+((p.bp&&p.bp.age)||26),0)/a.length:0;
+    const aIn=avg(inn), aOut=avg(out);
+    if(inn.length&&out.length){ if(aIn<aOut-1.5) ageNote.push('you get YOUNGER ('+aIn.toFixed(0)+' vs '+aOut.toFixed(0)+' avg) — good for the 3-yr window');
+      else if(aIn>aOut+1.5) ageNote.push('you get OLDER ('+aIn.toFixed(0)+' vs '+aOut.toFixed(0)+') — make sure the window justifies it'); }
+  }
+  const flagged=inn.filter(p=>p.bp&&p.bp.flag==='out').map(p=>p.name);
+  let score = pct + fit*8;
+  let head, cls;
+  if(score>=12){ head='ACCEPT — this trade wins for you'; cls='good'; }
+  else if(score>=-8){ head='FAIR — close to even, decide on fit'; cls='mid'; }
+  else { head='DECLINE — you are giving up too much'; cls='bad'; }
+  const maxv=Math.max(vOut,vIn,1);
+  $('trVerdictCard').style.display='';
+  $('trVerdict').innerHTML=
+    `<div class="trverdict-head ${cls}">${head}</div>
+     <div class="trbars">
+       <div class="trbar"><span class="lbl">You send</span><span class="bar"><i style="width:${Math.round(100*vOut/maxv)}%;background:var(--bad)"></i></span><span>${vOut.toLocaleString()}</span></div>
+       <div class="trbar"><span class="lbl">You receive</span><span class="bar"><i style="width:${Math.round(100*vIn/maxv)}%;background:var(--good)"></i></span><span>${vIn.toLocaleString()}</span></div>
+     </div>
+     <div style="font-size:12.5px;line-height:1.6;color:var(--dim)">
+       Value ledger: <b style="color:var(--txt)">${ledger>=0?'+':''}${ledger.toLocaleString()} (${pct>=0?'+':''}${pct}%)</b>.
+       ${fitNotes.length?'Fit: '+fitNotes.join('; ')+'.':''}
+       ${ageNote.length?ageNote.join('. ')+'.':''}
+       ${flagged.length?'<span style="color:var(--warn)">Heads up: '+esc(flagged.join(', '))+' currently flagged OUT on the board.</span>':''}
+     </div>`;
+}
+function trSuggest(){
+  const n=lgNeeds(LG.myRosterId);
+  const myWeak=Object.entries(n.surplus).filter(([,v])=>v<0).map(([k])=>k);
+  const myStrong=Object.entries(n.surplus).filter(([,v])=>v>=1).map(([k])=>k);
+  const sugs=[];
+  (LG.rosters||[]).filter(r=>r.roster_id!==LG.myRosterId).forEach(r=>{
+    const tn=lgNeeds(r.roster_id);
+    myWeak.forEach(wp=>{
+      if(tn.surplus[wp]>=1){
+        const theirs=lgPlayers(r.roster_id).filter(p=>p.pos===wp).sort((a,b)=>lgValue(b)-lgValue(a));
+        const give=myStrong.filter(sp=>tn.surplus[sp]<0);
+        const target=theirs[Math.min(1,theirs.length-1)];
+        if(target){
+          const gp=give.length? lgPlayers(LG.myRosterId).filter(p=>p.pos===give[0]).sort((a,b)=>lgValue(b)-lgValue(a))[1] : null;
+          sugs.push({team:lgTeamName(r.roster_id), rid:r.roster_id, get:target, giveP:gp, why:`they have surplus ${wp}${give.length?` and are thin at ${give[0]} where you are deep`:''}`});
+        }
+      }
+    });
+  });
+  $('trSugCard').style.display='';
+  $('trSugs').innerHTML = sugs.length ? sugs.slice(0,4).map(s=>
+    `<div class="sugrow"><div class="sughead">Target <b>${esc(s.get.name)}</b> (${s.get.pos}) from ${esc(s.team)}</div>
+     ${s.giveP?`Offer around <b>${esc(s.giveP.name)}</b> (${s.giveP.pos}, val ${lgValue(s.giveP).toLocaleString()}) — `:''}${esc(s.why)}.
+     Their asking value: ~${lgValue(s.get).toLocaleString()}.</div>`).join('')
+    : '<div style="color:var(--dim);font-size:12.5px">No obvious complementary trades right now — your roster shape matches the league. Check back after injuries shake things up.</div>';
+}
+/* ---------------- App-level view switching ---------------- */
+function setView(v){
+  document.body.dataset.view=v;
+  document.querySelectorAll('.avtab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
+  try{ localStorage.setItem('ffview2026', v); }catch(e){}
+  if(v==='home') renderHome();
+  if(v==='trade') trInit();
+}
 /* ================= ACTIONS ================= */
 function markTaken(id, mine){
   if(takenIds().has(id)) return;
@@ -2215,6 +2721,21 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
     const savedSlp=localStorage.getItem('ffsleeper2026');
     if(savedSlp){ $('slpIn').value=savedSlp; slpConnect(savedSlp); }   // draft-day reload: reconnect automatically
   }catch(e){}
+
+  // ----- app-level views -----
+  document.querySelectorAll('.avtab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+  $('lgFind').onclick=lgFind;
+  $('lgUser').addEventListener('keydown',e=>{ if(e.key==='Enter') lgFind(); });
+  let startView='draft';
+  try{
+    const savedLg=JSON.parse(localStorage.getItem('ffleague2026')||'null');
+    const savedView=localStorage.getItem('ffview2026');
+    if(savedLg&&savedLg.u){ $('lgUser').value=savedLg.u;
+      lgFind().then(()=>{ if(savedLg.id) lgOpen(savedLg.id); }).catch(()=>{});
+    }
+    if(savedView&&['home','draft','trade'].includes(savedView)) startView=savedView;
+  }catch(e){}
+  setView(startView);
 
   offerRestore();
   render();
