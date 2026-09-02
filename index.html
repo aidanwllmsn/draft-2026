@@ -587,6 +587,106 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 .emptymsg{color:var(--dim2);font-size:12px;padding:6px 2px}
 .trrow .hshot{width:26px;height:26px}
 @media (max-width:900px){ .homegrid{grid-template-columns:1fr} .hero .tanalysis{margin:8px 0 0} }
+
+/* ================= LANDING (pre-sync) ================= */
+.land{display:flex;flex-direction:column;gap:16px}
+.landhero{border:1px solid var(--line);border-radius:16px;padding:34px 30px;
+  background:radial-gradient(1100px 380px at 12% -30%,#1b3450 0%,transparent 62%),linear-gradient(180deg,#151b25,#11151d)}
+.landkick{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.landtitle{font-size:33px;font-weight:800;letter-spacing:-.8px;line-height:1.12;margin:0 0 10px;max-width:660px}
+.landtitle em{font-style:normal;color:var(--acc)}
+.landsub{font-size:14.5px;color:var(--dim);line-height:1.6;max-width:620px;margin:0}
+.landcta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.bigbtn{background:var(--acc);color:#06121f;border-radius:9px;padding:10px 20px;font-size:14px;font-weight:800;border:1px solid var(--acc)}
+.bigbtn:hover{background:#6bb0ff}
+.bigbtn.ghost{background:transparent;color:var(--txt);border-color:var(--line2)}
+.bigbtn.ghost:hover{background:var(--panel2);border-color:var(--acc);color:var(--acc)}
+.ctahint{font-size:11.5px;color:var(--dim2)}
+.featgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.feat{border:1px solid var(--line);border-radius:12px;padding:16px 17px;background:var(--panel)}
+.feat:hover{border-color:var(--line2)}
+.featicon{font-size:19px;margin-bottom:9px;display:block}
+.feat h4{margin:0 0 6px;font-size:13.5px;font-weight:800}
+.feat p{margin:0;font-size:12.5px;color:var(--dim);line-height:1.55}
+.feat ul{margin:9px 0 0;padding-left:16px;font-size:12px;color:var(--dim2);line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.step{display:flex;gap:11px;align-items:flex-start;font-size:12.5px;color:var(--dim);line-height:1.55}
+.stepn{flex:none;width:24px;height:24px;border-radius:50%;background:var(--panel2);border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:var(--acc)}
+.step b{display:block;color:var(--txt);font-size:12.5px;margin-bottom:2px}
+.trustrow{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--dim2);padding:2px}
+.trustrow span b{color:var(--dim);font-weight:700}
+.demobar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid #6b5220;background:linear-gradient(180deg,#2b2312,#211b0e);
+  border-radius:10px;padding:9px 14px;font-size:12.5px;color:#e8c95a}
+.demobar b{color:#ffdd7a}
+.demobar .btn{margin-left:auto;border-color:#6b5220;background:#332a14;color:#ffdd7a}
+.demobar .btn:hover{background:#443718}
+.initav{width:26px;height:26px;border-radius:50%;flex:none;display:inline-flex;align-items:center;justify-content:center;
+  font-size:9.5px;font-weight:800;letter-spacing:-.2px;background:var(--panel2);border:1px solid var(--line2);color:var(--dim)}
+.initav.QB{background:#2a1f3d;border-color:#4a3a66;color:#c9a6f5}
+.initav.RB{background:#14301f;border-color:#2c5a3f;color:#7fd8a6}
+.initav.WR{background:#132a42;border-color:#2b4d70;color:#8cc4ff}
+.initav.TE{background:#3a2415;border-color:#664226;color:#f0b076}
+
+/* ================= TRADE ADVISOR v2 ================= */
+.trtabs{display:flex;gap:4px;border-bottom:1px solid var(--line);padding:0 12px;background:var(--panel2)}
+.trtab{padding:9px 13px;font-size:12.5px;font-weight:700;color:var(--dim);border-bottom:2px solid transparent;margin-bottom:-1px}
+.trtab:hover{color:var(--txt)}
+.trtab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.trsearch{width:100%;background:var(--panel2);border:1px solid var(--line2);color:var(--txt);border-radius:8px;padding:9px 12px;font-size:13.5px}
+.trsearch::placeholder{color:var(--dim2)}
+.findrow{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--line);border-radius:9px;
+  margin-bottom:7px;background:var(--panel2);font-size:12.5px;cursor:pointer}
+.findrow:hover{border-color:var(--acc)}
+.findrow .owner{margin-left:auto;font-size:11px;color:var(--dim);text-align:right}
+.findrow .owner b{display:block;color:var(--txt);font-size:11.5px}
+.pkgbox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:9px;padding:11px 13px;margin-bottom:8px;background:var(--panel2)}
+.pkghead{font-size:12.5px;font-weight:800;margin-bottom:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pkghead .tag{font-size:9.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;border-radius:4px;padding:2px 6px}
+.tag.fair{background:#14301f;color:#7fd8a6}
+.tag.rich{background:#3a2415;color:#f0b076}
+.tag.light{background:#2a1f3d;color:#c9a6f5}
+.pkgline{font-size:12.5px;color:var(--dim);line-height:1.6}
+.pkgline b{color:var(--txt)}
+.pkgbtn{margin-top:8px;font-size:11.5px;padding:4px 10px}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.dualcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--panel2)}
+.dualcard.good{border-color:#2f7a52;background:linear-gradient(180deg,#16301f,#131c17)}
+.dualcard.bad{border-color:#6b2f2f;background:linear-gradient(180deg,#301818,#1d1414)}
+.dualcard.mid{border-color:#6b5220;background:linear-gradient(180deg,#2a2413,#1c1a13)}
+.dualwho{font-size:10.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+.dualverd{font-size:15px;font-weight:800;margin-bottom:7px}
+.dualcard.good .dualverd{color:var(--good)} .dualcard.bad .dualverd{color:var(--bad)} .dualcard.mid .dualverd{color:var(--warn)}
+.dualstat{display:flex;justify-content:space-between;font-size:11.5px;color:var(--dim);padding:2px 0}
+.dualstat b{color:var(--txt);font-variant-numeric:tabular-nums}
+.dualstat b.up{color:var(--good)} .dualstat b.dn{color:var(--bad)}
+.lineupwrap{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:10px}
+.lineuphd{background:var(--panel2);padding:7px 12px;font-size:10.5px;font-weight:800;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--line)}
+.lurow2{display:flex;align-items:center;gap:9px;padding:6px 12px;font-size:12.5px;border-bottom:1px solid var(--line)}
+.lurow2:last-child{border-bottom:none}
+.luslot{width:44px;flex:none;font-size:10px;font-weight:800;color:var(--dim2);letter-spacing:.5px}
+.luname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.luname.new{color:var(--good);font-weight:700}
+.luname.gone{color:var(--dim2);text-decoration:line-through}
+.lupts{font-variant-numeric:tabular-nums;color:var(--dim);font-size:11.5px}
+.ludelta{font-size:11.5px;font-weight:800;font-variant-numeric:tabular-nums;width:52px;text-align:right}
+.ludelta.up{color:var(--good)} .ludelta.dn{color:var(--bad)} .ludelta.flat{color:var(--dim2)}
+.fixrow{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;
+  margin-bottom:7px;background:var(--panel2);font-size:12.5px;flex-wrap:wrap}
+.fixrow .why{color:var(--dim);flex:1;min-width:180px}
+.aibox{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:10px;background:var(--panel2);
+  font-size:13px;line-height:1.65}
+.aibox .aihd{font-size:10.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.keyrow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.keyrow input{flex:1;min-width:190px;background:var(--panel);border:1px solid var(--line2);color:var(--txt);
+  border-radius:7px;padding:7px 10px;font-size:12.5px}
+.trfilt{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.trfilt button{font-size:11px;font-weight:700;padding:3px 9px;border-radius:14px;border:1px solid var(--line2);color:var(--dim)}
+.trfilt button.on{border-color:var(--acc);color:var(--acc);background:#152436}
+.trros{max-height:none}
+@media (max-width:900px){ .featgrid{grid-template-columns:1fr} .steps{grid-template-columns:1fr} .dual{grid-template-columns:1fr}
+  .landtitle{font-size:26px} .landhero{padding:24px 20px} }
 </style>
 </head>
 <body>
@@ -609,6 +709,59 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
         <button class="btn go" id="lgFind">Sync</button>
         <span class="slpst" id="lgSt"></span>
         <div id="lgList" class="lgchips"></div>
+      </div>
+    </div>
+
+    <div id="demoBar" class="demobar" style="display:none">
+      <span>&#9654;</span>
+      <span><b>Demo league.</b> Fake rosters built from the 2026 board so you can try everything before syncing.</span>
+      <button class="btn" id="demoExit">Exit demo</button>
+    </div>
+
+    <div id="landing" class="land" style="display:none">
+      <div class="landhero">
+        <div class="landkick">Sleeper-connected &middot; free &middot; no account</div>
+        <h1 class="landtitle">Your fantasy team, run like a <em>front office</em>.</h1>
+        <p class="landsub">Sync a Sleeper league and get an honest read on your roster: who to start,
+          who to cut, who to trade for, and whether the deal in your inbox is actually good.
+          Every verdict shows its math &mdash; no black-box "trade grades".</p>
+        <div class="landcta">
+          <button class="bigbtn" id="ctaSync">Sync my Sleeper league</button>
+          <button class="bigbtn ghost" id="ctaDemo">&#9654; Explore a demo league</button>
+          <span class="ctahint">Read-only. Username only &mdash; never a password.</span>
+        </div>
+      </div>
+
+      <div class="featgrid">
+        <div class="feat">
+          <span class="featicon">&#127942;</span>
+          <h4>League Hub</h4>
+          <p>Your roster ranked by value, with the news that actually moves it.</p>
+          <ul><li>Power rankings across all teams</li><li>Start/sit alerts vs your bench</li><li>Waiver radar from live add trends</li></ul>
+        </div>
+        <div class="feat">
+          <span class="featicon">&#128202;</span>
+          <h4>Draft Room</h4>
+          <p>A live draft board that knows your strategy and the room's tendencies.</p>
+          <ul><li>Survival odds to your next pick</li><li>Tier cliffs and positional runs</li><li>Head-to-head player compare</li></ul>
+        </div>
+        <div class="feat">
+          <span class="featicon">&#129309;</span>
+          <h4>Trade Advisor</h4>
+          <p>Scores both sides &mdash; because a trade they'd never accept isn't a trade.</p>
+          <ul><li>Starting-lineup points, before vs after</li><li>Fixes to make a lopsided offer land</li><li>Find any player and price a package</li></ul>
+        </div>
+      </div>
+
+      <div class="card"><h3><span>How it works</span></h3><div class="pad"><div class="steps">
+        <div class="step"><span class="stepn">1</span><div><b>Enter your Sleeper username</b>Not your password. We read public league data through Sleeper's own API.</div></div>
+        <div class="step"><span class="stepn">2</span><div><b>Pick a league</b>Redraft or dynasty &mdash; the valuation model switches automatically, weighting age curves in dynasty.</div></div>
+        <div class="step"><span class="stepn">3</span><div><b>Get the read</b>Roster analysis, lineup alerts and a trade advisor built on your real rosters.</div></div>
+      </div></div></div>
+
+      <div class="trustrow">
+        <span><b>Nothing leaves your browser.</b> League data is fetched directly from Sleeper and cached locally.</span>
+        <span><b>Read-only.</b> This app cannot set your lineup, drop players, or send trades.</span>
       </div>
     </div>
 
@@ -637,27 +790,71 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 
 <!-- ============ TRADE ADVISOR VIEW ============ -->
 <div id="viewTrade" class="viewpane">
-  <div class="vwrap">
-    <div class="card" id="tradeNeedsLeague" style="display:none">
-      <h3>Trade Advisor</h3>
-      <p style="color:var(--dim);font-size:13px">Sync a league on the Home tab first &mdash; the advisor works from your real rosters.</p>
-    </div>
-    <div id="tradeUI" style="display:none">
-      <div class="card">
-        <h3>Build a trade <span class="tmeta" id="trMode"></span></h3>
-        <div class="trpick">
-          <label class="fld">Trade with <select id="trTeam"></select></label>
-          <button class="btn" id="trSuggest">&#10024; Suggest trades</button>
-          <button class="btn go" id="trAnalyze">Analyze trade</button>
-          <button class="btn" id="trClear">Clear</button>
-        </div>
-        <div class="trcols">
-          <div class="trside"><h4>You send <span id="trOutVal" class="trval"></span></h4><div id="trMyRoster" class="trros"></div></div>
-          <div class="trside"><h4>You receive <span id="trInVal" class="trval"></span></h4><div id="trTheirRoster" class="trros"></div></div>
+  <div class="vwrap wide">
+    <div id="tradeNeedsLeague" style="display:none">
+      <div class="landhero">
+        <div class="landkick">Trade Advisor</div>
+        <h1 class="landtitle">Know whether they'll <em>say yes</em>.</h1>
+        <p class="landsub">Most trade tools grade your side and stop there. This one scores both rosters,
+          shows what the deal does to your actual starting lineup, and tells you the smallest change
+          that makes a lopsided offer acceptable to the other manager.</p>
+        <div class="landcta">
+          <button class="bigbtn" id="trCtaSync">Sync a league</button>
+          <button class="bigbtn ghost" id="trCtaDemo">&#9654; Try it on a demo league</button>
         </div>
       </div>
-      <div class="card" id="trVerdictCard" style="display:none"><h3>Verdict</h3><div id="trVerdict"></div></div>
-      <div class="card" id="trSugCard" style="display:none"><h3>Suggested targets</h3><div id="trSugs"></div></div>
+      <div class="featgrid" style="margin-top:14px">
+        <div class="feat"><span class="featicon">&#9878;</span><h4>Both-sides verdict</h4>
+          <p>Value ledger, roster fit and lineup impact scored from your seat <i>and</i> theirs.</p></div>
+        <div class="feat"><span class="featicon">&#128295;</span><h4>Make it fair</h4>
+          <p>One-click fixes that rebalance a deal without gutting the side you care about.</p></div>
+        <div class="feat"><span class="featicon">&#128269;</span><h4>Target finder</h4>
+          <p>Search any player in the league, see who owns him, and get a realistic package.</p></div>
+      </div>
+    </div>
+
+    <div id="tradeUI" style="display:none">
+      <div class="card">
+        <div class="trtabs">
+          <button class="trtab on" data-trtab="build">Build a trade</button>
+          <button class="trtab" data-trtab="find">Find a target</button>
+          <button class="trtab" data-trtab="market">Market scan</button>
+        </div>
+
+        <div class="pad" data-trpane="build">
+          <div class="trpick">
+            <label class="fld">Trade with <select id="trTeam"></select></label>
+            <span class="tmeta" id="trMode"></span>
+            <button class="btn go" id="trAnalyze">Analyze trade</button>
+            <button class="btn" id="trClear">Clear</button>
+          </div>
+          <div class="trcols">
+            <div class="trside"><h4>You send <span id="trOutVal" class="trval"></span></h4><div id="trMyRoster" class="trros"></div></div>
+            <div class="trside"><h4>You receive <span id="trInVal" class="trval"></span></h4><div id="trTheirRoster" class="trros"></div></div>
+          </div>
+        </div>
+
+        <div class="pad" data-trpane="find" style="display:none">
+          <input type="text" class="trsearch" id="trFindQ" placeholder="Search any player in the league — name, position, or team" spellcheck="false">
+          <div class="trfilt" id="trFindFilt">
+            <button class="on" data-fpos="ALL">All</button><button data-fpos="QB">QB</button><button data-fpos="RB">RB</button>
+            <button data-fpos="WR">WR</button><button data-fpos="TE">TE</button>
+          </div>
+          <div id="trFindOut"></div>
+        </div>
+
+        <div class="pad" data-trpane="market" style="display:none">
+          <div style="font-size:12.5px;color:var(--dim);margin-bottom:10px">
+            Every team ranked by how well their roster shape complements yours &mdash; who has what you need
+            and needs what you have.
+          </div>
+          <div id="trMarket"></div>
+        </div>
+      </div>
+
+      <div class="card" id="trVerdictCard" style="display:none"><h3><span>Verdict</span><b id="trVerdictMeta"></b></h3><div class="pad" id="trVerdict"></div></div>
+      <div class="card" id="trFixCard" style="display:none"><h3><span>Make it work</span><b>tap a fix to apply it</b></h3><div class="pad" id="trFix"></div></div>
+      <div class="card" id="trSugCard" style="display:none"><h3><span>Suggested targets</span></h3><div class="pad" id="trSugs"></div></div>
     </div>
   </div>
 </div>
@@ -2320,6 +2517,7 @@ async function lgFind(){
 }
 function avUrl(av){ return av? 'https://sleepercdn.com/avatars/thumbs/'+av : ''; }
 function hshot(pl){
+  if(LG.demo) return `<span class="initav ${pl.pos}">${esc(initials(pl.name))}</span>`;
   if(pl.pos==='DST') return `<img class="hshot" src="https://sleepercdn.com/images/team_logos/nfl/${(pl.team||'').toLowerCase()}.png" onerror="this.style.visibility='hidden'">`;
   return `<img class="hshot" src="https://sleepercdn.com/content/nfl/players/thumb/${pl.pid}.jpg" onerror="this.style.visibility='hidden'">`;
 }
@@ -2392,9 +2590,12 @@ function lgNeeds(rosterId){
 }
 function renderTeam(){ renderHome(); }
 function renderHome(){
-  const hero=$('teamHero'), grid=$('homeGrid');
+  const hero=$('teamHero'), grid=$('homeGrid'), land=$('landing'), dbar=$('demoBar');
   if(!hero) return;
-  if(!LG.league||!LG.myRosterId){ hero.style.display='none'; grid.style.display='none'; return; }
+  const live=!!(LG.league&&LG.myRosterId);
+  if(land) land.style.display=live?'none':'';
+  if(dbar) dbar.style.display=(live&&LG.demo)?'flex':'none';
+  if(!live){ hero.style.display='none'; grid.style.display='none'; return; }
   hero.style.display='flex'; grid.style.display='grid';
   const me=(LG.users||[]).find(u=>u.user_id===LG.userId);
   const av=(me&&((me.metadata&&me.metadata.avatar)||avUrl(me.avatar)))||avUrl(LG.league.avatar);
@@ -2463,6 +2664,15 @@ function renderLineupAlerts(){
 }
 async function renderWaiverRadar(){
   const el=$('wvFeed'); el.innerHTML='<div class="emptymsg">Scanning trending adds…</div>';
+  if(LG.demo){
+    const owned=new Set(); (LG.rosters||[]).forEach(r=>(r.players||[]).forEach(id=>owned.add(id)));
+    const free=P.filter(p=>p.flag!=='out'&&!owned.has('d'+p.id)).sort((a,b)=>a.rank-b.rank).slice(0,8);
+    el.innerHTML=free.map(b=>`<div class="wvrow"><span class="initav ${b.pos}">${esc(initials(b.name))}</span>
+      <span class="pos ${b.pos}">${b.pos}</span><b>${esc(b.name)}</b>
+      <span style="color:var(--dim2);font-size:10.5px">${esc(b.team)}</span>
+      <span class="adds">board #${b.rank}</span></div>`).join('');
+    return;
+  }
   try{
     const tr=await lgFetch('https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=24&limit=40');
     const owned=new Set(); (LG.rosters||[]).forEach(r=>(r.players||[]).forEach(id=>owned.add(id)));
@@ -2494,29 +2704,106 @@ function renderPowerRank(pr){
       <span style="color:var(--dim2);font-size:10.5px">${t.val.toLocaleString()}</span></div>`;
   }).join('');
 }
-/* ---------------- Trade Advisor ---------------- */
+/* ---------------- Trade Advisor v2 ----------------
+   Everything here scores BOTH rosters. A deal the other manager would never
+   accept is not a good trade, however well it grades for us. */
+
+const SLOT_ELIG={ QB:['QB'], RB:['RB'], WR:['WR'], TE:['TE'], K:['K'], DEF:['DST'], DST:['DST'],
+  FLEX:['RB','WR','TE'], WRRB_FLEX:['RB','WR'], REC_FLEX:['WR','TE'], SUPER_FLEX:['QB','RB','WR','TE'] };
+const DEFAULT_SLOTS=['QB','RB','RB','WR','WR','WR','TE','FLEX','K','DEF'];
+function lgSlots(){
+  const rp=(LG.league&&LG.league.roster_positions)||DEFAULT_SLOTS;
+  const s=rp.filter(x=>SLOT_ELIG[x]&&SLOT_ELIG[x].length);
+  return s.length?s:DEFAULT_SLOTS;
+}
+function lgProj(p){ return (p&&p.bp&&p.bp.pj)||0; }
+/* Greedy optimal-ish lineup: scarcest slots claim their man first, flex takes the leftovers. */
+function bestLineup(players){
+  const slots=lgSlots();
+  const order=slots.map((s,i)=>({s,i})).sort((a,b)=>SLOT_ELIG[a.s].length-SLOT_ELIG[b.s].length);
+  const used=new Set(), filled=[];
+  order.forEach(({s,i})=>{
+    const cand=players.filter(p=>!used.has(p.pid)&&SLOT_ELIG[s].includes(p.pos))
+                      .sort((a,b)=>lgProj(b)-lgProj(a))[0];
+    if(cand) used.add(cand.pid);
+    filled.push({slot:s, idx:i, player:cand||null});
+  });
+  filled.sort((a,b)=>a.idx-b.idx);
+  return {slots:filled, total:+filled.reduce((t,x)=>t+lgProj(x.player),0).toFixed(2)};
+}
+function rosterAfter(rid, gives, gets){
+  const g=new Set(gives.map(p=>p.pid));
+  return lgPlayers(rid).filter(p=>!g.has(p.pid)).concat(gets);
+}
+/* One team's read on a deal: value ledger, roster fit, and what it does to the lineup. */
+function sideScore(rid, gives, gets){
+  const vOut=gives.reduce((s,p)=>s+lgValue(p),0), vIn=gets.reduce((s,p)=>s+lgValue(p),0);
+  const pct = vOut ? Math.round(100*(vIn-vOut)/vOut) : (vIn?120:0);
+  const n=lgNeeds(rid); let fit=0; const notes=[];
+  gets.forEach(p=>{ const sp=n.surplus[p.pos]; if(sp===undefined) return;
+    if(sp<0){ fit+=1; notes.push('fills a hole at '+p.pos); }
+    else if(sp>=1.5){ fit-=0.5; notes.push('piles onto an existing '+p.pos+' surplus'); } });
+  gives.forEach(p=>{ const sp=n.surplus[p.pos]; if(sp===undefined) return;
+    if(sp>=1.5){ fit+=1; notes.push('sells from '+p.pos+' depth'); }
+    else if(sp<0){ fit-=1.5; notes.push('thins '+p.pos+', already short'); } });
+  const before=bestLineup(lgPlayers(rid)).total;
+  const after=bestLineup(rosterAfter(rid,gives,gets)).total;
+  const lu=+(after-before).toFixed(2);
+  let age=null;
+  if(LG.myDyn() && gives.length && gets.length){
+    const avg=a=>a.reduce((s,p)=>s+((p.bp&&p.bp.age)||26),0)/a.length;
+    age=+(avg(gives)-avg(gets)).toFixed(1);   // positive = gets younger
+  }
+  return { vOut, vIn, pct, fit, notes:[...new Set(notes)], lu, before, after, age,
+           score: Math.round(pct + fit*8 + lu*2.5) };
+}
+const MY_VERDICT  = s => s>=12 ? {t:'Take it',c:'good'} : s>=-8 ? {t:'Roughly fair',c:'mid'} : {t:'Turn it down',c:'bad'};
+const THEIR_VERDICT = s => s>=12 ? {t:'They should jump',c:'good'} : s>=-8 ? {t:'They might bite',c:'mid'} : {t:"They'll decline",c:'bad'};
+
 function trInit(){
   const has=!!(LG.league&&LG.myRosterId);
   $('tradeNeedsLeague').style.display=has?'none':'';
   $('tradeUI').style.display=has?'':'none';
-  if(!has) return;
-  $('trMode').textContent=LG.myDyn()?'dynasty values (3-yr window)':'redraft values';
+  if(!has){
+    const a=$('trCtaSync'), b=$('trCtaDemo');
+    if(a) a.onclick=()=>{ setView('home'); setTimeout(()=>$('lgUser').focus(),60); };
+    if(b) b.onclick=()=>{ demoLeague(); setView('trade'); };
+    return;
+  }
+  $('trMode').textContent=LG.myDyn()?'dynasty values · 3-yr window':'redraft values';
   const sel=$('trTeam'); sel.innerHTML='';
   (LG.rosters||[]).filter(r=>r.roster_id!==LG.myRosterId)
     .forEach(r=>sel.add(new Option(lgTeamName(r.roster_id), r.roster_id)));
+  if(LG.theirRosterId && [...sel.options].some(o=>+o.value===LG.theirRosterId)) sel.value=LG.theirRosterId;
   LG.theirRosterId=+sel.value||null;
-  sel.onchange=()=>{ LG.theirRosterId=+sel.value; LG.out.clear(); LG.inn.clear(); trRenderSides(); $('trVerdictCard').style.display='none'; };
+  sel.onchange=()=>{ LG.theirRosterId=+sel.value; trReset(); };
   $('trAnalyze').onclick=trAnalyze;
-  $('trClear').onclick=()=>{ LG.out.clear(); LG.inn.clear(); trRenderSides(); $('trVerdictCard').style.display='none'; };
-  $('trSuggest').onclick=trSuggest;
+  $('trClear').onclick=trReset;
+  document.querySelectorAll('.trtab').forEach(b=>b.onclick=()=>trTab(b.dataset.trtab));
+  const q=$('trFindQ'); if(q){ q.oninput=trFindRender; }
+  document.querySelectorAll('#trFindFilt button').forEach(b=>b.onclick=()=>{
+    LG._fpos=b.dataset.fpos;
+    document.querySelectorAll('#trFindFilt button').forEach(x=>x.classList.toggle('on',x===b));
+    trFindRender();
+  });
   trRenderSides();
+}
+function trReset(){
+  LG.out.clear(); LG.inn.clear(); trRenderSides();
+  ['trVerdictCard','trFixCard','trSugCard'].forEach(id=>$(id).style.display='none');
+}
+function trTab(t){
+  document.querySelectorAll('.trtab').forEach(b=>b.classList.toggle('on',b.dataset.trtab===t));
+  document.querySelectorAll('[data-trpane]').forEach(p=>p.style.display=p.dataset.trpane===t?'':'none');
+  if(t==='find') trFindRender();
+  if(t==='market') trMarketRender();
 }
 function trRenderSides(){
   const draw=(rid,el,set)=>{
     const pls=lgPlayers(rid).sort((a,b)=>lgValue(b)-lgValue(a));
     $(el).innerHTML=pls.map(p=>`<div class="trrow ${set.has(p.pid)?'sel':''}" data-pid="${p.pid}">
       ${hshot(p)}<span class="pos ${p.pos}">${p.pos}</span><b>${esc(p.name)}</b>
-      <span class="rmeta">${LG.myDyn()&&p.dyn?('#'+p.dyn+' · '):''}${lgValue(p).toLocaleString()}</span></div>`).join('');
+      <span class="rmeta">${lgProj(p)?lgProj(p).toFixed(1)+'/g · ':''}${lgValue(p).toLocaleString()}</span></div>`).join('');
     document.querySelectorAll('#'+el+' .trrow').forEach(row=>row.onclick=()=>{
       const id=row.dataset.pid; set.has(id)?set.delete(id):set.add(id); trRenderSides(); });
   };
@@ -2526,71 +2813,336 @@ function trRenderSides(){
   $('trOutVal').textContent=LG.out.size? '−'+val(LG.myRosterId,LG.out).toLocaleString():'';
   $('trInVal').textContent=LG.inn.size? '+'+val(LG.theirRosterId,LG.inn).toLocaleString():'';
 }
-function trAnalyze(){
+function trSelected(){
   const my=lgPlayers(LG.myRosterId), th=lgPlayers(LG.theirRosterId);
-  const out=my.filter(p=>LG.out.has(p.pid)), inn=th.filter(p=>LG.inn.has(p.pid));
-  if(!out.length&&!inn.length){ $('trVerdictCard').style.display=''; $('trVerdict').innerHTML='<span style="color:var(--dim)">Select players on both sides first.</span>'; return; }
-  const vOut=out.reduce((s,p)=>s+lgValue(p),0), vIn=inn.reduce((s,p)=>s+lgValue(p),0);
-  const ledger=vIn-vOut, pct=vOut?Math.round(100*ledger/vOut):100;
-  const n=lgNeeds(LG.myRosterId);
-  let fit=0; const fitNotes=[];
-  inn.forEach(p=>{ if(n.surplus[p.pos]!==undefined && n.surplus[p.pos]<0){ fit+=1; fitNotes.push('adds '+p.pos+' where you are thin'); } });
-  out.forEach(p=>{ if(n.surplus[p.pos]!==undefined && n.surplus[p.pos]>=1.5){ fit+=1; fitNotes.push('sends from your '+p.pos+' surplus'); }
-                   if(n.surplus[p.pos]!==undefined && n.surplus[p.pos]<0){ fit-=1.5; fitNotes.push('weakens '+p.pos+' where you are ALREADY thin'); } });
-  const ageNote=[];
-  if(LG.myDyn()){
-    const avg=a=>a.length?a.reduce((s,p)=>s+((p.bp&&p.bp.age)||26),0)/a.length:0;
-    const aIn=avg(inn), aOut=avg(out);
-    if(inn.length&&out.length){ if(aIn<aOut-1.5) ageNote.push('you get YOUNGER ('+aIn.toFixed(0)+' vs '+aOut.toFixed(0)+' avg) — good for the 3-yr window');
-      else if(aIn>aOut+1.5) ageNote.push('you get OLDER ('+aIn.toFixed(0)+' vs '+aOut.toFixed(0)+') — make sure the window justifies it'); }
-  }
-  const flagged=inn.filter(p=>p.bp&&p.bp.flag==='out').map(p=>p.name);
-  let score = pct + fit*8;
-  let head, cls;
-  if(score>=12){ head='ACCEPT — this trade wins for you'; cls='good'; }
-  else if(score>=-8){ head='FAIR — close to even, decide on fit'; cls='mid'; }
-  else { head='DECLINE — you are giving up too much'; cls='bad'; }
-  const maxv=Math.max(vOut,vIn,1);
-  $('trVerdictCard').style.display='';
-  $('trVerdict').innerHTML=
-    `<div class="trverdict-head ${cls}">${head}</div>
-     <div class="trbars">
-       <div class="trbar"><span class="lbl">You send</span><span class="bar"><i style="width:${Math.round(100*vOut/maxv)}%;background:var(--bad)"></i></span><span>${vOut.toLocaleString()}</span></div>
-       <div class="trbar"><span class="lbl">You receive</span><span class="bar"><i style="width:${Math.round(100*vIn/maxv)}%;background:var(--good)"></i></span><span>${vIn.toLocaleString()}</span></div>
-     </div>
-     <div style="font-size:12.5px;line-height:1.6;color:var(--dim)">
-       Value ledger: <b style="color:var(--txt)">${ledger>=0?'+':''}${ledger.toLocaleString()} (${pct>=0?'+':''}${pct}%)</b>.
-       ${fitNotes.length?'Fit: '+fitNotes.join('; ')+'.':''}
-       ${ageNote.length?ageNote.join('. ')+'.':''}
-       ${flagged.length?'<span style="color:var(--warn)">Heads up: '+esc(flagged.join(', '))+' currently flagged OUT on the board.</span>':''}
-     </div>`;
+  return { out:my.filter(p=>LG.out.has(p.pid)), inn:th.filter(p=>LG.inn.has(p.pid)) };
 }
-function trSuggest(){
+function lineupDiffHTML(rid, gives, gets, label){
+  const before=bestLineup(lgPlayers(rid)), after=bestLineup(rosterAfter(rid,gives,gets));
+  const gset=new Set(gets.map(p=>p.pid)), lset=new Set(gives.map(p=>p.pid));
+  let rows='';
+  after.slots.forEach((s,i)=>{
+    const b=before.slots[i]?before.slots[i].player:null, a=s.player;
+    if(!a&&!b) return;
+    const d=lgProj(a)-lgProj(b);
+    const cls=Math.abs(d)<0.05?'flat':(d>0?'up':'dn');
+    const nm=a?`<span class="luname ${gset.has(a.pid)?'new':''}">${esc(a.name)}</span>`
+             :'<span class="luname gone"><i>nobody</i></span>';
+    const wasLost=b&&lset.has(b.pid)&&(!a||a.pid!==b.pid);
+    rows+=`<div class="lurow2"><span class="luslot">${s.slot==='DEF'?'DST':s.slot}</span>${nm}
+      ${wasLost?`<span class="lupts" style="color:var(--dim2)">was ${esc(b.name.split(' ').slice(-1)[0])}</span>`:''}
+      <span class="lupts">${a?lgProj(a).toFixed(1):'0.0'}</span>
+      <span class="ludelta ${cls}">${Math.abs(d)<0.05?'—':(d>0?'+':'')+d.toFixed(1)}</span></div>`;
+  });
+  const tot=+(after.total-before.total).toFixed(1);
+  return `<div class="lineupwrap"><div class="lineuphd">${label} starting lineup · ${before.total.toFixed(1)} →
+    ${after.total.toFixed(1)} pts/wk (<span style="color:var(--${tot>0?'good':tot<0?'bad':'dim'})">${tot>0?'+':''}${tot.toFixed(1)}</span>)</div>${rows}</div>`;
+}
+function trAnalyze(){
+  const {out,inn}=trSelected();
+  $('trVerdictCard').style.display='';
+  if(!out.length||!inn.length){
+    $('trVerdict').innerHTML='<span style="color:var(--dim)">Pick at least one player on each side — a one-way gift isn\'t a trade.</span>';
+    $('trFixCard').style.display='none'; return;
+  }
+  const me=sideScore(LG.myRosterId,out,inn), them=sideScore(LG.theirRosterId,inn,out);
+  const mv=MY_VERDICT(me.score), tv=THEIR_VERDICT(them.score);
+  const dl=(x)=>`${x>0?'+':''}${x.toFixed(1)}`;
+  const cls=x=>Math.abs(x)<0.05?'':(x>0?'up':'dn');
+  const card=(who,name,s,v)=>`<div class="dualcard ${v.c}">
+    <div class="dualwho">${who}</div><div class="dualverd">${v.t}</div>
+    <div class="dualstat"><span>Value ledger</span><b class="${cls(s.vIn-s.vOut)}">${s.vIn-s.vOut>=0?'+':''}${(s.vIn-s.vOut).toLocaleString()} (${s.pct>=0?'+':''}${s.pct}%)</b></div>
+    <div class="dualstat"><span>Starting lineup</span><b class="${cls(s.lu)}">${dl(s.lu)} pts/wk</b></div>
+    <div class="dualstat"><span>Roster fit</span><b class="${cls(s.fit)}">${s.fit>0?'+':''}${s.fit}</b></div>
+    ${s.age!==null?`<div class="dualstat"><span>Age swing</span><b class="${cls(s.age)}">${s.age>0?'−':'+'}${Math.abs(s.age).toFixed(1)} yrs</b></div>`:''}
+    ${s.notes.length?`<div style="font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.5">${esc(s.notes.slice(0,3).join('; '))}.</div>`:''}
+  </div>`;
+  const flagged=inn.filter(p=>p.bp&&(p.bp.flag==='out'||p.bp.flag==='inj'));
+  let head;
+  if(me.score>=12 && them.score< -8) head=`<div style="font-size:13px;color:var(--warn);margin-bottom:10px">
+      This is a win for you on paper, but <b>${esc(lgTeamName(LG.theirRosterId))}</b> has no reason to say yes.
+      The fixes below make it plausible without giving away the edge.</div>`;
+  else if(me.score>=-8 && them.score>=-8) head=`<div style="font-size:13px;color:var(--good);margin-bottom:10px">
+      Both sides come out ahead of where they started — this is the rare deal that actually gets accepted.</div>`;
+  else if(me.score< -8) head=`<div style="font-size:13px;color:var(--bad);margin-bottom:10px">
+      You're the one losing here. Ask for more before you hit send.</div>`;
+  else head='';
+  $('trVerdictMeta').textContent=`${out.length} out · ${inn.length} in`;
+  $('trVerdict').innerHTML = head +
+    `<div class="dual">${card('Your side','me',me,mv)}${card(esc(lgTeamName(LG.theirRosterId))+"'s side",'them',them,tv)}</div>` +
+    lineupDiffHTML(LG.myRosterId,out,inn,'Your') +
+    (flagged.length?`<div style="font-size:12px;color:var(--warn);margin-top:10px">⚠ Incoming with flags: ${
+      flagged.map(p=>esc(p.name)+' ('+p.bp.flag.toUpperCase()+')').join(', ')}. Check the news before you commit.</div>`:'') +
+    `<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+       <button class="btn" id="trAiBtn">✨ Ask Claude for a second opinion</button>
+       <button class="btn" id="trFlipBtn">⇄ Show their lineup impact</button>
+     </div><div id="trAiOut"></div><div id="trFlipOut"></div>`;
+  $('trAiBtn').onclick=trAskAI;
+  $('trFlipBtn').onclick=()=>{
+    const el=$('trFlipOut');
+    el.innerHTML=el.innerHTML?'':lineupDiffHTML(LG.theirRosterId,inn,out,esc(lgTeamName(LG.theirRosterId))+"'s");
+  };
+  trRenderFixes(me,them);
+}
+/* ---- "make it work": smallest change that gets both sides over the line ---- */
+function trRenderFixes(baseMe, baseThem){
+  const my=lgPlayers(LG.myRosterId), th=lgPlayers(LG.theirRosterId);
+  const {out,inn}=trSelected();
+  const baseWorst=Math.min(baseMe.score, baseThem.score);
+  if(baseWorst>=-8){
+    $('trFixCard').style.display='';
+    $('trFix').innerHTML='<div style="font-size:12.5px;color:var(--dim)">Nothing to fix — both sides already clear the bar. Send it.</div>';
+    return;
+  }
+  const cands=[];
+  const consider=(label,why,nout,ninn)=>{
+    if(!nout.length||!ninn.length) return;
+    const me=sideScore(LG.myRosterId,nout,ninn), them=sideScore(LG.theirRosterId,ninn,nout);
+    cands.push({label,why,me,them,out:nout.map(p=>p.pid),inn:ninn.map(p=>p.pid),
+                worst:Math.min(me.score,them.score)});
+  };
+  const swappable=p=>p.pos!=='K'&&p.pos!=='DST';
+  my.filter(p=>!LG.out.has(p.pid)&&swappable(p)).forEach(p=>
+    consider('Add '+p.name, 'sweetens your side by '+lgValue(p).toLocaleString(), out.concat([p]), inn));
+  th.filter(p=>!LG.inn.has(p.pid)&&swappable(p)).forEach(p=>
+    consider('Also ask for '+p.name, 'pulls back '+lgValue(p).toLocaleString()+' of value', out, inn.concat([p])));
+  out.forEach(p=> out.length>1 && consider('Keep '+p.name, 'slims what you give up', out.filter(x=>x.pid!==p.pid), inn));
+  inn.forEach(p=> inn.length>1 && consider('Drop the ask for '+p.name, 'lowers their price', out, inn.filter(x=>x.pid!==p.pid)));
+  /* Only offer changes that actually land the deal. A "fix" that leaves the other
+     manager 23 points underwater is not a fix, and neither is a gross overpay. */
+  const improved=cands.filter(c=>c.worst>baseWorst+1).sort((a,b)=>b.worst-a.worst);
+  const landable=improved.filter(c=>c.worst>=-8 && Math.max(c.me.score,c.them.score)<=45);
+  const best=(landable.length?landable:improved.slice(0,2)).slice(0,3);
+  $('trFixCard').style.display='';
+  if(!best.length){
+    $('trFix').innerHTML='<div style="font-size:12.5px;color:var(--dim)">No single change rescues this one — the rosters just don\'t line up. Try the Market scan tab for a better partner.</div>';
+    return;
+  }
+  $('trFix').innerHTML=best.map((c,i)=>`<div class="fixrow">
+    <b style="min-width:0">${esc(c.label)}</b>
+    <span class="why">${esc(c.why)} → you ${c.me.score>=0?'+':''}${c.me.score}, them ${c.them.score>=0?'+':''}${c.them.score}</span>
+    <button class="btn go" data-fix="${i}">Apply</button></div>`).join('');
+  document.querySelectorAll('[data-fix]').forEach(b=>b.onclick=()=>{
+    const c=best[+b.dataset.fix];
+    LG.out=new Set(c.out); LG.inn=new Set(c.inn);
+    trRenderSides(); trAnalyze();
+    $('trVerdictCard').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+/* ---- target finder ---- */
+function trFindRender(){
+  const el=$('trFindOut'); if(!el) return;
+  const q=($('trFindQ').value||'').trim().toLowerCase();
+  const pos=LG._fpos||'ALL';
   const n=lgNeeds(LG.myRosterId);
-  const myWeak=Object.entries(n.surplus).filter(([,v])=>v<0).map(([k])=>k);
-  const myStrong=Object.entries(n.surplus).filter(([,v])=>v>=1).map(([k])=>k);
-  const sugs=[];
-  (LG.rosters||[]).filter(r=>r.roster_id!==LG.myRosterId).forEach(r=>{
-    const tn=lgNeeds(r.roster_id);
-    myWeak.forEach(wp=>{
-      if(tn.surplus[wp]>=1){
-        const theirs=lgPlayers(r.roster_id).filter(p=>p.pos===wp).sort((a,b)=>lgValue(b)-lgValue(a));
-        const give=myStrong.filter(sp=>tn.surplus[sp]<0);
-        const target=theirs[Math.min(1,theirs.length-1)];
-        if(target){
-          const gp=give.length? lgPlayers(LG.myRosterId).filter(p=>p.pos===give[0]).sort((a,b)=>lgValue(b)-lgValue(a))[1] : null;
-          sugs.push({team:lgTeamName(r.roster_id), rid:r.roster_id, get:target, giveP:gp, why:`they have surplus ${wp}${give.length?` and are thin at ${give[0]} where you are deep`:''}`});
-        }
-      }
+  let rows=[];
+  (LG.rosters||[]).forEach(r=>{
+    if(r.roster_id===LG.myRosterId) return;
+    lgPlayers(r.roster_id).forEach(p=>{
+      if(pos!=='ALL'&&p.pos!==pos) return;
+      if(q && !(p.name.toLowerCase().includes(q) || p.team.toLowerCase()===q || p.pos.toLowerCase()===q)) return;
+      rows.push({p, rid:r.roster_id});
     });
   });
-  $('trSugCard').style.display='';
-  $('trSugs').innerHTML = sugs.length ? sugs.slice(0,4).map(s=>
-    `<div class="sugrow"><div class="sughead">Target <b>${esc(s.get.name)}</b> (${s.get.pos}) from ${esc(s.team)}</div>
-     ${s.giveP?`Offer around <b>${esc(s.giveP.name)}</b> (${s.giveP.pos}, val ${lgValue(s.giveP).toLocaleString()}) — `:''}${esc(s.why)}.
-     Their asking value: ~${lgValue(s.get).toLocaleString()}.</div>`).join('')
-    : '<div style="color:var(--dim);font-size:12.5px">No obvious complementary trades right now — your roster shape matches the league. Check back after injuries shake things up.</div>';
+  if(!q && pos==='ALL'){                       // default view: who actually helps me
+    rows=rows.filter(x=>n.surplus[x.p.pos]!==undefined && n.surplus[x.p.pos]<0.5);
+  }
+  rows.sort((a,b)=>lgValue(b.p)-lgValue(a.p));
+  if(!rows.length){ el.innerHTML='<div class="emptymsg">Nobody matches that search.</div>'; return; }
+  el.innerHTML=(!q&&pos==='ALL'?'<div style="font-size:12px;color:var(--dim2);margin-bottom:8px">Best available at positions where you\'re thin. Search to price anyone else.</div>':'')
+    + rows.slice(0,20).map((x,i)=>`<div class="findrow" data-find="${i}">
+      ${hshot(x.p)}<span class="pos ${x.p.pos}">${x.p.pos}</span><b>${esc(x.p.name)}</b>
+      <span style="color:var(--dim2);font-size:11px">${esc(x.p.team)}${lgProj(x.p)?' · '+lgProj(x.p).toFixed(1)+'/g':''}</span>
+      <span class="owner"><b>${esc(lgTeamName(x.rid))}</b>value ${lgValue(x.p).toLocaleString()}</span></div>`).join('')
+    + '<div id="trPkgOut"></div>';
+  document.querySelectorAll('[data-find]').forEach(b=>b.onclick=()=>trPriceTarget(rows[+b.dataset.find]));
 }
+function trPriceTarget(x){
+  const out=$('trPkgOut'); const target=x.p, rid=x.rid;
+  const tv=lgValue(target);
+  const TRADEABLE=p=>p.pos!=='K'&&p.pos!=='DST';
+  const mine=lgPlayers(LG.myRosterId).filter(TRADEABLE).sort((a,b)=>lgValue(b)-lgValue(a)).slice(0,20);
+  const combos=[];
+  for(let i=0;i<mine.length;i++){
+    combos.push([mine[i]]);
+    for(let j=i+1;j<mine.length;j++){
+      combos.push([mine[i],mine[j]]);
+      for(let k=j+1;k<mine.length;k++) combos.push([mine[i],mine[j],mine[k]]);
+    }
+  }
+  const windowed=combos.filter(c=>{ const v=c.reduce((s,p)=>s+lgValue(p),0); return v>=tv*0.7 && v<=tv*1.6; })
+                       .sort((a,b)=>a.length-b.length).slice(0,220);
+  const scored=windowed.map(c=>({c, me:sideScore(LG.myRosterId,c,[target]), them:sideScore(rid,[target],c)}))
+    .filter(s=>s.them.score>=-8 && s.me.score>=-12);
+  /* Three genuinely different offers beat three near-identical ones. */
+  const key=s=>s.c.map(p=>p.pid).sort().join('|');
+  const picks=[], seen=new Set();
+  const take=(s,label)=>{ if(!s||seen.has(key(s))) return; seen.add(key(s)); picks.push({...s,label}); };
+  take([...scored].sort((a,b)=>b.me.score-a.me.score)[0], 'Best for you');
+  take([...scored].filter(s=>s.them.score>=-2).sort((a,b)=>a.me.vOut-b.me.vOut)[0], 'Cheapest that works');
+  take([...scored].filter(s=>s.me.score>=0).sort((a,b)=>b.them.score-a.them.score)[0], 'Most likely accepted');
+  /* them.score is THEIR read: high means they win, which means you overpaid. */
+  const tag=s=> s.them.score>=18?['rich','you are overpaying — instant yes']
+              : s.them.score>=0?['fair','clean two-way deal']
+              : ['light','a bargain for you — expect pushback'];
+  out.innerHTML=`<div class="card" style="margin-top:12px"><h3><span>Packages for ${esc(target.name)}</span>
+      <b>${esc(lgTeamName(rid))} · asking ~${tv.toLocaleString()}</b></h3><div class="pad">`
+    + (picks.length? picks.map((s,i)=>{
+        const [cl,txt]=tag(s);
+        return `<div class="pkgbox"><div class="pkghead">
+          <span style="color:var(--dim2);font-size:10.5px;letter-spacing:.5px;text-transform:uppercase">${esc(s.label)}</span>
+          Send ${s.c.map(p=>esc(p.name)).join(' + ')}
+          <span class="tag ${cl}">${txt}</span></div>
+          <div class="pkgline">Your lineup <b class="${s.me.lu>=0?'':''}" style="color:var(--${s.me.lu>=0?'good':'bad'})">${s.me.lu>=0?'+':''}${s.me.lu.toFixed(1)} pts/wk</b>
+            · value ${s.me.vIn-s.me.vOut>=0?'+':''}${(s.me.vIn-s.me.vOut).toLocaleString()}
+            · their read: ${s.them.score>=0?'+':''}${s.them.score}${s.me.notes.length?' · '+esc(s.me.notes[0]):''}</div>
+          <button class="btn pkgbtn" data-pkg="${i}">Load into builder</button></div>`;
+      }).join('')
+      : `<div style="font-size:12.5px;color:var(--dim)">No package from your roster gets ${esc(target.name)} without either overpaying badly or insulting them. He's probably not gettable right now.</div>`)
+    + '</div></div>';
+  document.querySelectorAll('[data-pkg]').forEach(b=>b.onclick=()=>{
+    const s=picks[+b.dataset.pkg];
+    LG.theirRosterId=rid; $('trTeam').value=rid;
+    LG.out=new Set(s.c.map(p=>p.pid)); LG.inn=new Set([target.pid]);
+    trTab('build'); trRenderSides(); trAnalyze();
+  });
+}
+/* ---- market scan: who is a natural partner ---- */
+function trMarketRender(){
+  const me=lgNeeds(LG.myRosterId);
+  const myWeak=['QB','RB','WR','TE'].filter(p=>me.surplus[p]<0);
+  const myDeep=['QB','RB','WR','TE'].filter(p=>me.surplus[p]>=1);
+  const rows=(LG.rosters||[]).filter(r=>r.roster_id!==LG.myRosterId).map(r=>{
+    const n=lgNeeds(r.roster_id); let fit=0; const bits=[];
+    myWeak.forEach(p=>{ if(n.surplus[p]>=1){ fit+=2; bits.push('spare '+p+' you need'); } });
+    myDeep.forEach(p=>{ if(n.surplus[p]<0){ fit+=2; bits.push('needs '+p+', where you\'re deep'); } });
+    const best=lgPlayers(r.roster_id).filter(p=>myWeak.includes(p.pos)).sort((a,b)=>lgValue(b)-lgValue(a))[0];
+    return {rid:r.roster_id, fit, bits:[...new Set(bits)], best};
+  }).sort((a,b)=>b.fit-a.fit||lgValue(b.best||{})-lgValue(a.best||{}));
+  const el=$('trMarket');
+  if(!rows.some(r=>r.fit>0)){
+    el.innerHTML='<div class="emptymsg">No standout partners — your roster shape is close to everyone else\'s. That usually means trading for upside rather than need.</div>';
+  }
+  el.innerHTML=rows.map(r=>`<div class="fixrow">
+      <b style="min-width:110px">${esc(lgTeamName(r.rid))}</b>
+      <span class="why">${r.bits.length?esc(r.bits.join(' · ')):'no obvious complementary need'}${
+        r.best?` · best fit: <b style="color:var(--txt)">${esc(r.best.name)}</b> (${r.best.pos})`:''}</span>
+      <span class="ludelta ${r.fit>=4?'up':r.fit>0?'flat':'dn'}">${r.fit>=4?'strong':r.fit>0?'ok':'weak'}</span>
+      <button class="btn" data-mk="${r.rid}">Build</button></div>`).join('');
+  document.querySelectorAll('[data-mk]').forEach(b=>b.onclick=()=>{
+    LG.theirRosterId=+b.dataset.mk; $('trTeam').value=b.dataset.mk;
+    trTab('build'); trReset();
+  });
+}
+/* ---- AI second opinion ---- */
+async function trAskAI(){
+  const out=$('trAiOut');
+  if(!AIK.key){
+    out.innerHTML=`<div class="aibox"><div class="aihd">Claude second opinion</div>
+      Paste an Anthropic API key to get a written take. It stays in this browser and is sent only to Anthropic.
+      <div class="keyrow"><input type="password" id="trKey" placeholder="sk-ant-..." autocomplete="off">
+      <button class="btn go" id="trKeySave">Save & ask</button></div></div>`;
+    $('trKeySave').onclick=()=>{ const v=$('trKey').value.trim(); if(v){ AIK.key=v; trAskAI(); } };
+    return;
+  }
+  const {out:gives,inn:gets}=trSelected();
+  const me=sideScore(LG.myRosterId,gives,gets), them=sideScore(LG.theirRosterId,gets,gives);
+  const d=p=>`${p.name} (${p.pos}, ${p.team}${lgProj(p)?', proj '+lgProj(p).toFixed(1)+'/g':''}${p.bp&&p.bp.flag?', FLAG '+p.bp.flag:''}${p.bp&&p.bp.note?' — '+p.bp.note.slice(0,150):''})`;
+  const prompt=`You are a sharp fantasy football trade analyst. ${LG.myDyn()?'This is a DYNASTY league (value the next 3 years, age matters).':'This is a REDRAFT league (only this season matters).'}
+I am considering this trade with ${lgTeamName(LG.theirRosterId)}.
+I SEND: ${gives.map(d).join('; ')}
+I RECEIVE: ${gets.map(d).join('; ')}
+My model says — my side: value ${me.pct>=0?'+':''}${me.pct}%, starting lineup ${me.lu>=0?'+':''}${me.lu} pts/week, fit notes: ${me.notes.join('; ')||'neutral'}.
+Their side: value ${them.pct>=0?'+':''}${them.pct}%, their lineup ${them.lu>=0?'+':''}${them.lu} pts/week, fit: ${them.notes.join('; ')||'neutral'}.
+In under 140 words: say whether to send it, name the single biggest risk the numbers miss, and give me one sentence I could actually paste to the other manager to pitch it. Be blunt.`;
+  out.innerHTML='<div class="aibox"><div class="aihd">Claude second opinion</div><span style="color:var(--dim)">Thinking…</span></div>';
+  try{
+    const text=await callClaude(prompt);
+    out.innerHTML=`<div class="aibox"><div class="aihd">Claude second opinion</div>${mdLite(text)}</div>`;
+  }catch(e){
+    if(String(e.message).includes('rejected')) AIK.key='';
+    out.innerHTML=`<div class="aibox"><div class="aihd">Claude second opinion</div>
+      <span style="color:var(--bad)">${esc(e.message||'Network error.')}</span></div>`;
+  }
+}
+function trSuggest(){ trTab('market'); }
+
+/* ================= DEMO LEAGUE =================
+   A believable 12-team league drafted straight off the 2026 board, so a new
+   visitor can use every feature before handing over a username. */
+function initials(name){
+  const w=(name||'').split(' ').filter(Boolean);
+  return ((w[0]||'')[0]||'?')+((w[w.length-1]||'')[0]||'');
+}
+const DEMO_TEAMS=['Gridiron Gang','Sunday Scaries','Waiver Wire Willy','Pylon Pushers','Audible Nation',
+  'Fourth & Long','Zero RB Truthers','Play Action Pete','The Cover Two','Hail Mary Inc',
+  'Snap Judgment','Red Zone Rejects'];
+const DEMO_SLOTS=['QB','RB','RB','WR','WR','WR','TE','FLEX','K','DEF','BN','BN','BN','BN','BN'];
+function demoLeague(){
+  if(!P.length){ rebuildPool(); slpReindex(); }
+  if(!Object.keys(SLP_IDX).length) slpReindex();
+  const TEAMS=12, ROUNDS=15;
+  const pool=P.filter(p=>p.flag!=='out').slice().sort((a,b)=>a.rank-b.rank);
+  const rosters=[], users=[], pmap={};
+  for(let i=1;i<=TEAMS;i++){
+    rosters.push({roster_id:i, owner_id:'demo'+i, players:[], starters:[]});
+    users.push({user_id:'demo'+i, display_name:DEMO_TEAMS[i-1], metadata:{team_name:DEMO_TEAMS[i-1]}, avatar:null});
+  }
+  const used=new Set();
+  const CAP={QB:2,RB:6,WR:6,TE:2,K:1,DST:1};
+  const REQ={QB:1,RB:2,WR:3,TE:1,K:1,DST:1};
+  for(let r=1;r<=ROUNDS;r++){
+    for(let s=1;s<=TEAMS;s++){
+      const slot=(r%2===1)?s:(TEAMS-s+1);
+      const t=rosters[slot-1];
+      const cnt={QB:0,RB:0,WR:0,TE:0,K:0,DST:0};
+      t.players.forEach(pid=>{ const q=pmap[pid][1]; cnt[q==='DEF'?'DST':q]++; });
+      const left=ROUNDS-r+1;
+      const missing=Object.keys(REQ).filter(k=>cnt[k]<REQ[k]);
+      const forced=missing.length>=left;               // endgame: fill the lineup or lose the slot
+      const ok=p=>{
+        const c=cnt[p.pos]||0;
+        if(forced) return missing.includes(p.pos);
+        if(p.pos==='K')   return r>=ROUNDS-1 && c<1;    // nobody sane drafts a kicker early
+        if(p.pos==='DST') return r>=ROUNDS-2 && c<1;
+        return c < (CAP[p.pos]||3);
+      };
+      let pick=pool.find(p=>!used.has(p.id)&&ok(p)) || pool.find(p=>!used.has(p.id));
+      if(!pick) continue;
+      used.add(pick.id);
+      const pid='d'+pick.id;
+      pmap[pid]=[pick.name, pick.pos==='DST'?'DEF':pick.pos, pick.team];
+      t.players.push(pid);
+    }
+  }
+  LG.demo=true; LG.pmap=pmap; LG.rosters=rosters; LG.users=users;
+  LG.userId='demo7'; LG.myRosterId=7;
+  LG.user='demo'; LG.leagues=[];
+  LG.league={ league_id:'demo', name:'Sunday Night Showdown', avatar:null,
+              total_rosters:TEAMS, settings:{type:0}, roster_positions:DEMO_SLOTS };
+  rosters.forEach(r=>{                                  // set a sane lineup for everyone
+    r.starters=bestLineup(lgPlayers(r.roster_id)).slots.map(x=>x.player?x.player.pid:'0');
+  });
+  LG.out.clear(); LG.inn.clear(); LG.theirRosterId=null;
+  const st=$('lgSt'); if(st){ st.textContent='Demo league loaded'; st.className='slpst ok'; }
+  const tag=$('avLeague'); if(tag) tag.textContent='Sunday Night Showdown · demo';
+  $('lgList').innerHTML='';
+  renderHome(); trInit();
+}
+function demoExit(){
+  LG.demo=false; LG.league=null; LG.rosters=[]; LG.users=[]; LG.myRosterId=null;
+  LG.theirRosterId=null; LG.out.clear(); LG.inn.clear(); LG.pmap=null;
+  const st=$('lgSt'); if(st){ st.textContent=''; st.className='slpst'; }
+  const tag=$('avLeague'); if(tag) tag.textContent='';
+  renderHome(); trInit();
+}
+(function wireLanding(){
+  const go=(id,fn)=>{ const el=$(id); if(el) el.onclick=fn; };
+  go('ctaSync', ()=>{ const i=$('lgUser'); if(i){ i.focus(); i.scrollIntoView({behavior:'smooth',block:'center'}); } });
+  go('ctaDemo', demoLeague);
+  go('demoExit', demoExit);
+})();
+
 /* ---------------- App-level view switching ---------------- */
 function setView(v){
   document.body.dataset.view=v;
