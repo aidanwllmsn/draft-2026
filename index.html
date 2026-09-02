@@ -1056,6 +1056,8 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
   <button class="mtab" data-tab="more"><i>&#8943;</i>More</button>
 </nav>
 
+<script src="lib/scoring.js"></script>
+
 <script>
 /* PLAYER DATA
    [name, pos, team, adp, adj, flag, note]
@@ -1550,13 +1552,7 @@ function qbSupplyDemand(){
 /* ================= AVAILABILITY PROJECTION ================= */
 /* Rough model: a player with ADP a is ~gone once the draft passes a.
    Spread is ~ +/- 1 round, so we treat (a + teams*0.75) as "safely gone". */
-function survivalOdds(p, pick){
-  if(pick == null) return 1;
-  const gap = p.adp - pick;                 // positive = ADP is later than the pick
-  const spread = Math.max(7, S.teams * 0.85);
-  const z = gap / spread;
-  return Math.max(0.02, Math.min(0.98, 0.5 + z*0.5));  // linear-ish, clamped
-}
+const survivalOdds = (p, pick) => Scoring.survivalOdds(p.adp, pick, S.teams);
 
 /* ================= SCORING ================= */
 function scoreOf(p, pick, next){
@@ -2564,30 +2560,11 @@ function lgPlayers(rosterId){
   }).filter(Boolean);
 }
 function lgValue(pl){
-  const dynMode=LG.myDyn();
-  if(dynMode){
-    const r=pl.dyn||0;
-    if(r>0) return Math.round(10000*Math.exp(-0.024*(r-1)));
-    return pl.bp ? Math.max(60, Math.round(1400 - 4*pl.bp.adp)) : 40;
-  }
-  if(pl.bp) return Math.max(60, Math.round(9000*Math.exp(-0.028*(pl.bp.rank-1))));
-  return 40;
+  return Scoring.playerValue({ dynasty:LG.myDyn(), dynRank:pl.dyn||0, onBoard:!!pl.bp,
+    adp: pl.bp?pl.bp.adp:0, rank: pl.bp?pl.bp.rank:0 });
 }
-function lgNeeds(rosterId){
-  const rp=(LG.league&&LG.league.roster_positions)||[];
-  const req={QB:0,RB:0,WR:0,TE:0,FLEX:0,K:0,DST:0};
-  rp.forEach(s=>{ if(s==='QB')req.QB++; else if(s==='RB')req.RB++; else if(s==='WR')req.WR++;
-    else if(s==='TE')req.TE++; else if(s==='FLEX'||s==='WRRB'||s==='SUPER_FLEX')req.FLEX++;
-    else if(s==='K')req.K++; else if(s==='DEF')req.DST++; });
-  const have={QB:0,RB:0,WR:0,TE:0,K:0,DST:0};
-  lgPlayers(rosterId).forEach(p=>{ if(have[p.pos]!==undefined) have[p.pos]++; });
-  const surplus={};
-  ['QB','RB','WR','TE'].forEach(pos=>{
-    const startable=req[pos]+( (pos==='RB'||pos==='WR'||pos==='TE') ? req.FLEX/3 : 0 );
-    surplus[pos]=+(have[pos]-(startable+1.5)).toFixed(1);
-  });
-  return {req, have, surplus};
-}
+const lgRosterPositions = () => (LG.league&&LG.league.roster_positions)||Scoring.DEFAULT_SLOTS;
+const lgNeeds = rosterId => Scoring.needs(lgPlayers(rosterId).map(normP), lgRosterPositions());
 function renderTeam(){ renderHome(); }
 function renderHome(){
   const hero=$('teamHero'), grid=$('homeGrid'), land=$('landing'), dbar=$('demoBar');
@@ -2708,54 +2685,28 @@ function renderPowerRank(pr){
    Everything here scores BOTH rosters. A deal the other manager would never
    accept is not a good trade, however well it grades for us. */
 
-const SLOT_ELIG={ QB:['QB'], RB:['RB'], WR:['WR'], TE:['TE'], K:['K'], DEF:['DST'], DST:['DST'],
-  FLEX:['RB','WR','TE'], WRRB_FLEX:['RB','WR'], REC_FLEX:['WR','TE'], SUPER_FLEX:['QB','RB','WR','TE'] };
-const DEFAULT_SLOTS=['QB','RB','RB','WR','WR','WR','TE','FLEX','K','DEF'];
-function lgSlots(){
-  const rp=(LG.league&&LG.league.roster_positions)||DEFAULT_SLOTS;
-  const s=rp.filter(x=>SLOT_ELIG[x]&&SLOT_ELIG[x].length);
-  return s.length?s:DEFAULT_SLOTS;
-}
+/* The math below lives in lib/scoring.js, which is pure and unit-tested.
+   These wrappers adapt the app's player objects to the module's plain shapes
+   and map the results back, so every call site keeps its original signature. */
+const normP = p => ({ id:p.pid, pos:p.pos, proj:lgProj(p), value:lgValue(p),
+                      age:(p.bp&&p.bp.age)||26 });
 function lgProj(p){ return (p&&p.bp&&p.bp.pj)||0; }
-/* Greedy optimal-ish lineup: scarcest slots claim their man first, flex takes the leftovers. */
+const lgSlots = () => Scoring.startingSlots(lgRosterPositions());
 function bestLineup(players){
-  const slots=lgSlots();
-  const order=slots.map((s,i)=>({s,i})).sort((a,b)=>SLOT_ELIG[a.s].length-SLOT_ELIG[b.s].length);
-  const used=new Set(), filled=[];
-  order.forEach(({s,i})=>{
-    const cand=players.filter(p=>!used.has(p.pid)&&SLOT_ELIG[s].includes(p.pos))
-                      .sort((a,b)=>lgProj(b)-lgProj(a))[0];
-    if(cand) used.add(cand.pid);
-    filled.push({slot:s, idx:i, player:cand||null});
-  });
-  filled.sort((a,b)=>a.idx-b.idx);
-  return {slots:filled, total:+filled.reduce((t,x)=>t+lgProj(x.player),0).toFixed(2)};
+  const byId=new Map(players.map(p=>[p.pid,p]));
+  const r=Scoring.bestLineup(players.map(normP), lgRosterPositions());
+  return { total:r.total,
+           slots:r.slots.map(s=>({ slot:s.slot, idx:s.idx,
+                                   player:s.player?byId.get(s.player.id)||null:null })) };
 }
 function rosterAfter(rid, gives, gets){
   const g=new Set(gives.map(p=>p.pid));
   return lgPlayers(rid).filter(p=>!g.has(p.pid)).concat(gets);
 }
-/* One team's read on a deal: value ledger, roster fit, and what it does to the lineup. */
 function sideScore(rid, gives, gets){
-  const vOut=gives.reduce((s,p)=>s+lgValue(p),0), vIn=gets.reduce((s,p)=>s+lgValue(p),0);
-  const pct = vOut ? Math.round(100*(vIn-vOut)/vOut) : (vIn?120:0);
-  const n=lgNeeds(rid); let fit=0; const notes=[];
-  gets.forEach(p=>{ const sp=n.surplus[p.pos]; if(sp===undefined) return;
-    if(sp<0){ fit+=1; notes.push('fills a hole at '+p.pos); }
-    else if(sp>=1.5){ fit-=0.5; notes.push('piles onto an existing '+p.pos+' surplus'); } });
-  gives.forEach(p=>{ const sp=n.surplus[p.pos]; if(sp===undefined) return;
-    if(sp>=1.5){ fit+=1; notes.push('sells from '+p.pos+' depth'); }
-    else if(sp<0){ fit-=1.5; notes.push('thins '+p.pos+', already short'); } });
-  const before=bestLineup(lgPlayers(rid)).total;
-  const after=bestLineup(rosterAfter(rid,gives,gets)).total;
-  const lu=+(after-before).toFixed(2);
-  let age=null;
-  if(LG.myDyn() && gives.length && gets.length){
-    const avg=a=>a.reduce((s,p)=>s+((p.bp&&p.bp.age)||26),0)/a.length;
-    age=+(avg(gives)-avg(gets)).toFixed(1);   // positive = gets younger
-  }
-  return { vOut, vIn, pct, fit, notes:[...new Set(notes)], lu, before, after, age,
-           score: Math.round(pct + fit*8 + lu*2.5) };
+  return Scoring.sideScore({
+    roster: lgPlayers(rid).map(normP), gives: gives.map(normP), gets: gets.map(normP),
+    rosterPositions: lgRosterPositions(), dynasty: LG.myDyn() });
 }
 const MY_VERDICT  = s => s>=12 ? {t:'Take it',c:'good'} : s>=-8 ? {t:'Roughly fair',c:'mid'} : {t:'Turn it down',c:'bad'};
 const THEIR_VERDICT = s => s>=12 ? {t:'They should jump',c:'good'} : s>=-8 ? {t:'They might bite',c:'mid'} : {t:"They'll decline",c:'bad'};
@@ -2908,11 +2859,7 @@ function trRenderFixes(baseMe, baseThem){
     consider('Also ask for '+p.name, 'pulls back '+lgValue(p).toLocaleString()+' of value', out, inn.concat([p])));
   out.forEach(p=> out.length>1 && consider('Keep '+p.name, 'slims what you give up', out.filter(x=>x.pid!==p.pid), inn));
   inn.forEach(p=> inn.length>1 && consider('Drop the ask for '+p.name, 'lowers their price', out, inn.filter(x=>x.pid!==p.pid)));
-  /* Only offer changes that actually land the deal. A "fix" that leaves the other
-     manager 23 points underwater is not a fix, and neither is a gross overpay. */
-  const improved=cands.filter(c=>c.worst>baseWorst+1).sort((a,b)=>b.worst-a.worst);
-  const landable=improved.filter(c=>c.worst>=-8 && Math.max(c.me.score,c.them.score)<=45);
-  const best=(landable.length?landable:improved.slice(0,2)).slice(0,3);
+  const best=Scoring.chooseFixes(cands, baseWorst);
   $('trFixCard').style.display='';
   if(!best.length){
     $('trFix').innerHTML='<div style="font-size:12.5px;color:var(--dim)">No single change rescues this one — the rosters just don\'t line up. Try the Market scan tab for a better partner.</div>';
@@ -2972,19 +2919,11 @@ function trPriceTarget(x){
   }
   const windowed=combos.filter(c=>{ const v=c.reduce((s,p)=>s+lgValue(p),0); return v>=tv*0.7 && v<=tv*1.6; })
                        .sort((a,b)=>a.length-b.length).slice(0,220);
-  const scored=windowed.map(c=>({c, me:sideScore(LG.myRosterId,c,[target]), them:sideScore(rid,[target],c)}))
+  const scored=windowed.map(c=>({c, ids:c.map(p=>p.pid),
+      me:sideScore(LG.myRosterId,c,[target]), them:sideScore(rid,[target],c)}))
     .filter(s=>s.them.score>=-8 && s.me.score>=-12);
-  /* Three genuinely different offers beat three near-identical ones. */
-  const key=s=>s.c.map(p=>p.pid).sort().join('|');
-  const picks=[], seen=new Set();
-  const take=(s,label)=>{ if(!s||seen.has(key(s))) return; seen.add(key(s)); picks.push({...s,label}); };
-  take([...scored].sort((a,b)=>b.me.score-a.me.score)[0], 'Best for you');
-  take([...scored].filter(s=>s.them.score>=-2).sort((a,b)=>a.me.vOut-b.me.vOut)[0], 'Cheapest that works');
-  take([...scored].filter(s=>s.me.score>=0).sort((a,b)=>b.them.score-a.them.score)[0], 'Most likely accepted');
-  /* them.score is THEIR read: high means they win, which means you overpaid. */
-  const tag=s=> s.them.score>=18?['rich','you are overpaying — instant yes']
-              : s.them.score>=0?['fair','clean two-way deal']
-              : ['light','a bargain for you — expect pushback'];
+  const picks=Scoring.choosePackages(scored);
+  const tag=s=>Scoring.packageTag(s.them.score);
   out.innerHTML=`<div class="card" style="margin-top:12px"><h3><span>Packages for ${esc(target.name)}</span>
       <b>${esc(lgTeamName(rid))} · asking ~${tv.toLocaleString()}</b></h3><div class="pad">`
     + (picks.length? picks.map((s,i)=>{

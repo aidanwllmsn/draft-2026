@@ -1,0 +1,9 @@
+{
+  "name": "draft-2026",
+  "version": "2.0.0",
+  "private": true,
+  "description": "The Front Office — a static fantasy football draft board, league hub and trade advisor. No build step; index.html is the app.",
+  "scripts": {
+    "test": "node --test"
+  }
+}
