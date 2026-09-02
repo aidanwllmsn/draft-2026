@@ -14,7 +14,7 @@
   --rb:#4fc7a3; --wr:#5fa8f0; --te:#e8a15f; --qb:#d987b3; --kd:#a3a3a3;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0;overflow-x:clip}
 body{
   background:var(--bg); color:var(--txt); font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   font-size:14px; line-height:1.45; -webkit-font-smoothing:antialiased;
@@ -835,8 +835,13 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
   transition:color .15s;position:relative}
 .avtab:hover{color:#fff}
 .avtab.on{color:var(--acc)!important}
-.avtab.on::after{content:'';position:absolute;left:0;bottom:-4px;width:16px;height:3px;border-radius:2px;
-  background:linear-gradient(90deg,var(--acc2),var(--acc));transform:skewX(-18deg)}
+.avtab::after{content:'';position:absolute;left:0;bottom:-4px;width:30px;height:3px;
+  background:linear-gradient(90deg,var(--acc2),var(--acc));
+  clip-path:polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+  transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .3s cubic-bezier(.72,0,.25,1)}
+.avtab.on::after{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){ .avtab::after{transition:none} }
 .navsync{margin-left:auto;display:flex;align-items:center;gap:9px}
 .navsync input{width:150px;padding:6px 12px;font-size:12px;border-radius:999px}
 .navsync .btn.go{padding:6px 15px;font-size:12px}
@@ -895,6 +900,110 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
 .dstav.mine{background:rgba(255,106,26,.15);color:var(--acc2)}
 .dstgrab{background:linear-gradient(160deg,rgba(52,199,123,.12),transparent);border-bottom:1px solid var(--line)}
 @media (max-width:760px){ .ssbar{display:none} .ssnum{width:44px} }
+
+/* ---- 3D landing hero ---- */
+.hero3d{position:relative;height:92vh;min-height:660px;max-height:980px;overflow:hidden;
+  margin:-18px calc(50% - 50vw) 30px;background:#050505;isolation:isolate}
+.hero3d::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:120px;z-index:6;pointer-events:none;
+  background:linear-gradient(180deg,transparent,var(--bg))}
+.h3layer{position:absolute;inset:-12% 0;will-change:transform;pointer-events:none}
+/* backdrop: night stadium */
+.h3sky{background:
+  radial-gradient(130% 42% at 50% 52%, rgba(255,106,26,.26), transparent 60%),
+  radial-gradient(80% 30% at 24% 34%, rgba(255,158,90,.06), transparent 70%),
+  linear-gradient(180deg,#020202 0%,#0b0502 38%,#1c0d04 50%,#070604 62%,#050505 100%)}
+.h3bowl{position:absolute;left:-16%;right:-16%;top:30%;height:24%;border-radius:50%;
+  border-top:2px solid rgba(255,178,120,.16);
+  box-shadow:0 -18px 60px rgba(255,106,26,.12), inset 0 26px 44px -20px rgba(255,140,60,.10);
+  background:repeating-linear-gradient(90deg, rgba(255,214,170,.09) 0 2px, transparent 2px 30px);
+  -webkit-mask:linear-gradient(180deg,#000 0 26%,transparent 55%);mask:linear-gradient(180deg,#000 0 26%,transparent 55%)}
+.h3beam{position:absolute;top:-6%;width:16%;height:64%;
+  background:linear-gradient(180deg,rgba(255,244,225,.13),rgba(255,183,110,.05) 55%,transparent);
+  filter:blur(6px)}
+.h3beam.b1{left:12%;transform:skewX(16deg)} .h3beam.b2{right:12%;transform:skewX(-16deg)}
+.h3haze{position:absolute;inset:0;background:radial-gradient(75% 34% at 50% 47%, rgba(255,214,170,.10), transparent 70%)}
+/* field */
+.h3fieldwrap{top:47%;bottom:-18%;inset-inline:0}
+.h3persp{position:absolute;inset:0;perspective:560px;perspective-origin:50% -4%}
+.h3field{position:absolute;left:-2%;right:-2%;top:0;height:158%;transform-origin:50% 0%;
+  transform:rotateX(61deg)}
+.h3field svg{width:100%;height:100%;display:block}
+.h3fieldfade{position:absolute;inset:-2% 0 0;background:
+  linear-gradient(180deg, #050505 0%, rgba(5,5,5,.55) 7%, transparent 22%),
+  linear-gradient(0deg, var(--bg) 0%, rgba(10,10,10,.45) 10%, transparent 30%),
+  radial-gradient(85% 120% at 50% 55%, transparent 55%, rgba(5,5,5,.9) 100%)}
+/* goalpost + play animation */
+.h3goal{position:absolute;left:50%;bottom:calc(100% - 3.5%);width:clamp(250px,40vw,700px);
+  transform:translateX(-50%);z-index:2;opacity:.55;
+  filter:blur(1.4px) drop-shadow(0 10px 34px rgba(0,0,0,.6))}
+.h3copy::before{content:'';position:absolute;left:50%;top:1%;transform:translateX(-50%);
+  width:min(940px,94vw);height:66%;z-index:-1;
+  background:radial-gradient(closest-side, rgba(4,4,4,.68), rgba(4,4,4,.34) 58%, transparent 100%)}
+.h3play{opacity:0;animation:h3playCycle 12s linear infinite}
+.h3play .rt{stroke-dasharray:100;stroke-dashoffset:100;animation:h3rtDraw 12s ease-in-out infinite}
+.h3play .rt.r2{animation-delay:.35s}
+.h3play .rt.r3{animation-delay:.7s}
+.h3play .rtA{opacity:0;animation:h3rtArrow 12s linear infinite}
+@keyframes h3playCycle{0%{opacity:0}5%{opacity:.6}76%{opacity:.6}86%{opacity:0}100%{opacity:0}}
+@keyframes h3rtDraw{0%,12%{stroke-dashoffset:100}40%{stroke-dashoffset:0}86%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:100}}
+@keyframes h3rtArrow{0%,40%{opacity:0}47%{opacity:1}76%{opacity:1}84%{opacity:0}100%{opacity:0}}
+/* copy */
+.h3copy{inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  text-align:center;padding:9vh 20px 0;pointer-events:none;z-index:3}
+.h3copy>*{pointer-events:auto}
+.h3kick{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--acc2);
+  border:1px solid rgba(255,106,26,.35);border-radius:999px;padding:6px 14px;background:rgba(20,10,3,.55);backdrop-filter:blur(4px)}
+.h3copy h1{margin:6vh 0 0;font-size:clamp(38px,6.2vw,72px);line-height:1.02;font-weight:900;font-style:italic;
+  letter-spacing:-1.5px;text-shadow:0 8px 40px rgba(0,0,0,.75)}
+.h3copy h1 em{font-style:italic;color:var(--acc)}
+.h3sub{margin:18px 0 0;max-width:560px;color:#d8d2cc;font-size:15.5px;line-height:1.55;text-shadow:0 2px 16px rgba(0,0,0,.9)}
+.h3cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;justify-content:center}
+.h3trust{display:flex;gap:12px;align-items:center;margin-top:26px;color:var(--dim);font-size:11.5px;
+  font-weight:600;letter-spacing:.6px;text-transform:uppercase}
+.h3dot{width:3px;height:3px;border-radius:50%;background:var(--acc);display:inline-block}
+/* floating product cards */
+.h3float{inset:0;z-index:4}
+.h3card{position:absolute;min-width:210px;max-width:250px;padding:12px 14px;border-radius:13px;pointer-events:auto;
+  background:linear-gradient(165deg, rgba(26,25,24,.88), rgba(14,13,12,.86));
+  border:1px solid rgba(255,255,255,.10);border-top-color:rgba(255,255,255,.16);
+  box-shadow:0 24px 60px -18px rgba(0,0,0,.85), 0 4px 28px -6px rgba(255,106,26,.14);
+  backdrop-filter:blur(10px);
+  transform:translate3d(var(--dx,0),var(--dy,0),0);transition:transform .25s ease-out}
+.h3card::after{content:'';position:absolute;left:12%;right:12%;bottom:-14px;height:22px;border-radius:50%;
+  background:radial-gradient(50% 100% at 50% 0%, rgba(255,106,26,.22), transparent 75%);filter:blur(6px);z-index:-1}
+.h3card.cA{right:5.5%;top:13%;animation:h3bob 7s ease-in-out infinite}
+.h3card.cB{left:5%;top:47%;animation:h3bob 8.5s ease-in-out -2s infinite}
+.h3card.cC{right:7.5%;bottom:15%;animation:h3bob 7.6s ease-in-out -4s infinite}
+@keyframes h3bob{0%,100%{margin-top:0}50%{margin-top:-10px}}
+.h3ch{font-size:9.5px;font-weight:800;letter-spacing:1.6px;color:var(--acc2);margin-bottom:8px}
+.h3row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12.5px;border-top:1px solid rgba(255,255,255,.05)}
+.h3row:first-of-type{border-top:none}
+.h3row.dim{opacity:.62}
+.h3row b{font-weight:700}
+.h3adp{margin-left:auto;color:var(--dim);font-size:11px;font-variant-numeric:tabular-nums}
+.pd{width:7px;height:7px;border-radius:2px;flex:none}
+.pd.RB{background:#3ecf8e}.pd.WR{background:#4aa8ff}.pd.TE{background:#f0a63c}.pd.QB{background:#e05fa0}
+.h3tag{font-size:8.5px;font-weight:800;letter-spacing:.8px;padding:2.5px 6px;border-radius:4px}
+.h3tag.val{background:rgba(255,106,26,.18);color:var(--acc2)}
+.h3tag.surv{background:#242424;color:var(--dim)}
+.h3tag.start{background:rgba(52,199,123,.16);color:var(--good);margin-left:auto}
+.h3big{font-size:17px;font-weight:900;font-style:italic}
+.h3big .up{color:var(--good)} .h3big .ok{color:var(--acc2)}
+.h3vsub{color:var(--dim);font-size:11px;margin-top:5px;line-height:1.4}
+.h3scroll{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:22px;height:34px;
+  border:2px solid rgba(255,255,255,.22);border-radius:12px;z-index:5}
+.h3scroll span{position:absolute;left:50%;top:6px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;
+  background:var(--acc);animation:h3wheel 1.8s ease-in-out infinite}
+@keyframes h3wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(11px);opacity:0}100%{opacity:0}}
+@media (max-width:900px){
+  .hero3d{height:88vh;min-height:600px}
+  .h3card.cA,.h3card.cB{display:none} .h3card.cC{right:3%;bottom:10%;transform:scale(.88)}
+  .h3copy h1{letter-spacing:-.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .h3card,.h3scroll span{animation:none} .h3layer{transform:none!important} .h3card{transform:none!important}
+  .h3play,.h3play .rt,.h3play .rtA{animation:none;opacity:.5;stroke-dashoffset:0}
+}
 </style>
 </head>
 <body>
@@ -929,6 +1038,121 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
 
 
     <div id="landing" class="land" style="display:none">
+
+      <section class="hero3d" id="hero3d">
+        <!-- LAYER 0: stadium backdrop (slowest) -->
+        <div class="h3layer h3sky" data-par="0.52">
+          <div class="h3bowl"></div>
+          <div class="h3beam b1"></div><div class="h3beam b2"></div>
+          <div class="h3haze"></div>
+        </div>
+        <!-- LAYER 1: the field, broadcast angle -->
+        <div class="h3layer h3fieldwrap" data-par="0.34">
+          <div class="h3persp"><div class="h3field" id="h3field">
+            <svg viewBox="0 0 1000 1560" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="h3turfA" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#072a15"/><stop offset="0.5" stop-color="#0d4a26"/><stop offset="1" stop-color="#136336"/>
+                </linearGradient>
+                <linearGradient id="h3ez" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#a63c05"/><stop offset="1" stop-color="#ff6a1a"/>
+                </linearGradient>
+                <radialGradient id="h3spot" cx="0.5" cy="0.18" r="0.9">
+                  <stop offset="0" stop-color="#fff7ec" stop-opacity=".22"/><stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect width="1000" height="1560" fill="#04170b"/>
+              <rect x="22" width="956" height="1560" fill="url(#h3turfA)"/>
+              <g id="h3stripes"></g>
+              <rect x="0" y="0" width="1000" height="130" fill="url(#h3ez)"/>
+              <rect x="22" y="126" width="956" height="6" fill="#f2f7f0" opacity=".95"/>
+              <rect x="22" y="0" width="7" height="1560" fill="#eef4ee" opacity=".85"/>
+              <rect x="971" y="0" width="7" height="1560" fill="#eef4ee" opacity=".85"/>
+              <text x="500" y="97" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="900" font-style="italic" font-size="86" letter-spacing="14" fill="#fff6ec" stroke="#6e2703" stroke-width="4" paint-order="stroke" opacity=".97">FRONT OFFICE</text>
+              <text x="500" y="97" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="900" font-style="italic" font-size="86" letter-spacing="14" fill="none" stroke="#ffd9b8" stroke-width="1" opacity=".5">FRONT OFFICE</text>
+              <g id="h3lines"></g>
+              <g class="h3play" transform="translate(0,-30)" stroke="#eef4ee" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <!-- offense O's -->
+                <g stroke-width="6">
+                  <circle cx="360" cy="622" r="18"/><circle cx="425" cy="622" r="18"/><circle cx="490" cy="622" r="18"/>
+                  <circle cx="555" cy="622" r="18"/><circle cx="620" cy="622" r="18"/>
+                  <circle cx="252" cy="610" r="18"/><circle cx="722" cy="610" r="18"/>
+                  <circle cx="490" cy="678" r="18"/>
+                </g>
+                <!-- defense X's -->
+                <g stroke-width="6">
+                  <path d="M382 540 l28 28 m0 -28 l-28 28"/><path d="M462 540 l28 28 m0 -28 l-28 28"/>
+                  <path d="M542 540 l28 28 m0 -28 l-28 28"/><path d="M622 540 l28 28 m0 -28 l-28 28"/>
+                  <path d="M276 520 l28 28 m0 -28 l-28 28"/><path d="M356 448 l28 28 m0 -28 l-28 28"/>
+                  <path d="M612 448 l28 28 m0 -28 l-28 28"/>
+                </g>
+                <!-- routes: drawn like a telestrator -->
+                <g stroke-width="7">
+                  <path class="rt" pathLength="100" d="M252 588 L252 420 L310 356"/>
+                  <path class="rt r2" pathLength="100" d="M722 588 L722 500 L600 420"/>
+                  <path class="rt r3" pathLength="100" d="M490 656 C 420 650 380 620 330 585"/>
+                </g>
+                <g fill="#eef4ee" stroke="none">
+                  <path class="rtA" d="M310 356 L302.1 384.0 L282.9 366.6 Z"/>
+                  <path class="rtA" d="M600 420 L628.8 423.4 L614.6 445.2 Z"/>
+                  <path class="rtA" d="M330 585 L358.8 589.2 L343.8 610.6 Z"/>
+                </g>
+              </g>
+              <g id="h3mid" opacity=".7">
+                <path d="M448 830 L552 830 L531 942 L427 942 Z" fill="none" stroke="#e8f5ec" stroke-width="6"/>
+                <text x="490" y="910" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="62" font-weight="900" font-style="italic" fill="#e8f5ec">FO</text>
+              </g>
+              <rect width="1000" height="1560" fill="url(#h3spot)"/>
+            </svg>
+          </div></div>
+          <div class="h3fieldfade"></div>
+          <svg class="h3goal" viewBox="0 0 260 210" aria-hidden="true">
+            <defs><linearGradient id="h3gold" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffd257"/><stop offset="1" stop-color="#c98f1d"/>
+            </linearGradient></defs>
+            <g fill="url(#h3gold)">
+              <rect x="126" y="118" width="8" height="86" rx="3"/>
+              <rect x="120" y="196" width="20" height="10" rx="3" fill="#8a6414"/>
+              <rect x="38" y="112" width="184" height="8" rx="4"/>
+              <rect x="36" y="8" width="7" height="110" rx="3.5"/>
+              <rect x="217" y="8" width="7" height="110" rx="3.5"/>
+            </g>
+            <ellipse cx="130" cy="207" rx="34" ry="4" fill="rgba(0,0,0,.5)"/>
+          </svg>
+        </div>
+        <!-- LAYER 2: headline copy -->
+        <div class="h3layer h3copy" data-par="0.14">
+          <h1>Run your team like a<br><em>front office.</em></h1>
+          <p class="h3sub">Live Sleeper draft sync. Trade verdicts scored from both seats. Start/sit calls built
+            on real matchups. One board, researched daily.</p>
+          <div class="h3cta">
+            <button class="bigbtn" data-tile="draft">Open the draft room</button>
+            <button class="bigbtn ghost" data-tile="synchome">Sync your league</button>
+          </div>
+          <div class="h3trust"><span>279 players researched</span><span class="h3dot"></span><span>Updated daily</span><span class="h3dot"></span><span>Built for Sleeper</span></div>
+        </div>
+        <!-- LAYER 3: floating product cards (fastest = closest) -->
+        <div class="h3layer h3float" data-par="-0.12">
+          <div class="h3card cA" data-drift="14">
+            <div class="h3ch">LIVE DRAFT &middot; PICK 3.07</div>
+            <div class="h3row"><i class="pd RB"></i><b>Omarion Hampton</b><span class="h3adp">22.5</span><span class="h3tag val">VALUE</span></div>
+            <div class="h3row"><i class="pd WR"></i><b>Tee Higgins</b><span class="h3adp">24.1</span></div>
+            <div class="h3row dim"><i class="pd TE"></i><b>Sam LaPorta</b><span class="h3adp">41.0</span><span class="h3tag surv">73% survives</span></div>
+          </div>
+          <div class="h3card cB" data-drift="26">
+            <div class="h3ch">TRADE VERDICT</div>
+            <div class="h3big"><span class="up">You +25</span> &middot; <span class="ok">Them +11</span></div>
+            <div class="h3vsub">They'd say yes &mdash; fills their hole at WR</div>
+          </div>
+          <div class="h3card cC" data-drift="20">
+            <div class="h3ch">WEEK 1 &middot; START/SIT</div>
+            <div class="h3row"><i class="pd RB"></i><b>Hampton</b><span class="h3tag start">START</span></div>
+            <div class="h3vsub">ARI ranks 32nd vs RB &mdash; smash spot</div>
+          </div>
+        </div>
+        <div class="h3scroll" aria-hidden="true"><span></span></div>
+      </section>
+
       <div class="portalgrid">
         <div class="featured" id="ftStory"><!-- featured story --></div>
         <div class="card newscard"><h3>Latest player news</h3><div id="ptNews"></div></div>
@@ -3768,7 +3992,7 @@ function demoExit(){
   const focusSync=()=>{ const i=$('lgUser'); if(i){ i.focus(); i.scrollIntoView({behavior:'smooth',block:'center'}); } };
   go('ctaSync', focusSync);
   go('trCtaSync2', ()=>{ setView('home'); setTimeout(focusSync,150); });
-  document.querySelectorAll('.tile[data-tile]').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tile[data-tile], .h3cta [data-tile]').forEach(t=>t.onclick=()=>{
     const v=t.dataset.tile;
     if(v==='synchome'){ focusSync(); return; }
     setView(v); window.scrollTo({top:0,behavior:'smooth'});
@@ -3780,6 +4004,54 @@ function demoExit(){
 })();
 
 /* ---------------- App-level view switching ---------------- */
+/* ================= 3D LANDING HERO ================= */
+function hero3dInit(){
+  const h=document.getElementById('hero3d'); if(!h||h.dataset.ready) return;
+  h.dataset.ready='1';
+  const NS='http://www.w3.org/2000/svg';
+  const mk=(t,at)=>{ const e=document.createElementNS(NS,t); for(const k in at) e.setAttribute(k,at[k]); return e; };
+  /* field detail: 10 stripes of 10yds below the end zone (y 130..1560) */
+  const stripes=document.getElementById('h3stripes'), lines=document.getElementById('h3lines');
+  if(stripes&&lines){
+    const y0=130, step=143;
+    for(let i=0;i<10;i++){
+      if(i%2===1) stripes.appendChild(mk('rect',{x:22,y:y0+i*step,width:956,height:step,fill:'rgba(255,255,255,.04)'}));
+    }
+    for(let i=0;i<=10;i++){
+      const y=y0+i*step;
+      lines.appendChild(mk('rect',{x:22,y:y-2.5,width:956,height:5,fill:'#eef4ee',opacity:i===0?0.95:0.85}));
+      if(i<10){ /* hash marks every yard between the 10-yd lines */
+        for(let j=1;j<5;j++){
+          const hy=y+(step/5)*j;
+          lines.appendChild(mk('rect',{x:356,y:hy-1.5,width:16,height:3,fill:'#e8f5ec',opacity:.42}));
+          lines.appendChild(mk('rect',{x:628,y:hy-1.5,width:16,height:3,fill:'#e8f5ec',opacity:.42}));
+        }
+      }
+      if(i>0&&i<10){
+        const num=(i<=5? i*10 : (10-i)*10);
+        [[205,'start'],[795,'end']].forEach(([x,anchor])=>{
+          const t=mk('text',{x,y:y+48,'text-anchor':anchor,'font-family':'Inter,Arial,sans-serif',
+            'font-size':'56','font-weight':'800','font-style':'italic',fill:'#e8f5ec',opacity:'.55'});
+          t.textContent=num; lines.appendChild(t);
+        });
+      }
+    }
+  }
+  const layers=[...h.querySelectorAll('[data-par]')];
+  let tick=false;
+  const onScroll=()=>{ if(tick) return; tick=true; requestAnimationFrame(()=>{
+    const sy=Math.max(0, window.scrollY||document.documentElement.scrollTop||0);
+    layers.forEach(l=>{ l.style.transform='translate3d(0,'+(sy*(+l.dataset.par)).toFixed(1)+'px,0)'; });
+    tick=false; });};
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(window.matchMedia&&matchMedia('(pointer:fine)').matches){
+    h.addEventListener('pointermove',e=>{
+      const r=h.getBoundingClientRect(), mx=(e.clientX-r.left)/r.width-.5, my=(e.clientY-r.top)/r.height-.5;
+      h.querySelectorAll('.h3card').forEach(c=>{ const d=+c.dataset.drift||16;
+        c.style.setProperty('--dx',(-mx*d).toFixed(1)+'px'); c.style.setProperty('--dy',(-my*d*.55).toFixed(1)+'px'); });
+    });
+  }
+}
 /* ================= START/SIT (weekly matchup tool) ================= */
 const SS_POSI={QB:0,RB:1,WR:2,TE:3};
 const SS_AVG_IMP=22.4;
@@ -4068,6 +4340,7 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
   document.querySelectorAll('.avtab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
   $('lgFind').onclick=lgFind;
   $('lgUser').addEventListener('keydown',e=>{ if(e.key==='Enter') lgFind(); });
+  try{ hero3dInit(); }catch(e){}
   let startView='home';
   try{
     const savedLg=JSON.parse(localStorage.getItem('ffleague2026')||'null');
