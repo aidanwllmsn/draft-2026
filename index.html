@@ -3,25 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
 <title>The Front Office</title>
 <style>
 :root{
-  --bg:#0e1116; --panel:#161b23; --panel2:#1d232d; --line:#2a323e; --line2:#39434f;
-  --txt:#e8ecf2; --dim:#98a2b3; --dim2:#6b7684;
-  --acc:#4d9fff; --good:#3fbf7f; --warn:#e8a33d; --bad:#f0605f;
-  --rb:#3fbf7f; --wr:#4d9fff; --te:#e8883d; --qb:#b478f0; --kd:#8b95a5;
+  --bg:#0a0a0a; --panel:#161616; --panel2:#1f1f1f; --line:#232323; --line2:#333333;
+  --txt:#ffffff; --dim:#9a9a9a; --dim2:#6b6b6b;
+  --acc:#ff6a1a; --acc2:#ff8a47; --accink:#140a03; --good:#34c77b; --warn:#f0a63c; --bad:#e53935;
+  --rb:#4fc7a3; --wr:#5fa8f0; --te:#e8a15f; --qb:#d987b3; --kd:#a3a3a3;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  background:var(--bg); color:var(--txt); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--txt); font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   font-size:14px; line-height:1.45; -webkit-font-smoothing:antialiased;
 }
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; font-size:inherit}
 input,select{font-family:inherit; font-size:inherit}
 
 /* ---------- top bar ---------- */
-.top{position:sticky; top:0; z-index:50; background:#0b0e13; border-bottom:1px solid var(--line); }
+.top{position:sticky; top:0; z-index:50; background:#0a0a0a; border-bottom:1px solid var(--line); }
 .top-in{max-width:1500px; margin:0 auto; padding:9px 16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
 .brand{font-weight:800; font-size:15px; letter-spacing:-.2px; white-space:nowrap}
 .brand span{color:var(--dim2); font-weight:600; font-size:11px; letter-spacing:.4px; text-transform:uppercase; margin-left:7px}
@@ -33,32 +35,32 @@ input,select{font-family:inherit; font-size:inherit}
 }
 .fld input[type=number]{width:46px}
 .tgl{display:flex; align-items:center; gap:5px; font-size:11.5px; color:var(--dim); cursor:pointer; user-select:none}
-.btn{background:var(--panel2); border:1px solid var(--line2); border-radius:5px; padding:4px 10px; font-size:12px; font-weight:600; color:var(--txt)}
-.btn:hover{background:#28303c}
+.btn{background:#242424; border:1px solid transparent; border-radius:999px; padding:6px 14px; font-size:12.5px; font-weight:600; color:var(--txt); line-height:1.3}
+.btn:hover{background:#2c2c2c}
 .btn.danger:hover{background:#3a1f1f; border-color:#6b2f2f; color:#ffb3b2}
 
 /* ---------- layout ---------- */
 .wrap{max-width:1500px; margin:0 auto; padding:14px 16px 60px; display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:16px; align-items:start}
 @media(max-width:1080px){ .wrap{grid-template-columns:1fr; padding:10px 10px 50px} .cfg{width:100%; margin-left:0} }
 
-.card{background:var(--panel); border:1px solid var(--line); border-radius:9px; overflow:hidden; margin-bottom:14px}
+.card{background:var(--panel); border:none; border-radius:16px; overflow:hidden; margin-bottom:14px}
 .card > h3{
-  margin:0; padding:8px 12px; font-size:11px; font-weight:800; letter-spacing:.9px; text-transform:uppercase;
-  color:var(--dim); background:var(--panel2); border-bottom:1px solid var(--line);
+  margin:0; padding:13px 16px 9px; font-size:14px; font-weight:700; letter-spacing:-.01em;
+  color:var(--txt); background:none; border-bottom:none;
   display:flex; justify-content:space-between; align-items:center; gap:8px;
 }
-.card > h3 b{color:var(--txt); font-size:11px}
-.pad{padding:11px 12px}
+.card > h3 b{color:var(--acc); font-size:12px; font-weight:600}
+.pad{padding:8px 16px 14px}
 
 /* ---------- clock ---------- */
 .clock{border-radius:9px; padding:12px 14px; margin-bottom:14px; border:1px solid var(--line); background:var(--panel)}
-.clock.mine{background:linear-gradient(180deg,#173a26,#12281c); border-color:#2f7a52}
+.clock.mine{background:linear-gradient(180deg,#3a2010,#2a1a0e); border-color:#a0501e}
 .clock-top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
 .clock-lbl{font-size:11px; font-weight:800; letter-spacing:1.1px; text-transform:uppercase; color:var(--dim)}
-.clock.mine .clock-lbl{color:#7ee0a8}
+.clock.mine .clock-lbl{color:#ffb280}
 .clock-big{font-size:25px; font-weight:800; letter-spacing:-.6px; line-height:1.1}
 .clock-sub{font-size:12.5px; color:var(--dim); margin-top:3px}
-.clock.mine .clock-sub{color:#b6e8cb}
+.clock.mine .clock-sub{color:#ffd2b3}
 .clock-sub b{color:var(--txt)}
 .clock.mine .clock-sub b{color:#fff}
 
@@ -78,20 +80,21 @@ input,select{font-family:inherit; font-size:inherit}
 .tools{display:flex; gap:7px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line); flex-wrap:wrap; background:var(--panel2)}
 .tab{padding:3px 9px; border-radius:20px; font-size:11.5px; font-weight:700; color:var(--dim); border:1px solid transparent; white-space:nowrap}
 .tab:hover{color:var(--txt)}
-.tab.on{background:var(--txt); color:#0b0e13}
-.srch{flex:1; min-width:130px; background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:4px 9px; color:var(--txt); font-size:12.5px}
+.tab.on{background:var(--acc); color:var(--accink)}
+.srch{flex:1; min-width:130px; background:#1c1c1c; border:1px solid transparent; border-radius:999px; padding:6px 13px; color:var(--txt); font-size:12.5px}
+.srch:focus{outline:none; border-color:var(--acc)}
 .srch::placeholder{color:var(--dim2)}
 
 /* ---------- player rows ---------- */
 .rows{max-height:min(72vh,900px); overflow-y:auto}
 .tiersep{padding:4px 12px; font-size:10px; font-weight:800; letter-spacing:.9px; text-transform:uppercase;
-         color:var(--dim2); background:#12161d; border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:sticky; top:0}
-.row{display:flex; align-items:center; gap:9px; padding:6px 12px; border-bottom:1px solid #202730; cursor:pointer}
-.row:hover{background:#1b222c}
+         color:var(--dim2); background:#121212; border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:sticky; top:0}
+.row{display:flex; align-items:center; gap:9px; padding:6px 12px; border-bottom:1px solid #222222; cursor:pointer}
+.row:hover{background:#1c1c1c}
 .row.gone{opacity:.32}
 .row.gone .nm{text-decoration:line-through}
 .rk{width:26px; flex:none; text-align:right; font-size:11px; font-weight:700; color:var(--dim2); font-variant-numeric:tabular-nums}
-.pos{width:26px; flex:none; text-align:center; font-size:9.5px; font-weight:800; letter-spacing:.3px; padding:2px 0; border-radius:3px}
+.pos{width:28px; flex:none; text-align:center; font-size:9.5px; font-weight:800; letter-spacing:.4px; padding:3px 0; border-radius:6px}
 .pos.RB{background:rgba(63,191,127,.16); color:var(--rb)}
 .pos.WR{background:rgba(77,159,255,.16); color:var(--wr)}
 .pos.TE{background:rgba(232,136,61,.16); color:var(--te)}
@@ -103,17 +106,17 @@ input,select{font-family:inherit; font-size:inherit}
 .tag{font-size:9px; font-weight:800; letter-spacing:.3px; padding:1px 4px; border-radius:3px}
 .tag.val{background:rgba(63,191,127,.18); color:var(--good)}
 .tag.fade{background:rgba(240,96,95,.16); color:var(--bad)}
-.tag.out{background:var(--bad); color:#fff}
+.tag.out{background:var(--bad); color:#fff; border-radius:999px; padding:1px 6px}
 .tag.inj{background:rgba(232,163,61,.18); color:var(--warn)}
 .tag.risk{background:rgba(232,163,61,.18); color:var(--warn)}
 .tag.now{background:rgba(240,96,95,.18); color:var(--bad)}
 .tag.wait{background:rgba(139,149,165,.15); color:var(--dim)}
 .acts{display:flex; gap:4px; flex:none}
-.mini{border:1px solid var(--line2); background:var(--panel2); border-radius:5px; padding:2px 7px; font-size:11px; font-weight:700; color:var(--dim)}
-.mini:hover{color:var(--txt); background:#2b333f}
-.mini.me{border-color:#2f7a52; color:#7ee0a8}
-.mini.me:hover{background:#1d4432; color:#b6e8cb}
-.note{padding:3px 12px 9px 74px; font-size:11.5px; color:var(--dim); background:#12161d; border-bottom:1px solid #202730}
+.mini{border:1px solid #333; background:transparent; border-radius:999px; padding:3px 9px; font-size:11px; font-weight:600; color:var(--dim)}
+.mini:hover{color:var(--txt); background:#2c2c2c}
+.mini.me{border-color:var(--acc); color:var(--acc)}
+.mini.me:hover{background:var(--acc); color:var(--accink)}
+.note{padding:3px 12px 9px 74px; font-size:11.5px; color:var(--dim); background:#121212; border-bottom:1px solid #222222}
 
 
 
@@ -136,15 +139,15 @@ input,select{font-family:inherit; font-size:inherit}
 
 
 /* ---------- player compare ---------- */
-.vsbtn{border-color:#4d5f8a !important; color:#9db4e8 !important; font-size:10px !important}
+.vsbtn{border-color:#7a4a2a !important; color:#ffb280 !important; font-size:10px !important}
 .cmpbar{position:fixed; left:50%; transform:translateX(-50%); bottom:74px; z-index:90;
-  background:#232c42; border:1px solid #4d5f8a; color:#c4d4f5; border-radius:20px;
+  background:#2a1c14; border:1px solid #7a4a2a; color:#ffd2b3; border-radius:20px;
   padding:8px 14px; font-size:12.5px; display:flex; gap:10px; align-items:center;
   box-shadow:0 4px 18px rgba(0,0,0,.5)}
 @media(min-width:761px){ .cmpbar{bottom:24px} }
 .cmpbar b{color:#fff}
 .cmpgrid{display:grid; grid-template-columns:88px 1fr 1fr; font-size:12px}
-.cmpgrid>div{padding:6px 9px; border-bottom:1px solid #202730; min-width:0}
+.cmpgrid>div{padding:6px 9px; border-bottom:1px solid #222222; min-width:0}
 .cmpl{color:var(--dim2); font-size:10px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; display:flex; align-items:center}
 .cmpv{color:var(--dim)}
 .cmpv.win{color:var(--good); font-weight:700; background:rgba(63,191,127,.07)}
@@ -154,12 +157,12 @@ input,select{font-family:inherit; font-size:inherit}
 .cmpai{padding:9px 12px; border-top:1px solid var(--line)}
 .cmpaiout{padding:0 12px 11px; font-size:12.5px; line-height:1.5; color:var(--txt)}
 .cmpaiout b{color:var(--acc)}
-.cmpnotes{padding:7px 12px; font-size:11.5px; color:var(--dim); border-top:1px solid #202730}
+.cmpnotes{padding:7px 12px; font-size:11.5px; color:var(--dim); border-top:1px solid #222222}
 .cmpnotes b{color:var(--txt)}
 
 /* ---------- ask AI ---------- */
-.aibtn{border-color:#4d5f8a; color:#9db4e8}
-.aibtn:hover{background:#232c42; color:#c4d4f5}
+.aibtn{border-color:#7a4a2a; color:#ffb280}
+.aibtn:hover{background:#2a1c14; color:#ffd2b3}
 .aiout{padding:10px 12px; font-size:13px; border-top:1px solid var(--line); background:rgba(77,159,255,.06); line-height:1.5}
 .aiout b{color:var(--acc)}
 .aisetup{padding:10px 12px; font-size:12px; border-top:1px solid var(--line); background:var(--panel2); color:var(--dim)}
@@ -167,19 +170,19 @@ input,select{font-family:inherit; font-size:inherit}
 .aisetup select{background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:6px 8px; color:var(--txt); font-size:12px}
 
 
-.aimsg{padding:6px 0; border-bottom:1px dashed #2a323e}
+.aimsg{padding:6px 0; border-bottom:1px dashed #232323}
 .aimsg.you{color:#e8c95a}
 .aimsg:last-of-type{border-bottom:none}
 .aireply{display:flex; gap:6px; margin-top:8px}
 .aireply input{flex:1; background:var(--bg); border:1px solid var(--line2); border-radius:6px; padding:7px 10px; color:var(--txt); font-size:13px}
-.aireply input:focus{outline:none; border-color:#4d5f8a}
+.aireply input:focus{outline:none; border-color:#7a4a2a}
 
 /* ---------- flex advisor ---------- */
 .fxhd{padding:7px 12px 4px; font-size:10px; font-weight:800; letter-spacing:.8px; text-transform:uppercase;
       color:var(--acc); border-top:1px solid var(--line)}
 .fxv{padding:10px 12px; font-size:13px; border-bottom:1px solid var(--line); background:rgba(63,191,127,.05)}
 .fxv b{color:var(--good)}
-.fxr{display:flex; align-items:center; gap:9px; padding:6px 12px; border-bottom:1px solid #202730; font-size:12.5px}
+.fxr{display:flex; align-items:center; gap:9px; padding:6px 12px; border-bottom:1px solid #222222; font-size:12.5px}
 .fxr:last-child{border-bottom:none}
 .fxr .fp{width:30px; flex:none}
 .fxr .fnow{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
@@ -201,7 +204,7 @@ input,select{font-family:inherit; font-size:inherit}
 .mynote-ed textarea:focus{outline:none; border-color:#e8c95a}
 .mynote-ed .row2{display:flex; gap:6px; margin-top:5px; align-items:center}
 .mynote-ed .hint2{font-size:10px; color:var(--dim2); margin-left:auto}
-.noterow{padding:8px 12px; border-bottom:1px solid #202730; font-size:12.5px}
+.noterow{padding:8px 12px; border-bottom:1px solid #222222; font-size:12.5px}
 .noterow:last-child{border-bottom:none}
 .noterow .nh{display:flex; gap:8px; align-items:baseline}
 .noterow .nh b{font-size:13px}
@@ -221,7 +224,7 @@ input,select{font-family:inherit; font-size:inherit}
 .dcx{font-size:17px; color:var(--dim); padding:0 4px}
 .dcx:hover{color:var(--txt)}
 .dcpos{padding:5px 14px 2px; font-size:9.5px; font-weight:800; letter-spacing:.8px; color:var(--dim2)}
-.dcrow{display:flex; align-items:center; gap:9px; padding:5.5px 14px; border-bottom:1px solid #202730; font-size:13px}
+.dcrow{display:flex; align-items:center; gap:9px; padding:5.5px 14px; border-bottom:1px solid #222222; font-size:13px}
 .dcrow:last-child{border-bottom:none}
 .dcrow .dn{width:38px; flex:none; font-size:10px; font-weight:800; color:var(--dim); font-variant-numeric:tabular-nums}
 .dcrow .dm{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:650}
@@ -231,7 +234,7 @@ input,select{font-family:inherit; font-size:inherit}
 .dcrow.gone .dm{text-decoration:line-through}
 .dcrow.mine{background:rgba(63,191,127,.08)}
 .dcrow .dt.you{background:var(--good); color:#08130d}
-.dcrow .dt.cuff{background:rgba(63,191,127,.16); color:var(--good); border:1px solid #2f7a52}
+.dcrow .dt.cuff{background:rgba(63,191,127,.16); color:var(--good); border:1px solid #a0501e}
 .dcrow .dt.outt{background:var(--bad); color:#fff}
 .dchint{padding:8px 14px 11px; font-size:11px; color:var(--dim2)}
 
@@ -242,7 +245,7 @@ input,select{font-family:inherit; font-size:inherit}
 .rtab{flex:none; padding:2.5px 9px; border-radius:12px; font-size:10.5px; font-weight:800;
       color:var(--dim); border:1px solid transparent; font-variant-numeric:tabular-nums}
 .rtab:hover{color:var(--txt)}
-.rtab.on{background:var(--txt); color:#0b0e13}
+.rtab.on{background:var(--acc); color:var(--accink)}
 .rtab.dim{opacity:.35}
 .rtab[data-rt="live"].on{background:var(--good); color:#08130d}
 
@@ -254,8 +257,8 @@ input,select{font-family:inherit; font-size:inherit}
 .tk b{font-weight:650}
 .tk .n{color:var(--dim2); font-variant-numeric:tabular-nums; font-weight:700; font-size:10px}
 .tk .pos{width:auto; padding:1px 5px}
-.tk.mine{background:#12281c; border-color:#2f7a52}
-.tk.mine b{color:#9ff0c4}
+.tk.mine{background:#2a1a0e; border-color:#a0501e}
+.tk.mine b{color:#ffd2b3}
 
 /* ================= PHONE LAYOUT ================= */
 .gear{display:none; font-size:19px; color:var(--dim); padding:2px 8px}
@@ -279,12 +282,12 @@ input,select{font-family:inherit; font-size:inherit}
 
   /* always-visible pick strip */
   .pstrip{display:flex; align-items:center; gap:9px; position:sticky; top:0; z-index:40;
-        padding:7px 12px; background:#0b0e13; border-bottom:1px solid var(--line); font-size:12.5px}
+        padding:7px 12px; background:#0a0a0a; border-bottom:1px solid var(--line); font-size:12.5px}
   .pstrip b{color:var(--txt)}
   .pstrip .mnow{font-size:15px; font-weight:800; letter-spacing:-.3px; white-space:nowrap}
   .pstrip .mnext{color:var(--dim); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-  .pstrip.mine{background:#12281c; border-bottom-color:#2f7a52}
-  .pstrip.mine .mnow{color:#7ee0a8}
+  .pstrip.mine{background:#2a1a0e; border-bottom-color:#a0501e}
+  .pstrip.mine .mnow{color:#ffb280}
 
   .wrap{grid-template-columns:minmax(0,1fr); padding:10px 10px 20px; gap:0}
   .main,.side{min-width:0}
@@ -327,30 +330,31 @@ input,select{font-family:inherit; font-size:inherit}
 
   /* restore banner */
   .restore{display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin:9px 10px 0;
-           padding:9px 11px; border-radius:9px; background:#1b2a1f; border:1px solid #2f7a52; font-size:12.5px}
+           padding:9px 11px; border-radius:9px; background:#2a1a0e; border:1px solid #a0501e; font-size:12.5px}
 
   /* bottom nav */
-  .mtabs{display:grid; grid-template-columns:repeat(4,1fr); position:fixed; left:0; right:0; bottom:0; z-index:60;
-         background:#0b0e13; border-top:1px solid var(--line2); padding-bottom:env(safe-area-inset-bottom)}
-  .mtab{display:flex; flex-direction:column; align-items:center; gap:1px; padding:9px 0 8px;
-        font-size:10.5px; font-weight:700; color:var(--dim2)}
-  .mtab i{font-style:normal; font-size:15px; line-height:1}
-  .mtab.on{color:var(--good)}
+  .mtabs{display:grid; grid-template-columns:repeat(4,1fr); position:fixed; left:12px; right:12px; bottom:calc(10px + env(safe-area-inset-bottom)); z-index:60;
+         background:#161616; border:none; border-radius:999px; padding:6px; box-shadow:0 8px 30px rgba(0,0,0,.6)}
+  .mtab{display:flex; flex-direction:column; align-items:center; gap:2px; padding:5px 0 4px;
+        font-size:10px; font-weight:600; color:var(--dim2)}
+  .mtab i{font-style:normal; font-size:14px; line-height:1; width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:50%}
+  .mtab.on{color:var(--txt)}
+  .mtab.on i{background:var(--acc); color:var(--accink)}
   .mtab .badge{position:absolute; margin:-14px 0 0 20px; width:7px; height:7px; border-radius:50%; background:var(--good)}
 }
 @media(min-width:761px){ .restore{display:flex; align-items:center; gap:9px; flex-wrap:wrap;
   max-width:1500px; margin:12px auto 0; padding:9px 12px; border-radius:9px;
-  background:#1b2a1f; border:1px solid #2f7a52; font-size:12.5px} }
+  background:#2a1a0e; border:1px solid #a0501e; font-size:12.5px} }
 
 /* ---------- mode tabs + sim bar ---------- */
-.modes{display:flex; gap:3px; background:var(--panel2); border:1px solid var(--line2); border-radius:7px; padding:2px}
-.mode{padding:3px 11px; border-radius:5px; font-size:12px; font-weight:700; color:var(--dim)}
+.modes{display:flex; gap:3px; background:#1c1c1c; border:none; border-radius:999px; padding:3px}
+.mode{padding:4px 13px; border-radius:999px; font-size:12px; font-weight:600; color:var(--dim)}
 .mode:hover{color:var(--txt)}
-.mode.on{background:var(--txt); color:#0b0e13}
+.mode.on{background:var(--acc); color:var(--accink)}
 .simbar{display:none; align-items:center; gap:9px; flex-wrap:wrap; max-width:1500px; margin:0 auto;
-        padding:8px 16px; border-top:1px solid var(--line); background:#0f141b}
-.btn.go{background:#1d4432; border-color:#2f7a52; color:#9ff0c4}
-.btn.go:hover{background:#255a41}
+        padding:8px 16px; border-top:1px solid var(--line); background:#101010}
+.btn.go{background:var(--acc); border-color:var(--acc); color:var(--accink); font-weight:700}
+.btn.go:hover{background:var(--acc2); border-color:var(--acc2)}
 .btn:disabled{opacity:.35; cursor:default}
 .simstatus{margin-left:auto; font-size:12px; color:var(--dim)}
 /* ---------- sim news ---------- */
@@ -358,7 +362,7 @@ input,select{font-family:inherit; font-size:inherit}
          border:1px solid var(--line); background:var(--panel); font-size:12.5px}
 .newsrow.bad{border-color:#6b3030; background:#231518}
 .newsrow.out{border-color:var(--bad); background:#2c1618}
-.newsrow.good{border-color:#2f6b4c; background:#14231b}
+.newsrow.good{border-color:#a0501e; background:#1a1a1a}
 .newstag{flex:none; font-size:8.5px; font-weight:800; letter-spacing:.7px; padding:2px 5px; border-radius:3px;
          background:var(--line2); color:var(--txt)}
 .newsrow.out .newstag{background:var(--bad); color:#fff}
@@ -367,19 +371,19 @@ input,select{font-family:inherit; font-size:inherit}
 .newstx b{color:var(--txt)}
 .newspk{flex:none; font-size:10.5px; color:var(--dim2)}
 /* ---------- the room ---------- */
-.tmrow{display:flex; gap:9px; align-items:center; padding:5px 12px; border-bottom:1px solid #202730;
+.tmrow{display:flex; gap:9px; align-items:center; padding:5px 12px; border-bottom:1px solid #222222;
        font-size:12.5px; cursor:pointer}
-.tmrow:hover{background:#1b222c}
+.tmrow:hover{background:#1c1c1c}
 .tmrow.me{background:rgba(63,191,127,.08)}
 .tmn{width:34px; flex:none; font-size:10px; font-weight:800; color:var(--dim2)}
 .tmrow.me .tmn{color:var(--good)}
 .tmg{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--dim)}
 .tms{flex:none; font-size:10.5px; color:var(--dim2); font-variant-numeric:tabular-nums}
-.tmros{padding:5px 12px 8px 46px; background:#12161d; border-bottom:1px solid #202730; font-size:11.5px; color:var(--dim)}
+.tmros{padding:5px 12px 8px 46px; background:#121212; border-bottom:1px solid #222222; font-size:11.5px; color:var(--dim)}
 .tmros > div{padding:1px 0}
 /* ---------- results ---------- */
 .respad{padding:11px 12px; border-bottom:1px solid var(--line)}
-.resrow{display:flex; gap:9px; align-items:center; padding:4px 12px; border-bottom:1px solid #202730; font-size:12.5px}
+.resrow{display:flex; gap:9px; align-items:center; padding:4px 12px; border-bottom:1px solid #222222; font-size:12.5px}
 .resrow.me{background:rgba(63,191,127,.08)}
 .resp{width:20px; flex:none; text-align:right; font-weight:800; color:var(--dim2)}
 .resn{width:190px; flex:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
@@ -396,7 +400,7 @@ input,select{font-family:inherit; font-size:inherit}
 .colhd{padding:6px 12px; font-size:10px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; border-bottom:1px solid var(--line)}
 .colhd.bad{color:var(--bad); background:rgba(240,96,95,.07)}
 .colhd.good{color:var(--good); background:rgba(63,191,127,.07)}
-.mrow{display:flex; align-items:baseline; gap:7px; padding:4px 12px; font-size:12.5px; border-bottom:1px solid #202730}
+.mrow{display:flex; align-items:baseline; gap:7px; padding:4px 12px; font-size:12.5px; border-bottom:1px solid #222222}
 .mrow:last-child{border-bottom:none}
 .mrow .mp{font-size:9px; font-weight:800; padding:1px 4px; border-radius:3px; flex:none}
 .mrow .mn{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600}
@@ -404,7 +408,7 @@ input,select{font-family:inherit; font-size:inherit}
 .mnone{padding:9px 12px; font-size:11.5px; color:var(--dim2)}
 
 /* ---------- roster ---------- */
-.slot{display:flex; align-items:center; gap:8px; padding:4px 12px; border-bottom:1px solid #202730; font-size:12.5px}
+.slot{display:flex; align-items:center; gap:8px; padding:4px 12px; border-bottom:1px solid #222222; font-size:12.5px}
 .slot:last-child{border-bottom:none}
 .slot-l{width:44px; flex:none; font-size:9.5px; font-weight:800; letter-spacing:.4px; color:var(--dim2)}
 .slot-v{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
@@ -421,7 +425,7 @@ input,select{font-family:inherit; font-size:inherit}
 .runs{font-size:11.5px; color:var(--dim); padding:0 12px 10px}
 .runs b{color:var(--txt)}
 .log{max-height:190px; overflow-y:auto}
-.logrow{display:flex; gap:8px; align-items:center; padding:3px 12px; font-size:11.5px; border-bottom:1px solid #202730; color:var(--dim)}
+.logrow{display:flex; gap:8px; align-items:center; padding:3px 12px; font-size:11.5px; border-bottom:1px solid #222222; color:var(--dim)}
 .logrow b{color:var(--txt); font-weight:650}
 .logrow.mine{background:rgba(63,191,127,.07)}
 .logrow .who{margin-left:auto; font-size:9.5px; font-weight:800; letter-spacing:.3px}
@@ -434,7 +438,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 .hint{font-size:10.5px; color:var(--dim2); padding:0 12px 10px}
 .empty-msg{padding:22px 12px; text-align:center; color:var(--dim2); font-size:12.5px}
 ::-webkit-scrollbar{width:9px;height:9px}
-::-webkit-scrollbar-thumb{background:#333c49; border-radius:5px}
+::-webkit-scrollbar-thumb{background:#2a2a2a; border-radius:5px}
 ::-webkit-scrollbar-track{background:transparent}
 
 /* ---- Sleeper live sync ---- */
@@ -442,7 +446,7 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 .slpwrap input{width:150px}
 .slpst{font-size:11px;color:var(--dim)} .slpst.ok{color:var(--good)} .slpst.bad{color:var(--bad)}
 .slpbadge{display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:11.5px;letter-spacing:.02em;
-  background:linear-gradient(90deg,#12324f,#14213a);border-bottom:1px solid var(--line);color:#9fd0ff}
+  background:linear-gradient(90deg,#2a1a0e,#141414);border-bottom:1px solid var(--line);color:#ffb280}
 .slpbadge.bad{background:#3a1c22;color:#ffb0ae}
 .slpbadge .warn{color:var(--warn)}
 .slpbadge .slpx{margin-left:auto;background:none;border:1px solid var(--line2);color:var(--dim);
@@ -475,13 +479,13 @@ textarea{width:100%; height:52px; background:var(--bg); border:1px solid var(--l
 .gridtgl.on{background:var(--acc);border-color:var(--acc);color:#fff}
 
 /* ================= APP-LEVEL NAV + VIEWS ================= */
-.appnav{background:linear-gradient(180deg,#141a24,#10151d);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:70}
-.appnav-in{display:flex;align-items:center;gap:6px;max-width:1500px;margin:0 auto;padding:9px 14px}
-.applogo{font-weight:800;font-size:15px;margin-right:14px;letter-spacing:.01em}
+.appnav{background:var(--bg);border-bottom:1px solid #161616;position:sticky;top:0;z-index:70}
+.appnav-in{display:flex;align-items:center;gap:6px;max-width:1500px;margin:0 auto;padding:12px 16px}
+.applogo{font-weight:900;font-style:italic;font-size:16px;margin-right:18px;letter-spacing:-.02em;text-transform:uppercase;color:var(--acc)}
 .applogo em{font-style:normal;color:var(--acc);font-size:11px;vertical-align:super}
-.avtab{background:none;border:none;color:var(--dim);font-size:13.5px;font-weight:700;padding:7px 13px;border-radius:8px;cursor:pointer}
+.avtab{background:#1c1c1c;border:none;color:#c9c9c9;font-size:13px;font-weight:600;padding:7px 15px;border-radius:999px;cursor:pointer}
 .avtab:hover{color:var(--txt)}
-.avtab.on{background:var(--acc);color:#fff}
+.avtab.on{background:var(--acc);color:var(--accink);font-weight:700}
 .avlg{margin-left:auto;font-size:11.5px;color:var(--dim)}
 body:not([data-view="draft"]) .top, body:not([data-view="draft"]) .pstrip,
 body:not([data-view="draft"]) .slpbadge, body:not([data-view="draft"]) .restore,
@@ -489,9 +493,11 @@ body:not([data-view="draft"]) .gridcard, body:not([data-view="draft"]) .wrap,
 body:not([data-view="draft"]) .mtabs{display:none!important}
 body:not([data-view="home"]) #viewHome{display:none!important}
 body:not([data-view="trade"]) #viewTrade{display:none!important}
+body:not([data-view="sitstart"]) #viewSitStart{display:none!important}
 .vwrap{max-width:1100px;margin:14px auto;padding:0 14px;display:flex;flex-direction:column;gap:14px}
 .syncrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.syncrow input{background:var(--panel2);border:1px solid var(--line2);color:var(--txt);border-radius:8px;padding:8px 12px;font-size:13.5px;width:230px}
+.syncrow input{background:#1c1c1c;border:1px solid transparent;color:var(--txt);border-radius:999px;padding:10px 16px;font-size:13.5px;width:260px}
+.syncrow input:focus{outline:none;border-color:var(--acc)}
 .lglist{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 .lgrow{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 13px;cursor:pointer}
 .lgrow:hover{border-color:var(--acc)}
@@ -501,8 +507,8 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 .lgrow .lgdyn{margin-left:auto;font-size:10px;font-weight:800;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:1px 7px}
 .tmeta{color:var(--dim);font-size:11.5px;font-weight:400;margin-left:10px}
 .tanalysis{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.tstat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:11.5px;color:var(--dim)}
-.tstat b{display:block;font-size:16px;color:var(--txt)}
+.tstat{background:#1f1f1f;border:none;border-radius:14px;padding:9px 15px;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.04em}
+.tstat b{display:block;font-size:17px;color:var(--txt);text-transform:none;letter-spacing:-.02em}
 .tstat.warn b{color:var(--warn)} .tstat.good b{color:var(--good)}
 .rospos{margin:10px 0 4px;font-size:11px;font-weight:800;color:var(--dim);letter-spacing:.06em}
 .rosrow{display:flex;align-items:center;gap:9px;padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:6px}
@@ -512,16 +518,16 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 .rosrow .rmeta{color:var(--dim2);font-size:11px;margin-left:auto;text-align:right}
 .rosnote{display:none;padding:8px 12px 10px 53px;font-size:12px;color:var(--dim);border-bottom:1px solid var(--line);line-height:1.5}
 .rosnote.open{display:block}
-.pos.RB{background:#173d34;color:#5adbb7}.pos.WR{background:#16314d;color:#6cb5ff}.pos.TE{background:#3d2c14;color:#eeb063}
-.pos.QB{background:#3d1830;color:#ef8bbb}.pos.K{background:#2a2545;color:#b3a7ee}.pos.DST{background:#332619;color:#cfa06e}
+.pos.RB,.pos.WR,.pos.TE,.pos.QB,.pos.K,.pos.DST{background:#262626}
+.pos.RB{color:var(--rb)}.pos.WR{color:var(--wr)}.pos.TE{color:var(--te)}.pos.QB{color:var(--qb)}.pos.K,.pos.DST{color:var(--kd)}
 .trpick{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .trcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .trside h4{margin:0 0 8px;font-size:12.5px;color:var(--dim)}
 .trval{color:var(--acc);font-variant-numeric:tabular-nums}
 .trros{display:flex;flex-direction:column;gap:3px;max-height:430px;overflow-y:auto}
-.trrow{display:flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:12.5px;background:var(--panel2)}
+.trrow{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid transparent;border-radius:12px;cursor:pointer;font-size:12.5px;background:#1c1c1c}
 .trrow:hover{border-color:var(--line2)}
-.trrow.sel{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc);background:#152436}
+.trrow.sel{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 0 18px rgba(255,106,26,.25);background:#241710}
 .trrow .rmeta{margin-left:auto;color:var(--dim2);font-size:10.5px}
 .trverdict-head{font-size:17px;font-weight:800;margin-bottom:6px}
 .trverdict-head.good{color:var(--good)} .trverdict-head.bad{color:var(--bad)} .trverdict-head.mid{color:var(--warn)}
@@ -536,22 +542,21 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 @media (max-width:760px){ .trcols{grid-template-columns:1fr} .syncrow input{flex:1;width:auto} .appnav-in{padding:8px 8px} .avtab{padding:6px 9px;font-size:12.5px} .applogo{font-size:13px;margin-right:6px} .avlg{display:none} }
 
 /* ================= THE FRONT OFFICE — HOME OVERHAUL ================= */
-.logobadge{display:inline-block;background:linear-gradient(135deg,var(--acc),#7c5cff);color:#fff;font-weight:900;
+.logobadge{display:inline-block;background:var(--acc);color:#fff;font-weight:900;
   font-size:11px;border-radius:7px;padding:3px 6px;margin-right:7px;letter-spacing:.05em}
-.avtab.on{background:none;color:var(--txt);box-shadow:inset 0 -2px 0 var(--acc);border-radius:0}
 .vwrap.wide{max-width:1240px}
 .card.slim{padding:10px 14px}
 .card h3{display:flex;align-items:center}
 .synclabel{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--dim)}
 .lgchips{display:flex;gap:8px;flex-wrap:wrap;margin-left:6px}
-.lgchip{display:flex;align-items:center;gap:7px;background:var(--panel2);border:1px solid var(--line);border-radius:20px;
-  padding:5px 13px 5px 6px;cursor:pointer;font-size:12px;font-weight:700}
+.lgchip{display:flex;align-items:center;gap:7px;background:#1c1c1c;border:1px solid transparent;border-radius:999px;
+  padding:5px 13px 5px 6px;cursor:pointer;font-size:12px;font-weight:600}
 .lgchip img{width:22px;height:22px;border-radius:50%}
 .lgchip:hover{border-color:var(--line2)}
-.lgchip.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc);background:#152436}
+.lgchip.on{background:var(--acc);color:var(--accink)}
 .lgchip .lgdyn{font-size:9px;color:var(--acc);border:1px solid var(--acc);border-radius:4px;padding:0 5px}
-.hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-radius:14px;padding:16px 20px;
-  background:linear-gradient(120deg,#16233a 0%,#131a26 55%,#171426 100%);border:1px solid #26324a}
+.hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-radius:20px;padding:20px 22px;position:relative;overflow:hidden;
+  background:radial-gradient(600px 220px at 100% 0%,rgba(255,106,26,.18),transparent 60%),#161616;border:none}
 .heroav{width:56px;height:56px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
 .heroname{font-size:20px;font-weight:800}
 .herometa{font-size:12px;color:var(--dim);margin-top:2px}
@@ -564,13 +569,13 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 .rosrow.pQB::before{background:#c4608f}.rosrow.pK::before{background:#8d7fd0}.rosrow.pDST::before{background:#a07b56}
 .hshot{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--panel2);flex:none}
 .valbar{width:64px;height:5px;background:var(--panel2);border-radius:3px;overflow:hidden;flex:none}
-.valbar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),#7c5cff)}
+.valbar i{display:block;height:100%;background:var(--acc)}
 .hlrow{display:flex;gap:9px;padding:8px 2px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.45}
 .hlrow:last-child{border-bottom:none}
 .hlrow .hshot{width:28px;height:28px}
 .hlrow b{font-size:12.5px}
-.hltag{font-size:9px;font-weight:800;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
-.hltag.out{background:#3a1c22;color:#ff8d8a}.hltag.inj{background:#4a3016;color:#eeb063}.hltag.risk{background:#173d34;color:#5adbb7}
+.hltag{font-size:9px;font-weight:800;border-radius:999px;padding:2px 7px;margin-left:6px;vertical-align:1px;text-transform:uppercase;letter-spacing:.04em}
+.hltag.out{background:var(--bad);color:#fff}.hltag.inj{background:#4a3016;color:#eeb063}.hltag.risk{background:#173d34;color:#5adbb7}
 .lurow{padding:8px 2px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.5}
 .lurow:last-child{border-bottom:none}
 .lurow b{color:var(--good)} .lurow s{color:var(--dim);text-decoration:none;font-weight:700}
@@ -582,87 +587,99 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 .prrow img{width:24px;height:24px;border-radius:50%}
 .prrow .prbar{flex:1;height:6px;background:var(--panel2);border-radius:3px;overflow:hidden}
 .prrow .prbar i{display:block;height:100%;background:var(--line2)}
-.prrow.me .prbar i{background:linear-gradient(90deg,var(--acc),#7c5cff)}
+.prrow.me .prbar i{background:var(--acc)}
 .prrow.me b{color:var(--acc)}
 .emptymsg{color:var(--dim2);font-size:12px;padding:6px 2px}
 .trrow .hshot{width:26px;height:26px}
 @media (max-width:900px){ .homegrid{grid-template-columns:1fr} .hero .tanalysis{margin:8px 0 0} }
 
 /* ================= LANDING (pre-sync) ================= */
-.land{display:flex;flex-direction:column;gap:16px}
-.landhero{border:1px solid var(--line);border-radius:16px;padding:34px 30px;
-  background:radial-gradient(1100px 380px at 12% -30%,#1b3450 0%,transparent 62%),linear-gradient(180deg,#151b25,#11151d)}
-.landkick{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
-.landtitle{font-size:33px;font-weight:800;letter-spacing:-.8px;line-height:1.12;margin:0 0 10px;max-width:660px}
-.landtitle em{font-style:normal;color:var(--acc)}
-.landsub{font-size:14.5px;color:var(--dim);line-height:1.6;max-width:620px;margin:0}
-.landcta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center}
-.bigbtn{background:var(--acc);color:#06121f;border-radius:9px;padding:10px 20px;font-size:14px;font-weight:800;border:1px solid var(--acc)}
-.bigbtn:hover{background:#6bb0ff}
-.bigbtn.ghost{background:transparent;color:var(--txt);border-color:var(--line2)}
-.bigbtn.ghost:hover{background:var(--panel2);border-color:var(--acc);color:var(--acc)}
+.land{display:flex;flex-direction:column;gap:18px}
+.syncbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.syncbar .synclabel{display:none}
+.sectionhd{display:flex;align-items:baseline;justify-content:space-between;margin:4px 2px 0}
+.sectionhd h2{margin:0;font-size:16px;font-weight:700;letter-spacing:-.01em}
+.sectionhd a,.sectionhd button{color:var(--acc);font-size:12.5px;font-weight:600;text-decoration:none;padding:0}
+.featured{position:relative;border-radius:22px;padding:30px 30px 26px;overflow:hidden;background:#161616;
+  border:1.5px solid var(--acc);box-shadow:0 0 0 1px rgba(255,106,26,.25),0 18px 50px rgba(255,106,26,.12)}
+.featured::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(700px 300px at 85% -20%,rgba(255,106,26,.28),transparent 60%),
+             linear-gradient(180deg,rgba(255,255,255,.02),transparent 40%)}
+
+.featured > *{position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.kicker.live{color:#fff;background:var(--bad);border-radius:999px;padding:3px 9px;letter-spacing:.04em}
+.kicker.live::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+.featured h1{margin:0 0 8px;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1;max-width:640px}
+.featured h1 em{font-style:normal;color:var(--acc)}
+.featured p{margin:0;font-size:14px;color:var(--dim);line-height:1.6;max-width:560px}
+.featured .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-top:12px}
+.featured .meta span::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--acc);margin-right:7px;vertical-align:2px}
+.ctarow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.bigbtn{background:var(--acc);color:var(--accink);border-radius:999px;padding:11px 22px;font-size:14px;font-weight:700;border:none;display:inline-flex;align-items:center;gap:8px}
+.bigbtn:hover{background:var(--acc2)}
+.bigbtn.ghost{background:#262626;color:var(--txt)}
+.bigbtn.ghost:hover{background:#303030}
+.bigbtn .play{width:0;height:0;border-left:8px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent}
 .ctahint{font-size:11.5px;color:var(--dim2)}
-.featgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.feat{border:1px solid var(--line);border-radius:12px;padding:16px 17px;background:var(--panel)}
-.feat:hover{border-color:var(--line2)}
-.featicon{font-size:19px;margin-bottom:9px;display:block}
-.feat h4{margin:0 0 6px;font-size:13.5px;font-weight:800}
-.feat p{margin:0;font-size:12.5px;color:var(--dim);line-height:1.55}
-.feat ul{margin:9px 0 0;padding-left:16px;font-size:12px;color:var(--dim2);line-height:1.7}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.step{display:flex;gap:11px;align-items:flex-start;font-size:12.5px;color:var(--dim);line-height:1.55}
-.stepn{flex:none;width:24px;height:24px;border-radius:50%;background:var(--panel2);border:1px solid var(--line2);
-  display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:var(--acc)}
-.step b{display:block;color:var(--txt);font-size:12.5px;margin-bottom:2px}
-.trustrow{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--dim2);padding:2px}
-.trustrow span b{color:var(--dim);font-weight:700}
-.demobar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid #6b5220;background:linear-gradient(180deg,#2b2312,#211b0e);
-  border-radius:10px;padding:9px 14px;font-size:12.5px;color:#e8c95a}
-.demobar b{color:#ffdd7a}
-.demobar .btn{margin-left:auto;border-color:#6b5220;background:#332a14;color:#ffdd7a}
-.demobar .btn:hover{background:#443718}
-.initav{width:26px;height:26px;border-radius:50%;flex:none;display:inline-flex;align-items:center;justify-content:center;
-  font-size:9.5px;font-weight:800;letter-spacing:-.2px;background:var(--panel2);border:1px solid var(--line2);color:var(--dim)}
-.initav.QB{background:#2a1f3d;border-color:#4a3a66;color:#c9a6f5}
-.initav.RB{background:#14301f;border-color:#2c5a3f;color:#7fd8a6}
-.initav.WR{background:#132a42;border-color:#2b4d70;color:#8cc4ff}
-.initav.TE{background:#3a2415;border-color:#664226;color:#f0b076}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{position:relative;border-radius:18px;padding:18px 18px 16px;min-height:168px;overflow:hidden;background:#161616;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:flex-end;transition:transform .15s ease}
+.tile:hover{transform:translateY(-2px)}
+.tile::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(0,0,0,.35))}
+.tile .wm{position:absolute;right:-18px;top:-18px;width:130px;height:130px;object-fit:contain;opacity:.13;filter:grayscale(1);pointer-events:none}
+.tile > *{position:relative}
+.tile .kicker{margin-bottom:6px}
+.tile h4{margin:0 0 5px;font-size:15px;font-weight:700;letter-spacing:-.01em}
+.tile p{margin:0;font-size:12.5px;color:var(--dim);line-height:1.5}
+.tile .go{margin-top:12px;align-self:flex-start;font-size:11.5px;padding:5px 12px;border-radius:999px;border:1px solid var(--acc);color:var(--acc);background:transparent;font-weight:600}
+.tile:hover .go{background:rgba(255,106,26,.12)}
+.finetext{font-size:11.5px;color:var(--dim2);line-height:1.6;padding:0 2px}
+.finetext b{color:var(--dim);font-weight:600}
+.vs{display:flex;align-items:center;justify-content:center}
+.scorepill{background:var(--acc);color:var(--accink);border-radius:999px;padding:8px 16px;font-size:16px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap;box-shadow:0 6px 20px rgba(255,106,26,.3)}
+.scorepill small{font-size:10px;font-weight:700;opacity:.7;display:block;text-align:center;letter-spacing:.06em;margin-top:-1px}
+@media (max-width:900px){ .tiles{grid-template-columns:1fr} .dual{grid-template-columns:1fr} .vs{order:-1}
+  .featured{padding:22px 20px} .featured h1{font-size:24px} }
 
 /* ================= TRADE ADVISOR v2 ================= */
-.trtabs{display:flex;gap:4px;border-bottom:1px solid var(--line);padding:0 12px;background:var(--panel2)}
-.trtab{padding:9px 13px;font-size:12.5px;font-weight:700;color:var(--dim);border-bottom:2px solid transparent;margin-bottom:-1px}
+.trtabs{display:flex;gap:6px;border-bottom:none;padding:14px 16px 4px;background:none}
+.trtab{padding:7px 15px;font-size:12.5px;font-weight:600;color:#c9c9c9;background:#1c1c1c;border-radius:999px;border-bottom:none;margin-bottom:0}
 .trtab:hover{color:var(--txt)}
-.trtab.on{color:var(--acc);border-bottom-color:var(--acc)}
-.trsearch{width:100%;background:var(--panel2);border:1px solid var(--line2);color:var(--txt);border-radius:8px;padding:9px 12px;font-size:13.5px}
+.trtab.on{background:var(--acc);color:var(--accink);font-weight:700}
+.trsearch{width:100%;background:#1c1c1c;border:1px solid transparent;color:var(--txt);border-radius:999px;padding:10px 16px;font-size:13.5px}
+.trsearch:focus{outline:none;border-color:var(--acc)}
 .trsearch::placeholder{color:var(--dim2)}
-.findrow{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--line);border-radius:9px;
-  margin-bottom:7px;background:var(--panel2);font-size:12.5px;cursor:pointer}
+.findrow{display:flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid transparent;border-radius:14px;
+  margin-bottom:7px;background:#1c1c1c;font-size:12.5px;cursor:pointer}
 .findrow:hover{border-color:var(--acc)}
 .findrow .owner{margin-left:auto;font-size:11px;color:var(--dim);text-align:right}
 .findrow .owner b{display:block;color:var(--txt);font-size:11.5px}
-.pkgbox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:9px;padding:11px 13px;margin-bottom:8px;background:var(--panel2)}
+.pkgbox{border:none;border-radius:14px;padding:13px 15px;margin-bottom:8px;background:#1c1c1c}
 .pkghead{font-size:12.5px;font-weight:800;margin-bottom:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .pkghead .tag{font-size:9.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;border-radius:4px;padding:2px 6px}
-.tag.fair{background:#14301f;color:#7fd8a6}
-.tag.rich{background:#3a2415;color:#f0b076}
-.tag.light{background:#2a1f3d;color:#c9a6f5}
+.pkghead .tag{border-radius:999px;padding:3px 8px}
+.tag.fair{background:#173626;color:var(--good)}
+.tag.rich{background:#3a2415;color:var(--te)}
+.tag.light{background:#2a1a10;color:var(--acc2)}
 .pkgline{font-size:12.5px;color:var(--dim);line-height:1.6}
 .pkgline b{color:var(--txt)}
-.pkgbtn{margin-top:8px;font-size:11.5px;padding:4px 10px}
-.dual{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
-.dualcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--panel2)}
-.dualcard.good{border-color:#2f7a52;background:linear-gradient(180deg,#16301f,#131c17)}
-.dualcard.bad{border-color:#6b2f2f;background:linear-gradient(180deg,#301818,#1d1414)}
-.dualcard.mid{border-color:#6b5220;background:linear-gradient(180deg,#2a2413,#1c1a13)}
+.pkgbtn{margin-top:9px;font-size:11.5px;padding:4px 12px;background:transparent;border:1px solid var(--acc);color:var(--acc)}
+.pkgbtn:hover{background:rgba(255,106,26,.12)}
+.dual{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;margin:12px 0;align-items:stretch}
+.dualcard{border:none;border-left:3px solid var(--line2);border-radius:14px;padding:13px 15px;background:#1c1c1c}
+.dualcard.good{border-left-color:var(--good)}
+.dualcard.bad{border-left-color:var(--bad)}
+.dualcard.mid{border-left-color:var(--acc)}
 .dualwho{font-size:10.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
 .dualverd{font-size:15px;font-weight:800;margin-bottom:7px}
 .dualcard.good .dualverd{color:var(--good)} .dualcard.bad .dualverd{color:var(--bad)} .dualcard.mid .dualverd{color:var(--warn)}
 .dualstat{display:flex;justify-content:space-between;font-size:11.5px;color:var(--dim);padding:2px 0}
 .dualstat b{color:var(--txt);font-variant-numeric:tabular-nums}
 .dualstat b.up{color:var(--good)} .dualstat b.dn{color:var(--bad)}
-.lineupwrap{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:10px}
-.lineuphd{background:var(--panel2);padding:7px 12px;font-size:10.5px;font-weight:800;letter-spacing:.9px;
-  text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--line)}
+.lineupwrap{border:none;border-radius:14px;overflow:hidden;margin-top:10px;background:#131313}
+.lineuphd{background:#1c1c1c;padding:9px 14px;font-size:10.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--dim);border-bottom:none}
 .lurow2{display:flex;align-items:center;gap:9px;padding:6px 12px;font-size:12.5px;border-bottom:1px solid var(--line)}
 .lurow2:last-child{border-bottom:none}
 .luslot{width:44px;flex:none;font-size:10px;font-weight:800;color:var(--dim2);letter-spacing:.5px}
@@ -672,97 +689,292 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 .lupts{font-variant-numeric:tabular-nums;color:var(--dim);font-size:11.5px}
 .ludelta{font-size:11.5px;font-weight:800;font-variant-numeric:tabular-nums;width:52px;text-align:right}
 .ludelta.up{color:var(--good)} .ludelta.dn{color:var(--bad)} .ludelta.flat{color:var(--dim2)}
-.fixrow{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;
-  margin-bottom:7px;background:var(--panel2);font-size:12.5px;flex-wrap:wrap}
+.fixrow{display:flex;align-items:center;gap:10px;padding:10px 14px;border:none;border-radius:14px;
+  margin-bottom:7px;background:#1c1c1c;font-size:12.5px;flex-wrap:wrap}
 .fixrow .why{color:var(--dim);flex:1;min-width:180px}
-.aibox{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:10px;background:var(--panel2);
+.aibox{border:none;border-radius:14px;padding:13px 16px;margin-top:10px;background:#1c1c1c;
   font-size:13px;line-height:1.65}
 .aibox .aihd{font-size:10.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
 .keyrow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .keyrow input{flex:1;min-width:190px;background:var(--panel);border:1px solid var(--line2);color:var(--txt);
   border-radius:7px;padding:7px 10px;font-size:12.5px}
 .trfilt{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.trfilt button{font-size:11px;font-weight:700;padding:3px 9px;border-radius:14px;border:1px solid var(--line2);color:var(--dim)}
-.trfilt button.on{border-color:var(--acc);color:var(--acc);background:#152436}
+.trfilt button{font-size:11px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid transparent;background:#1c1c1c;color:#c9c9c9}
+.trfilt button.on{border-color:var(--acc);color:var(--accink);background:var(--acc)}
 .trros{max-height:none}
 @media (max-width:900px){ .featgrid{grid-template-columns:1fr} .steps{grid-template-columns:1fr} .dual{grid-template-columns:1fr}
   .landtitle{font-size:26px} .landhero{padding:24px 20px} }
+
+/* ================= FANCODE POLISH PASS ================= */
+:root{ --gold:#f5a623; --goldink:#1c1200; }
+.boardstamp{font-size:10px;color:var(--dim2);letter-spacing:.05em;margin-left:4px;align-self:center}
+.btn,.mode,.gridtgl{border-radius:999px!important}
+.btn.go{background:var(--acc);color:var(--accink);font-weight:800;border:none}
+.tab{border-radius:999px!important;padding:4px 13px!important}
+.tab.on{background:var(--gold)!important;color:var(--goldink)!important;font-weight:800}
+.card{border-radius:16px}
+.card h3{text-transform:uppercase;letter-spacing:.09em;font-size:11px;color:var(--dim)}
+.livebadge{display:inline-flex;align-items:center;gap:5px;background:#e53935;color:#fff;border-radius:999px;
+  padding:2px 10px;font-size:9.5px;font-weight:800;letter-spacing:.08em}
+.livebadge::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff;animation:lpulse 1.4s infinite}
+@keyframes lpulse{50%{opacity:.3}}
+.valpill{background:var(--gold);color:var(--goldink);border-radius:999px;padding:1px 9px;font-size:10.5px;
+  font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.prrow .prn{color:var(--gold)}
+.hshot{border:2px solid #262626}
+.rosrow.pQB .hshot{border-color:#d987b3}.rosrow.pRB .hshot{border-color:#4fc7a3}
+.rosrow.pWR .hshot{border-color:#5fa8f0}.rosrow.pTE .hshot{border-color:#e8a15f}
+.slpbadge{border-radius:0 0 14px 14px}
+.plrow{display:flex;gap:9px;padding:7px 2px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.45;align-items:flex-start}
+.plrow:last-child{border-bottom:none}
+.plkind{flex:none;font-size:9px;font-weight:800;border-radius:5px;padding:2px 7px;margin-top:2px;letter-spacing:.05em}
+.plkind.add{background:#12351f;color:#4ade80}.plkind.drop{background:#3a1c22;color:#ff8d8a}.plkind.trade{background:#1c2b45;color:#6cb5ff}
+.dlrow{border:1px solid var(--line);border-radius:12px;padding:9px 12px;margin-bottom:7px;font-size:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.dlrow .dlv{margin-left:auto;display:flex;gap:8px;align-items:center}
+.dlrow .dlbadge{border-radius:999px;padding:2px 10px;font-size:10px;font-weight:800}
+.dlrow .dlbadge.good{background:#12351f;color:#4ade80}.dlrow .dlbadge.bad{background:#3a1c22;color:#ff8d8a}.dlrow .dlbadge.mid{background:#3a2f14;color:#f5c563}
+@media (max-width:760px){
+  .mtabs{border-radius:999px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.6)}
+  .mtab.on{background:var(--acc);color:var(--accink);border-radius:999px}
+  .boardstamp{display:none}
+}
+
+/* ================= POLISH PASS 2: logo, inputs, buttons, hero ================= */
+.fomark{width:34px;height:26px;margin-right:9px;vertical-align:-6px;filter:drop-shadow(0 3px 10px rgba(255,106,26,.35))}
+.applogo{display:inline-flex;align-items:center}
+
+/* ---- custom form controls everywhere ---- */
+input[type="text"],input[type="number"],input[type="password"],textarea{
+  -webkit-appearance:none;appearance:none;
+  background:#141414;border:1.5px solid #2b2b2b;border-radius:12px;
+  color:var(--txt);padding:8px 13px;font-size:13px;transition:border-color .15s, box-shadow .15s;outline:none}
+input[type="text"]:hover,input[type="number"]:hover,select:hover{border-color:#3a3a3a}
+input[type="text"]:focus,input[type="number"]:focus,input[type="password"]:focus,textarea:focus,select:focus{
+  border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,106,26,.18)}
+input::placeholder{color:#5c5c5c}
+select{
+  -webkit-appearance:none;appearance:none;
+  background:#141414 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="%23888" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>') no-repeat right 10px center;
+  border:1.5px solid #2b2b2b;border-radius:12px;color:var(--txt);
+  padding:7px 26px 7px 12px;font-size:13px;outline:none;transition:border-color .15s, box-shadow .15s}
+input[type="number"]{padding:7px 8px;text-align:center}
+input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type="checkbox"]{
+  -webkit-appearance:none;appearance:none;width:34px;height:19px;border-radius:999px;background:#2b2b2b;
+  position:relative;cursor:pointer;transition:background .15s;vertical-align:-4px}
+input[type="checkbox"]::after{content:'';position:absolute;top:2.5px;left:3px;width:14px;height:14px;border-radius:50%;
+  background:#8a8a8a;transition:transform .15s, background .15s}
+input[type="checkbox"]:checked{background:var(--acc)}
+input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff}
+
+/* ---- buttons ---- */
+.btn{border:1.5px solid #2e2e2e;background:#1a1a1a;color:#d6d6d6;padding:7px 15px;font-weight:600;font-size:12.5px;
+  transition:transform .12s, border-color .15s, background .15s, box-shadow .15s}
+.btn:hover{border-color:#454545;color:#fff}
+.btn:active{transform:scale(.97)}
+.btn.go{background:linear-gradient(160deg,var(--acc2) 0%,var(--acc) 55%,#f05000 100%);
+  color:var(--accink);border:none;font-weight:800;box-shadow:0 4px 16px rgba(255,106,26,.28), inset 0 1px 0 rgba(255,255,255,.25)}
+.btn.go:hover{box-shadow:0 6px 22px rgba(255,106,26,.45), inset 0 1px 0 rgba(255,255,255,.3);transform:translateY(-1px)}
+.btn.go:active{transform:translateY(0) scale(.97)}
+.btn.danger{border-color:#4a2523;color:#ff9d9a}
+.avtab.on{background:linear-gradient(160deg,var(--acc2),var(--acc));box-shadow:0 3px 14px rgba(255,106,26,.3)}
+
+/* ---- hero ---- */
+.hero{position:relative;overflow:hidden;border:1px solid #2a2118;border-radius:20px;padding:22px 26px;
+  background:
+    radial-gradient(560px 220px at 88% -30%, rgba(255,106,26,.22), transparent 60%),
+    radial-gradient(380px 200px at -6% 120%, rgba(255,106,26,.08), transparent 60%),
+    linear-gradient(150deg,#191512 0%,#121212 45%,#0e0e0e 100%)}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.05;
+  background-image:repeating-linear-gradient(115deg, #fff 0 1px, transparent 1px 46px)}
+.heroav{width:64px;height:64px;border-radius:18px;border:2px solid rgba(255,138,71,.5);box-shadow:0 6px 22px rgba(0,0,0,.5)}
+.heroname{font-size:23px;font-weight:900;letter-spacing:-.02em}
+.herometa{font-size:12px;color:var(--dim)}
+.hero .tstat{background:rgba(20,20,20,.72);border:1px solid #2c2c2c;border-radius:14px;backdrop-filter:blur(4px)}
+.hero .tstat b{color:var(--gold)}
+.hero .tstat.warn b{color:var(--warn)} .hero .tstat.good b{color:var(--good)}
+
+/* ================= PORTAL HOME (FantasyPros-style) ================= */
+.portalgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:14px}
+.portalgrid.lower{grid-template-columns:1.6fr 1fr}
+.portalside{display:flex;flex-direction:column;gap:14px}
+.featured{position:relative;overflow:hidden;border:1px solid #2a2118;border-radius:20px;padding:26px 30px;min-height:230px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:
+    radial-gradient(600px 260px at 90% -40%, rgba(255,106,26,.25), transparent 60%),
+    linear-gradient(150deg,#1b1510 0%,#121212 50%,#0d0d0d 100%)}
+.featured .fkick{display:inline-flex;width:fit-content;margin-bottom:10px}
+.featured h1{margin:0 0 8px;font-size:27px;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.featured p{margin:0;color:var(--dim);font-size:13.5px;line-height:1.6;max-width:560px}
+.featured .fmeta{margin-top:12px;color:var(--dim2);font-size:11px;display:flex;gap:14px}
+.featured .fshot{position:absolute;right:22px;top:18px;width:110px;height:110px;border-radius:50%;object-fit:cover;
+  border:3px solid rgba(255,138,71,.4);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.newscard{max-height:340px;overflow-y:auto}
+.rktabs{display:flex;gap:6px;margin:2px 0 10px;flex-wrap:wrap}
+.rktab{background:#1a1a1a;border:1.5px solid #2b2b2b;border-radius:999px;padding:4px 13px;font-size:11.5px;font-weight:700;color:#bdbdbd}
+.rktab.on{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
+.rkrow{display:flex;align-items:center;gap:10px;padding:6px 4px;border-bottom:1px solid var(--line);font-size:12.5px}
+.rkrow:last-child{border-bottom:none}
+.rkrow .rkn{width:22px;text-align:right;color:var(--gold);font-weight:800;font-variant-numeric:tabular-nums;flex:none}
+.rkrow b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rkrow .rkmeta{margin-left:auto;color:var(--dim2);font-size:10.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.vfrow{display:flex;align-items:center;gap:9px;padding:6px 2px;border-bottom:1px solid var(--line);font-size:12px}
+.vfrow:last-child{border-bottom:none}
+.vfpill{margin-left:auto;border-radius:999px;padding:1px 9px;font-size:9.5px;font-weight:800}
+.vfpill.v{background:#12351f;color:#4ade80}.vfpill.f{background:#3a1c22;color:#ff8d8a}
+.initav{position:relative;width:34px;height:34px;border-radius:50%;background:#222;flex:none;display:inline-flex;
+  align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#aaa}
+@media (max-width:900px){ .portalgrid,.portalgrid.lower{grid-template-columns:1fr} .featured .fshot{display:none} }
+
+/* ================= HEADER V3 (floating FIFA-style nav) ================= */
+.appnav{background:rgba(10,10,10,.92);backdrop-filter:blur(10px);border-bottom:1px solid #1d1d1d}
+.appnav-in{display:flex;align-items:center;gap:10px;max-width:1500px;margin:0 auto;padding:12px 18px;flex-wrap:wrap}
+.navlinks{display:flex;gap:26px;margin-left:26px}
+.avtab{background:none!important;border:none;box-shadow:none!important;padding:4px 0;border-radius:0;
+  font-size:12.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#8a8a8a;
+  transition:color .15s;position:relative}
+.avtab:hover{color:#fff}
+.avtab.on{color:var(--acc)!important}
+.avtab.on::after{content:'';position:absolute;left:0;bottom:-4px;width:16px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--acc2),var(--acc));transform:skewX(-18deg)}
+.navsync{margin-left:auto;display:flex;align-items:center;gap:9px}
+.navsync input{width:150px;padding:6px 12px;font-size:12px;border-radius:999px}
+.navsync .btn.go{padding:6px 15px;font-size:12px}
+.navsync .slpst{max-width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.navsync .lgchips{margin:0;display:flex;gap:6px}
+.navsync .lgchip{padding:4px 11px 4px 5px;font-size:11.5px}
+.boardstamp{margin-right:4px}
+@media (max-width:900px){
+  .navlinks{gap:16px;margin-left:8px}
+  .navsync{margin-left:0;width:100%;order:9}
+  .navsync input{flex:1;width:auto}
+  .boardstamp{display:none}
+}
+
+.wvrow.wv2{align-items:flex-start}
+.wvmain{flex:1;min-width:0}
+.wvmain>div:first-child{display:flex;align-items:center;gap:7px}
+.wvmain .adds{margin-left:auto}
+.wvwhy{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.45}
+/* ---- Start/Sit ---- */
+.ssrow{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line);font-size:12.5px}
+.ssrow:last-child{border-bottom:none}
+.ssrow .hshot{flex:none}
+.ssmain{flex:1;min-width:0}
+.ssmain b{font-size:13px}
+.ssmatch{color:var(--dim);font-size:11.5px;margin-top:2px;line-height:1.35}
+.ssnum{font-variant-numeric:tabular-nums;color:var(--dim);font-size:11.5px;text-align:right;flex:none;width:52px}
+.ssnum b{display:block;color:var(--txt);font-size:14px}
+.sschip{flex:none;font-size:10px;font-weight:800;letter-spacing:.6px;padding:4px 9px;border-radius:5px;text-transform:uppercase}
+.sschip.start{background:rgba(52,199,123,.16);color:var(--good)}
+.sschip.flex{background:rgba(255,106,26,.15);color:var(--acc2)}
+.sschip.sit{background:#242424;color:var(--dim)}
+.sschip.out{background:rgba(229,57,53,.16);color:var(--bad)}
+.ssposhdr{padding:8px 12px 3px;font-size:10px;font-weight:800;letter-spacing:1.1px;color:var(--dim2);text-transform:uppercase}
+.ssbar{flex:none;width:74px;height:5px;border-radius:3px;background:#242424;overflow:hidden}
+.ssbar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.ssbar.g i{background:var(--good)} .ssbar.b i{background:#555}
+.sscmprow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.sscmprow select{flex:1;min-width:150px}
+.ssvs{color:var(--dim2);font-weight:800;font-size:11px}
+.sswin{border:1px solid var(--line2);border-radius:9px;overflow:hidden;margin-top:4px}
+.sswin .hd{background:linear-gradient(160deg,rgba(255,106,26,.14),transparent);padding:11px 13px;font-size:14px}
+.sswin .hd b{color:var(--acc2)}
+.ssfac{display:flex;gap:8px;padding:7px 13px;border-top:1px solid var(--line);font-size:12px;align-items:baseline}
+.ssfac .lbl{width:96px;flex:none;color:var(--dim2);font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.ssfac .a,.ssfac .b{flex:1}
+.ssfac .win{color:var(--good);font-weight:700}
+.dstrow{display:flex;align-items:center;gap:9px;padding:8px 12px;border-bottom:1px solid var(--line);font-size:12.5px}
+.dstrow:last-child{border-bottom:none}
+.dstrow img.tl{width:26px;height:26px;object-fit:contain;flex:none}
+.dstrk{width:20px;flex:none;color:var(--dim2);font-size:11px;font-variant-numeric:tabular-nums}
+.dstmain{flex:1;min-width:0}
+.dstmain .sub{color:var(--dim);font-size:11px;margin-top:1px}
+.dstav{flex:none;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;background:#242424;color:var(--dim)}
+.dstav.fa{background:rgba(52,199,123,.14);color:var(--good)}
+.dstav.mine{background:rgba(255,106,26,.15);color:var(--acc2)}
+.dstgrab{background:linear-gradient(160deg,rgba(52,199,123,.12),transparent);border-bottom:1px solid var(--line)}
+@media (max-width:760px){ .ssbar{display:none} .ssnum{width:44px} }
 </style>
 </head>
 <body>
 
 <nav class="appnav"><div class="appnav-in">
-  <span class="applogo">&#127944; The Front Office</span>
-  <button class="avtab" data-view="home">Home</button>
-  <button class="avtab on" data-view="draft">Draft Room</button>
-  <button class="avtab" data-view="trade">Trade Advisor</button>
-  <span class="avlg" id="avLeague"></span>
+  <span class="applogo"><svg class="fomark" viewBox="0 0 44 34" aria-hidden="true">
+    <defs><linearGradient id="fog" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8a47"/><stop offset="1" stop-color="#ff5a00"/></linearGradient></defs>
+    <path d="M10 1 L40 1 L34 33 L4 33 Z" fill="url(#fog)"/>
+    <path d="M10 1 L40 1 L38.9 7 L8.9 7 Z" fill="#ffffff" opacity=".18"/>
+    <text x="23" y="24" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="900" font-style="italic" fill="#140a03">FO</text>
+  </svg>Front Office</span>
+  <div class="navlinks">
+    <button class="avtab" data-view="home">Home</button>
+    <button class="avtab" data-view="trade">Trade Advisor</button>
+    <button class="avtab" data-view="sitstart">Start/Sit</button>
+    <button class="avtab" data-view="draft">Draft Room</button>
+  </div>
+  <div class="navsync">
+    <span class="boardstamp" id="boardStamp"></span>
+    <div id="lgList" class="lgchips"></div>
+    <input type="text" id="lgUser" placeholder="Sleeper username" spellcheck="false" autocomplete="off">
+    <button class="btn go" id="lgFind">Sync</button>
+    <span class="slpst" id="lgSt"></span>
+  </div>
 </div></nav>
 
 <!-- ============ HOME VIEW ============ -->
 <div id="viewHome" class="viewpane">
   <div class="vwrap wide">
-    <div class="card slim">
-      <div class="syncrow">
-        <span class="synclabel">MY LEAGUES</span>
-        <input type="text" id="lgUser" placeholder="Sleeper username" spellcheck="false">
-        <button class="btn go" id="lgFind">Sync</button>
-        <span class="slpst" id="lgSt"></span>
-        <div id="lgList" class="lgchips"></div>
-      </div>
-    </div>
 
-    <div id="demoBar" class="demobar" style="display:none">
-      <span>&#9654;</span>
-      <span><b>Demo league.</b> Fake rosters built from the 2026 board so you can try everything before syncing.</span>
-      <button class="btn" id="demoExit">Exit demo</button>
-    </div>
+
 
     <div id="landing" class="land" style="display:none">
-      <div class="landhero">
-        <div class="landkick">Sleeper-connected &middot; free &middot; no account</div>
-        <h1 class="landtitle">Your fantasy team, run like a <em>front office</em>.</h1>
-        <p class="landsub">Sync a Sleeper league and get an honest read on your roster: who to start,
-          who to cut, who to trade for, and whether the deal in your inbox is actually good.
-          Every verdict shows its math &mdash; no black-box "trade grades".</p>
-        <div class="landcta">
-          <button class="bigbtn" id="ctaSync">Sync my Sleeper league</button>
-          <button class="bigbtn ghost" id="ctaDemo">&#9654; Explore a demo league</button>
-          <span class="ctahint">Read-only. Username only &mdash; never a password.</span>
+      <div class="portalgrid">
+        <div class="featured" id="ftStory"><!-- featured story --></div>
+        <div class="card newscard"><h3>Latest player news</h3><div id="ptNews"></div></div>
+      </div>
+
+      <div class="tiles">
+        <div class="tile" data-tile="draft">
+          <span class="kicker">Draft room</span>
+          <h4>A board that knows your plan</h4>
+          <p>Survival odds to your next pick, tier cliffs, positional runs, live Sleeper sync and mock drafts. Works right now.</p>
+          <span class="go">Open</span>
+        </div>
+        <div class="tile" data-tile="synchome">
+          <span class="kicker">League hub</span>
+          <h4>Your roster, read honestly</h4>
+          <p>Sync your Sleeper league: every player ranked by value, lineup alerts against your bench, power rankings.</p>
+          <span class="go">Sync</span>
+        </div>
+        <div class="tile" data-tile="trade">
+          <span class="kicker">Trade advisor</span>
+          <h4>Scored from both seats</h4>
+          <p>Value, roster fit and lineup points for you and for them. If they'd never accept it, it says so &mdash; and shows the fix.</p>
+          <span class="go">Open</span>
         </div>
       </div>
 
-      <div class="featgrid">
-        <div class="feat">
-          <span class="featicon">&#127942;</span>
-          <h4>League Hub</h4>
-          <p>Your roster ranked by value, with the news that actually moves it.</p>
-          <ul><li>Power rankings across all teams</li><li>Start/sit alerts vs your bench</li><li>Waiver radar from live add trends</li></ul>
+      <div class="portalgrid lower">
+        <div class="card rankcard">
+          <h3>2026 rankings <span class="tmeta" id="rkMeta"></span></h3>
+          <div class="rktabs" id="rkTabs">
+            <button class="rktab on" data-rk="ALL">Overall</button>
+            <button class="rktab" data-rk="RB">RB</button>
+            <button class="rktab" data-rk="WR">WR</button>
+            <button class="rktab" data-rk="TE">TE</button>
+            <button class="rktab" data-rk="QB">QB</button>
+            <button class="rktab" data-rk="DYN">Dynasty</button>
+          </div>
+          <div id="ptRanks"></div>
         </div>
-        <div class="feat">
-          <span class="featicon">&#128202;</span>
-          <h4>Draft Room</h4>
-          <p>A live draft board that knows your strategy and the room's tendencies.</p>
-          <ul><li>Survival odds to your next pick</li><li>Tier cliffs and positional runs</li><li>Head-to-head player compare</li></ul>
-        </div>
-        <div class="feat">
-          <span class="featicon">&#129309;</span>
-          <h4>Trade Advisor</h4>
-          <p>Scores both sides &mdash; because a trade they'd never accept isn't a trade.</p>
-          <ul><li>Starting-lineup points, before vs after</li><li>Fixes to make a lopsided offer land</li><li>Find any player and price a package</li></ul>
+        <div class="portalside">
+          <div class="card"><h3>Values &amp; fades</h3><div id="ptVals"></div></div>
+          <div class="card"><h3>Trending adds <span class="tmeta">24h, all Sleeper</span></h3><div id="ptTrend"></div></div>
         </div>
       </div>
 
-      <div class="card"><h3><span>How it works</span></h3><div class="pad"><div class="steps">
-        <div class="step"><span class="stepn">1</span><div><b>Enter your Sleeper username</b>Not your password. We read public league data through Sleeper's own API.</div></div>
-        <div class="step"><span class="stepn">2</span><div><b>Pick a league</b>Redraft or dynasty &mdash; the valuation model switches automatically, weighting age curves in dynasty.</div></div>
-        <div class="step"><span class="stepn">3</span><div><b>Get the read</b>Roster analysis, lineup alerts and a trade advisor built on your real rosters.</div></div>
-      </div></div></div>
-
-      <div class="trustrow">
-        <span><b>Nothing leaves your browser.</b> League data is fetched directly from Sleeper and cached locally.</span>
-        <span><b>Read-only.</b> This app cannot set your lineup, drop players, or send trades.</span>
-      </div>
+      <div class="finetext"><b>Read-only.</b> Enter a Sleeper username, never a password. League data is fetched straight from Sleeper's public API and cached in this browser; the app cannot set lineups, drop players or send trades.</div>
     </div>
 
     <div id="teamHero" class="hero" style="display:none">
@@ -776,13 +988,14 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 
     <div class="homegrid" id="homeGrid" style="display:none">
       <div class="homemain">
-        <div class="card" id="teamCard"><h3>Roster</h3><div id="teamRoster"></div></div>
+        <div class="card" id="teamCard"><h3><span>Roster</span><b>tap a player for the note</b></h3><div id="teamRoster"></div></div>
       </div>
       <div class="homeside">
-        <div class="card" id="hlCard"><h3>&#128240; Your headlines</h3><div id="hlFeed"></div></div>
-        <div class="card" id="luCard"><h3>&#9888;&#65039; Lineup alerts</h3><div id="luFeed"></div></div>
-        <div class="card" id="wvCard"><h3>&#128225; Waiver radar</h3><div id="wvFeed"></div></div>
-        <div class="card" id="prCard"><h3>&#127942; Power rankings</h3><div id="prFeed"></div></div>
+        <div class="card" id="hlCard"><h3>Headlines</h3><div id="hlFeed"></div></div>
+        <div class="card" id="luCard"><h3>Lineup alerts</h3><div id="luFeed"></div></div>
+        <div class="card" id="wvCard"><h3>Waiver radar</h3><div id="wvFeed"></div></div>
+        <div class="card" id="prCard"><h3>Power rankings</h3><div id="prFeed"></div></div>
+        <div class="card" id="plCard"><h3>League pulse</h3><div id="plFeed"></div></div>
       </div>
     </div>
   </div>
@@ -792,24 +1005,18 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
 <div id="viewTrade" class="viewpane">
   <div class="vwrap wide">
     <div id="tradeNeedsLeague" style="display:none">
-      <div class="landhero">
-        <div class="landkick">Trade Advisor</div>
-        <h1 class="landtitle">Know whether they'll <em>say yes</em>.</h1>
-        <p class="landsub">Most trade tools grade your side and stop there. This one scores both rosters,
-          shows what the deal does to your actual starting lineup, and tells you the smallest change
-          that makes a lopsided offer acceptable to the other manager.</p>
-        <div class="landcta">
-          <button class="bigbtn" id="trCtaSync">Sync a league</button>
-          <button class="bigbtn ghost" id="trCtaDemo">&#9654; Try it on a demo league</button>
+      <div class="land">
+        <div class="featured">
+          <span class="kicker">Trade advisor</span>
+          <h1>Know whether they'll <em>say yes</em>.</h1>
+          <p>Most trade tools grade your side and stop. This one scores both rosters, shows what the deal does to
+            each starting lineup, and finds the smallest change that makes a lopsided offer land.</p>
+          <div class="meta"><span>Both-sides verdict</span><span>Lineup impact</span><span>Target finder</span><span>Market scan</span></div>
+          <div class="ctarow">
+            <button class="bigbtn" id="trCtaSync2">Sync your Sleeper league</button>
+            <button class="bigbtn ghost" id="trCtaSync">Sync a league</button>
+          </div>
         </div>
-      </div>
-      <div class="featgrid" style="margin-top:14px">
-        <div class="feat"><span class="featicon">&#9878;</span><h4>Both-sides verdict</h4>
-          <p>Value ledger, roster fit and lineup impact scored from your seat <i>and</i> theirs.</p></div>
-        <div class="feat"><span class="featicon">&#128295;</span><h4>Make it fair</h4>
-          <p>One-click fixes that rebalance a deal without gutting the side you care about.</p></div>
-        <div class="feat"><span class="featicon">&#128269;</span><h4>Target finder</h4>
-          <p>Search any player in the league, see who owns him, and get a realistic package.</p></div>
       </div>
     </div>
 
@@ -826,6 +1033,7 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
             <label class="fld">Trade with <select id="trTeam"></select></label>
             <span class="tmeta" id="trMode"></span>
             <button class="btn go" id="trAnalyze">Analyze trade</button>
+            <button class="btn" id="trAuto">&#10024; Recommend me a trade</button>
             <button class="btn" id="trClear">Clear</button>
           </div>
           <div class="trcols">
@@ -855,6 +1063,49 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
       <div class="card" id="trVerdictCard" style="display:none"><h3><span>Verdict</span><b id="trVerdictMeta"></b></h3><div class="pad" id="trVerdict"></div></div>
       <div class="card" id="trFixCard" style="display:none"><h3><span>Make it work</span><b>tap a fix to apply it</b></h3><div class="pad" id="trFix"></div></div>
       <div class="card" id="trSugCard" style="display:none"><h3><span>Suggested targets</span></h3><div class="pad" id="trSugs"></div></div>
+      <div class="card" id="dlCard" style="display:none"><h3>Deal log <span class="tmeta" id="dlMeta"></span></h3><div id="dlFeed"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ START/SIT VIEW ============ -->
+<div id="viewSitStart" class="viewpane">
+  <div class="vwrap wide">
+    <div id="ssNeedsLeague" style="display:none">
+      <div class="land">
+        <div class="featured">
+          <span class="kicker">Start/Sit &middot; <span id="ssWk0"></span></span>
+          <h1>Set your lineup with <em>conviction</em>.</h1>
+          <p>Every player on your roster graded against this week's matchup &mdash; defense-vs-position, Vegas totals,
+            venue and injuries &mdash; with a clear call on who starts, who sits, and which defense to grab off waivers.</p>
+          <div class="meta"><span>Matchup grades</span><span>Head-to-head comparator</span><span>DST streamer</span></div>
+          <div class="ctarow"><button class="bigbtn" id="ssCtaSync">Sync your Sleeper league</button></div>
+        </div>
+        <div class="card" style="margin-top:14px"><h3><span>Streaming defenses &middot; <span id="ssWk1"></span></span><b>works without a league</b></h3><div id="ssStreamSolo"></div></div>
+      </div>
+    </div>
+
+    <div id="ssUI" style="display:none">
+      <div class="card">
+        <h3><span>Lineup verdicts &middot; <span id="ssWk2"></span></span><b id="ssMeta"></b></h3>
+        <div id="ssVerdicts"></div>
+      </div>
+      <div class="card">
+        <h3><span>Who do I start?</span><b>pick any two of your players</b></h3>
+        <div class="pad">
+          <div class="sscmprow">
+            <select id="ssCmpA"></select>
+            <span class="ssvs">vs</span>
+            <select id="ssCmpB"></select>
+            <button class="btn go" id="ssCmpGo">Compare</button>
+          </div>
+          <div id="ssCmpOut"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3><span>Streaming defenses &middot; <span id="ssWk3"></span></span><b id="ssStreamMeta"></b></h3>
+        <div id="ssStream"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -945,6 +1196,7 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
       <div id="recs"></div>
       <div class="aiout" id="aiOut" style="display:none"></div>
       <div class="aisetup" id="aiSetup" style="display:none">
+        <div style="font-size:11px;color:var(--dim2);margin-bottom:7px">&#128274; Your key is stored only in this browser and sent directly to Anthropic — never to this site. Every feature except Ask AI works without one.</div>
         <div style="font-weight:700;margin-bottom:5px">One-time AI setup</div>
         <input type="password" id="aiKey" placeholder="Anthropic API key (sk-ant-&hellip;)">
         <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
@@ -979,7 +1231,7 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
         <button class="tab" data-f="QB">QB</button>
         <button class="tab" data-f="KD">K/DST</button>
         <button class="tab" data-f="VAL">&#9733; Values</button>
-        <button class="tab" data-f="FLAG">&#9888; Flags</button>
+        <button class="tab" data-f="FLAG">Flags</button>
         <input class="srch" id="q" placeholder="Search a name, then press Enter to mark taken&hellip;">
         <label class="tgl"><input type="checkbox" id="showGone"> show drafted</label>
       </div>
@@ -1056,9 +1308,197 @@ body:not([data-view="trade"]) #viewTrade{display:none!important}
   <button class="mtab" data-tab="more"><i>&#8943;</i>More</button>
 </nav>
 
-<script src="lib/scoring.js"></script>
-
 <script>
+/* The Front Office — pure scoring math.
+ *
+ * Nothing in here touches the DOM or any global app state. Every function takes
+ * plain data and returns plain data, which is what makes it testable. The app
+ * keeps thin wrappers in index.html that adapt its own objects to these shapes.
+ *
+ * Normalized player: { id, pos, proj, value, age?, name? }
+ *   pos is one of QB RB WR TE K DST.
+ *
+ * Loads as a classic script in the browser (window.Scoring) and as a CommonJS
+ * module in Node, so the same code runs in the app and under `node --test`.
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.Scoring = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var SLOT_ELIG = {
+    QB:['QB'], RB:['RB'], WR:['WR'], TE:['TE'], K:['K'], DEF:['DST'], DST:['DST'],
+    FLEX:['RB','WR','TE'], WRRB_FLEX:['RB','WR'], REC_FLEX:['WR','TE'],
+    SUPER_FLEX:['QB','RB','WR','TE']
+  };
+  var DEFAULT_SLOTS = ['QB','RB','RB','WR','WR','WR','TE','FLEX','K','DEF'];
+
+  /* Bench, IR and taxi entries are not lineup slots. */
+  function startingSlots(rosterPositions) {
+    var rp = rosterPositions && rosterPositions.length ? rosterPositions : DEFAULT_SLOTS;
+    var s = rp.filter(function (x) { return SLOT_ELIG[x] && SLOT_ELIG[x].length; });
+    return s.length ? s : DEFAULT_SLOTS;
+  }
+
+  /* Greedy lineup: the scarcest slots claim their best man first, so a FLEX
+   * can't steal the only startable TE out from under the TE slot. */
+  function bestLineup(players, rosterPositions) {
+    var slots = startingSlots(rosterPositions);
+    var order = slots.map(function (s, i) { return { s: s, i: i }; })
+      .sort(function (a, b) { return SLOT_ELIG[a.s].length - SLOT_ELIG[b.s].length; });
+    var used = {}, filled = [];
+    order.forEach(function (o) {
+      var cand = players
+        .filter(function (p) { return !used[p.id] && SLOT_ELIG[o.s].indexOf(p.pos) >= 0; })
+        .sort(function (a, b) { return (b.proj || 0) - (a.proj || 0); })[0];
+      if (cand) used[cand.id] = true;
+      filled.push({ slot: o.s, idx: o.i, player: cand || null });
+    });
+    filled.sort(function (a, b) { return a.idx - b.idx; });
+    var total = filled.reduce(function (t, x) { return t + ((x.player && x.player.proj) || 0); }, 0);
+    return { slots: filled, total: round2(total) };
+  }
+
+  /* Positional surplus. Negative means short of startable bodies; 1.5+ means
+   * genuinely spare. FLEX demand is spread across RB/WR/TE. */
+  function needs(players, rosterPositions) {
+    var rp = rosterPositions && rosterPositions.length ? rosterPositions : DEFAULT_SLOTS;
+    var req = { QB:0, RB:0, WR:0, TE:0, FLEX:0, K:0, DST:0 };
+    rp.forEach(function (s) {
+      if (s === 'QB') req.QB++;
+      else if (s === 'RB') req.RB++;
+      else if (s === 'WR') req.WR++;
+      else if (s === 'TE') req.TE++;
+      else if (s === 'FLEX' || s === 'WRRB_FLEX' || s === 'WRRB' || s === 'REC_FLEX' || s === 'SUPER_FLEX') req.FLEX++;
+      else if (s === 'K') req.K++;
+      else if (s === 'DEF' || s === 'DST') req.DST++;
+    });
+    var have = { QB:0, RB:0, WR:0, TE:0, K:0, DST:0 };
+    players.forEach(function (p) { if (have[p.pos] !== undefined) have[p.pos]++; });
+    var surplus = {};
+    ['QB','RB','WR','TE'].forEach(function (pos) {
+      var flexShare = (pos === 'RB' || pos === 'WR' || pos === 'TE') ? req.FLEX / 3 : 0;
+      surplus[pos] = round1(have[pos] - (req[pos] + flexShare + 1.5));
+    });
+    return { req: req, have: have, surplus: surplus };
+  }
+
+  /* Trade value. Redraft keys off overall board rank; dynasty off dynasty rank,
+   * falling back to ADP for players with no dynasty ranking. */
+  function playerValue(o) {
+    if (o.dynasty) {
+      if (o.dynRank > 0) return Math.round(10000 * Math.exp(-0.024 * (o.dynRank - 1)));
+      return o.onBoard ? Math.max(60, Math.round(1400 - 4 * o.adp)) : 40;
+    }
+    if (o.onBoard) return Math.max(60, Math.round(9000 * Math.exp(-0.028 * (o.rank - 1))));
+    return 40;
+  }
+
+  /* One team's read on a deal. Positive score = good for THIS team.
+   * `roster` is that team's players before the trade. */
+  function sideScore(o) {
+    var roster = o.roster || [], gives = o.gives || [], gets = o.gets || [];
+    var rp = o.rosterPositions;
+    var vOut = sum(gives, 'value'), vIn = sum(gets, 'value');
+    var pct = vOut ? Math.round(100 * (vIn - vOut) / vOut) : (vIn ? 120 : 0);
+
+    var n = needs(roster, rp), fit = 0, notes = [];
+    gets.forEach(function (p) {
+      var sp = n.surplus[p.pos];
+      if (sp === undefined) return;
+      if (sp < 0) { fit += 1; notes.push('fills a hole at ' + p.pos); }
+      else if (sp >= 1.5) { fit -= 0.5; notes.push('piles onto an existing ' + p.pos + ' surplus'); }
+    });
+    gives.forEach(function (p) {
+      var sp = n.surplus[p.pos];
+      if (sp === undefined) return;
+      if (sp >= 1.5) { fit += 1; notes.push('sells from ' + p.pos + ' depth'); }
+      else if (sp < 0) { fit -= 1.5; notes.push('thins ' + p.pos + ', already short'); }
+    });
+
+    var gone = {};
+    gives.forEach(function (p) { gone[p.id] = true; });
+    var after = roster.filter(function (p) { return !gone[p.id]; }).concat(gets);
+    var beforeTotal = bestLineup(roster, rp).total;
+    var afterTotal = bestLineup(after, rp).total;
+    var lu = round2(afterTotal - beforeTotal);
+
+    var age = null;
+    if (o.dynasty && gives.length && gets.length) {
+      age = round1(avgAge(gives) - avgAge(gets));   // positive = this side gets younger
+    }
+    return {
+      vOut: vOut, vIn: vIn, pct: pct, fit: fit, notes: dedupe(notes),
+      lu: lu, before: beforeTotal, after: afterTotal, age: age,
+      score: Math.round(pct + fit * 8 + lu * 2.5)
+    };
+  }
+
+  /* `themScore` is the OTHER manager's read. High means they win the deal,
+   * which means you overpaid — getting this backwards mislabels every package. */
+  function packageTag(themScore) {
+    if (themScore >= 18) return ['rich', 'you are overpaying — instant yes'];
+    if (themScore >= 0) return ['fair', 'clean two-way deal'];
+    return ['light', 'a bargain for you — expect pushback'];
+  }
+
+  /* A fix that leaves either manager underwater is not a fix, and neither is a
+   * gross overpay. Fall back to the best of a bad lot only if nothing lands. */
+  function chooseFixes(cands, baseWorst, limit) {
+    var max = limit || 3;
+    var improved = cands
+      .filter(function (c) { return c.worst > baseWorst + 1; })
+      .sort(function (a, b) { return b.worst - a.worst; });
+    var landable = improved.filter(function (c) {
+      return c.worst >= -8 && Math.max(c.me.score, c.them.score) <= 45;
+    });
+    return (landable.length ? landable : improved.slice(0, 2)).slice(0, max);
+  }
+
+  /* Three offers that differ in kind, not by one bench player.
+   * Each entry: { ids: string[], me: {score, vOut}, them: {score} }. */
+  function choosePackages(scored) {
+    var key = function (s) { return (s.ids || []).slice().sort().join('|'); };
+    var seen = {}, picks = [];
+    var take = function (s, label) {
+      if (!s || seen[key(s)]) return;
+      seen[key(s)] = true;
+      picks.push(Object.assign({}, s, { label: label }));
+    };
+    take(scored.slice().sort(function (a, b) { return b.me.score - a.me.score; })[0], 'Best for you');
+    take(scored.slice().filter(function (s) { return s.them.score >= -2; })
+               .sort(function (a, b) { return a.me.vOut - b.me.vOut; })[0], 'Cheapest that works');
+    take(scored.slice().filter(function (s) { return s.me.score >= 0; })
+               .sort(function (a, b) { return b.them.score - a.them.score; })[0], 'Most likely accepted');
+    return picks;
+  }
+
+  /* Odds a player is still on the board at `pick`. */
+  function survivalOdds(adp, pick, teams) {
+    if (pick == null) return 1;
+    var spread = Math.max(7, (teams || 12) * 0.85);
+    var z = (adp - pick) / spread;
+    return Math.max(0.02, Math.min(0.98, 0.5 + z * 0.5));
+  }
+
+  function sum(a, k) { return a.reduce(function (t, x) { return t + (x[k] || 0); }, 0); }
+  function avgAge(a) { return a.reduce(function (t, p) { return t + (p.age || 26); }, 0) / a.length; }
+  function dedupe(a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }); }
+  function round1(n) { return Math.round(n * 10) / 10; }
+  function round2(n) { return Math.round(n * 100) / 100; }
+
+  return {
+    SLOT_ELIG: SLOT_ELIG, DEFAULT_SLOTS: DEFAULT_SLOTS,
+    startingSlots: startingSlots, bestLineup: bestLineup, needs: needs,
+    playerValue: playerValue, sideScore: sideScore, packageTag: packageTag,
+    chooseFixes: chooseFixes, choosePackages: choosePackages, survivalOdds: survivalOdds
+  };
+});
+
+</script>
+<script>
+const BOARD_STAMP="Sep 2, 2026";
 /* PLAYER DATA
    [name, pos, team, adp, adj, flag, note]
    adp  = FantasyFootballCalculator 12-team PPR, Aug 10-17 2026 (6,665 drafts). ~ = estimated (outside top 180).
@@ -1070,32 +1510,32 @@ const RAW = [
 ["Bijan Robinson", "RB", "ATL", 2.1, 0, "", "Extension signed Aug 4, hold-in over. Draft normally.", 21.8, 21.6, 24, 1],
 ["Jahmyr Gibbs", "RB", "DET", 1.5, 0, "", "Extension signed Aug 6, full-go in practice since Aug 9.", 21.6, 21.6, 24, 2],
 ["Puka Nacua", "WR", "LAR", 2.9, 3, "risk", "Returned Aug 30 but was back to SIDE WORK Monday — not yet in full team drills. Expected ready Week 1 per reporting, and suspension risk is low/deferred. Close to full price; confirm a full practice before pick 3-4 money.", 23.4, 20.0, 25, 4],
-["Ja'Marr Chase", "WR", "CIN", 3.8, 0, "inj", "Knee (slight hyperextension Aug 25): sat Wednesday as a PRECAUTIONARY rest day, sleeve on the leg, skipping the meaningless preseason finale. No MRI red flags; he says he'd play if there were a game tomorrow. Still the best WR at pick 3 barring a late setback.", 19.6, 19.4, 26, 3],
+["Ja'Marr Chase", "WR", "CIN", 3.8, 0, "inj", "Managed through the week — sat Tuesday (knee) and will be limited all week, but Zac Taylor says NO concern for Week 1 vs TB. Higgins (heel) in the same boat.", 19.6, 19.4, 26, 3],
 ["Jaxon Smith-Njigba", "WR", "SEA", 5.4, 0, "", "Top-3 WR on every list.", 21.2, 18.1, 24, 5],
 ["Christian McCaffrey", "RB", "SF", 6.6, 8, "risk", "RETURNED to practice Aug 23 after ~3 weeks (muscle tightness). Trending toward a full Week 1. Age 30 and 413 touches last year still argue for a modest fade, not a hard one.", 24.5, 20.3, 30, 21],
 ["Amon-Ra St. Brown", "WR", "DET", 6.4, 0, "", "Consensus top-8 overall.", 19.1, 18.7, 26, 6],
 ["Jonathan Taylor", "RB", "IND", 7.5, 2, "", "Entrenched workhorse, though the team has talked about reducing his workload.", 21.3, 16.9, 27, 16],
-["De'Von Achane", "RB", "MIA", 10.3, 4, "", "AIDAN'S CALL (keep on refresh): demoted below Cook/Chase Brown/Hampton/Jeanty — Miami's offense is gutted (Tua and Tyreek both gone) and the TD downside is real. Reception floor keeps him a late-1st option, not the auto-pick.", 20.2, 15.7, 24, 12],
+["De'Von Achane", "RB", "MIA", 10.2, 4, "", "AIDAN'S CALL (keep on refresh): demoted below Cook/Chase Brown/Hampton/Jeanty — Miami's offense is gutted (Tua and Tyreek both gone) and the TD downside is real. Reception floor keeps him a late-1st option, not the auto-pick.", 20.2, 15.7, 24, 12],
 ["Drake London", "WR", "ATL", 10.6, 5, "", "Clear WR1 talent, but ATL still hasn't named a QB after the finale (Tua efficient-but-shaky, Penix held out; beat lean is Penix). More uncertainty than a top-10 pick should carry — verify before drafting.", 16.8, 16.0, 25, 18],
 ["CeeDee Lamb", "WR", "DAL", 10.7, -2, "", "Cheaper on CBS and ESPN than anywhere else.", 14.3, 14.9, 27, 10],
 ["Justin Jefferson", "WR", "MIN", 11.7, -3, "", "Tier-1 WR who slides in most mocks. Kyler Murray at QB is already priced in.", 11.9, 15.6, 27, 8],
-["James Cook III", "RB", "BUF", 12.3, -1, "", "No. 1 in my redraft RB order at the turn (Aidan's call). DYNASTY (3-yr): No. 2 of the 12/13 pairing — ages 26-28 in-window, proven role in the league's best offense.", 17.8, 16.2, 26, 17],
+["James Cook III", "RB", "BUF", 12.1, -1, "", "No. 1 in my redraft RB order at the turn (Aidan's call). DYNASTY (3-yr): No. 2 of the 12/13 pairing — ages 26-28 in-window, proven role in the league's best offense.", 17.8, 16.2, 26, 17],
 ["Chase Brown", "RB", "CIN", 13.1, -1, "", "No. 2 in my redraft RB order at the turn (Aidan's call). DYNASTY (3-yr): No. 3 of the 12/13 pairing — Burrow offense, pass-game role; Perine snap noise is why he's not No. 2.", 16.6, 15.6, 26, 24],
 ["Rashee Rice", "WR", "KC", 14.8, -2, "", "May knee scope fully behind him, ramping up in camp. Riser.", 18.8, 14.7, 26, 36],
-["Ashton Jeanty", "RB", "LV", 21, -7, "inj", "AIDAN'S CALL (keep on refresh): DEMOTED in redraft — order is Cook > Chase Brown > Hampton > Jeanty. TRENDING UP Sep 1: back at the facility doing side work with trainers (Schefter) — first appearance since the sprain. Week 1 still uncertain; ADP now 21. Washington Jr. is a MUST-DRAFT handcuff if you take him. DYNASTY: Sleeper rank 9 — buy the dip.", 14.4, 15.5, 22, 9],
+["Ashton Jeanty", "RB", "LV", 21.4, -7.5, "inj", "AIDAN'S CALL (keep on refresh): DEMOTED in redraft — order is Cook > Chase Brown > Hampton > Jeanty. Sep 1: on the field but SIDE WORK ONLY, no team practice yet; Week 1 hopeful, unconfirmed. Washington Jr. is a MUST-DRAFT handcuff if you take him. DYNASTY: Sleeper rank 9 — buy the dip.", 14.4, 15.5, 22, 9],
 ["Derrick Henry", "RB", "BAL", 17.6, 9, "", "Age fade: expert consensus now ranks him ~2 rounds below his ADP. Still fine if the room lets him slide.", 16.4, 15.3, 32, 57],
 ["A.J. Brown", "WR", "NE", 18.2, 0, "", "Traded from PHI in June. Lifts Drake Maye; Maye lifts him back.", 14.7, 14.3, 29, 39],
 ["George Pickens", "WR", "DAL", 20.6, -3, "", "BR has him 9 spots above ADP.", 17.2, 13.3, 25, 23],
 ["Saquon Barkley", "RB", "PHI", 19.1, 0, "", "DYNASTY (3-yr window): No. 5 of Aidan's 12/13 pairing — elite in 2026, but his age-30/31 seasons fall inside the window. Title-now tilt only; pass if any of Hampton/Cook/Brown/Walker remain.", 17.2, 15.0, 29, 33],
-["Omarion Hampton", "RB", "LAC", 22.6, -10, "", "AIDAN'S CALL (keep on refresh): No. 3 in my redraft RB order at the turn. DYNASTY (3-yr window): my No. 1 target of the 12/13 pairing — Hampton > Cook > Chase Brown > Walker > Barkley. Whole prime inside the window; Harbaugh feeds him.", 15.1, 15.7, 23, 14],
+["Omarion Hampton", "RB", "LAC", 22.5, -10, "", "AIDAN'S CALL (keep on refresh): No. 3 in my redraft RB order at the turn. DYNASTY (3-yr window): my No. 1 target of the 12/13 pairing — Hampton > Cook > Chase Brown > Walker > Barkley. Whole prime inside the window; Harbaugh feeds him.", 15.1, 15.7, 23, 14],
 ["Chris Olave", "WR", "NO", 19.5, -3, "", "Brief medical-tent visit at the Aug 18 joint practice but returned to the field — scare only, no designation.", 16.8, 14.5, 26, 30],
 ["Nico Collins", "WR", "HOU", 21, -9, "", "DraftSharks has him WR9 against a WR26 price — and Higgins' torn ACL concentrates the Houston target tree on him even further.", 15.1, 14.1, 27, 25],
-["Kenneth Walker III", "RB", "KC", 21.1, 8, "inj", "Foot — still no confirmed practice return. DYNASTY (3-yr): No. 4 of Aidan's 12/13 pairing — age fits but the Andy Reid committee caps him; role certainty lowest of the tier. Emmett Johnson is the handcuff.", 11.3, 15.2, 25, 27],
+["Kenneth Walker III", "RB", "KC", 21.1, 10, "inj", "Missed practice AGAIN Tuesday (foot, severity undisclosed) — Week 1 vs DEN genuinely uncertain and the market hasn't priced it. DYNASTY: No. 4 of Aidan's 12/13 pairing, but this is why he's 4th. Emmett Johnson is the handcuff.", 11.3, 15.2, 25, 27],
 ["Zay Flowers", "WR", "BAL", 26.1, 2, "inj", "Lower-body — missed practice Aug 31 but expected to practice fully next week; on track for the Sep 13 opener.", 14.3, 13.7, 26, 49],
 ["Garrett Wilson", "WR", "NYJ", 25.7, -2, "", "NFL.com counters: outside the top-20 PPR in 3 of 4 seasons.", 14.2, 14.4, 26, 34],
-["Malik Nabers", "WR", "NYG", 26.9, 6, "inj", "NEW Aug 31: team NON-COMMITTAL on Week 1 (ACL recovery, shed the no-contact jersey but ramping). Market hasn't priced it. DYNASTY: Sleeper rank 15, age 23 — long-term thesis untouched; short-term caution.", 14.3, 13.6, 23, 15],
+["Malik Nabers", "WR", "NYG", 26.9, 3, "inj", "Practiced Tuesday (ACL ramp continuing) — trending toward Week 1, though NYG hasn't fully committed. DYNASTY: Sleeper rank 15, age 23 — thesis intact.", 14.3, 13.6, 23, 15],
 ["DeVonta Smith", "WR", "PHI", 29.8, -3, "", "", 11.9, 13.6, 27, 51],
-["Jeremiyah Love", "RB", "ARI", 27.2, 18, "inj", "Trending toward a Week 1 return (RotoWire, Aug 31) but still hasn't practiced fully off the high ankle. ARI backfield around him: Conner on IR, Benson done — he and Allgeier are the room. DYNASTY: Sleeper rank 13, age 21 — elite buy if the room discounts the ankle.", 0, 15.3, 21, 13],
+["Jeremiyah Love", "RB", "ARI", 27.2, 18, "inj", "Garafolo Sep 1: 'about 50/50' for Week 1 (ankle) — at practice but not suited up. ARI room is him + Allgeier. DYNASTY: Sleeper rank 13, age 21 — elite buy if the room discounts the ankle.", 0, 15.3, 21, 13],
 ["Breece Hall", "RB", "NYJ", 35.3, 0, "inj", "Groin trending well — agility drills on the side field Aug 24, 'moving well,' on track for Week 1.", 13.0, 14.4, 25, 35],
 ["Josh Jacobs", "RB", "GB", 30.6, 40, "out", "PLACED ON THE COMMISSIONER'S EXEMPT LIST Aug 30 — cannot practice or play, no defined length, Week 1 firmly in doubt. DO NOT DRAFT at this ADP in redraft. DYNASTY: Sleeper rank 50 but age 28 with legal/suspension overhang — only at a deep discount.", 15.8, 14.4, 28, 50],
 ["Josh Allen", "QB", "BUF", 34.2, 8, "", "Unanimous QB1 in ESPN's vote, but BR says his edge over QB10 is marginal. Went 26th overall in the RotoWire mock.", 22.0, 24.8, 30, 7],
@@ -1103,8 +1543,8 @@ const RAW = [
 ["Kyren Williams", "RB", "LAR", 31.6, -2, "", "Boring, but the touches are real. Corum eats the goal line.", 15.5, 14.6, 26, 46],
 ["Tetairoa McMillan", "WR", "CAR", 32.2, 0, "", "Clear alpha target share.", 12.4, 13.1, 23, 22],
 ["Cam Skattebo", "RB", "NYG", 37.1, 4, "", "Co-starter battle with Tracy is tilting his way — Tracy lost a red-zone fumble and ceded snaps to Singletary in preseason Wk2. Najee (Achilles rehab) is noise for now.", 16.0, 14.6, 24, 54],
-["Tee Higgins", "WR", "CIN", 36.8, -8, "", "Experts have him WR18 against a WR23 price. ESPN ADP calls it a mispricing.", 14.1, 12.0, 27, 47],
-["Emeka Egbuka", "WR", "TB", 34.8, 1, "inj", "On the active 53 and the HC is optimistic he's ready for Week 1 (toe). Never returned to team drills in preseason though — a lingering asterisk at a round-3 price. DYNASTY: Sleeper rank 28, age 23 — the injury noise is a startup gift.", 11.5, 13.2, 23, 28],
+["Tee Higgins", "WR", "CIN", 36.8, 2, "inj", "Heel contusion — out of Tuesday's practice, limited all week, expected fine for Week 1 vs TB.", 14.1, 12.0, 27, 47],
+["Emeka Egbuka", "WR", "TB", 34.8, 4, "inj", "Still NOT in team drills (toe, since Aug 12) — sat Tuesday too; Bowles stuck on 'day-to-day/week-to-week.' Week 1 vs CIN uncertain. DYNASTY: Sleeper rank 28, age 23 — the discount is the opportunity.", 11.5, 13.2, 23, 28],
 ["Javonte Williams", "RB", "DAL", 36.5, -3, "", "Lead role in a high-total offense. BR calls him undervalued.", 15.2, 13.7, 26, 52],
 ["Brock Bowers", "TE", "LV", 35.4, 12, "", "AIDAN'S CALL (keep on refresh): passing at cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then take him. Otherwise my TE window is rounds 5-9.", 14.7, 14.9, 23, 11],
 ["Ladd McConkey", "WR", "LAC", 37.8, -4, "", "Slot volume in PPR; consistently ranked ahead of ADP.", 11.3, 12.2, 24, 37],
@@ -1120,17 +1560,17 @@ const RAW = [
 ["DJ Moore", "WR", "BUF", 48.5, -3, "", "Traded from CHI. Ankle scare cleared — officially good to go per the OC on Aug 15.", 10.0, 12.2, 29, 71],
 ["Quinshon Judkins", "RB", "CLE", 50.4, 0, "", "Returned to team drills Aug 25 — trending right. Volume is there; Watson (named the Week 1 starter) caps the ceiling.", 12.1, 12.3, 22, 45],
 ["Bhayshul Tuten", "RB", "JAX", 52.2, -10, "", "Leading the JAX backfield outright with LeQuint Allen (soft tissue) out through camp — excelling as a pass catcher (PFF Aug 24). Rodriguez keeps goal-line work.", 5.9, 13.3, 23, 70],
-["Mike Evans", "WR", "SF", 54.3, 4, "inj", "Groin now called MINOR — he expects to be ready Week 1 vs the Rams. Still his third separate issue this camp at age 33; modest fade, not a hard one.", 10.6, 12.1, 33, 85],
+["Mike Evans", "WR", "SF", 54.3, 10, "inj", "Downgrade Sep 1: adductor now — has missed most recent practices and needs multiple sessions next week for a real Week 1 shot. Third-ish issue this camp at 33; fade at cost.", 10.6, 12.1, 33, 85],
 ["Lamar Jackson", "QB", "BAL", 56.9, -12, "", "Consensus ranks him ~2 rounds above this ADP. A genuine steal if he slides past 50.", 17.1, 21.9, 29, 26],
 ["Joe Burrow", "QB", "CIN", 57.9, -2, "", "BR has him QB2.", 17.4, 21.3, 29, 29],
-["Colston Loveland", "TE", "CHI", 57, -10, "", "Tier-1 TE per ESPN and CBS; consensus nearly two rounds above ADP. 28.5% target share in camp.", 10.3, 11.4, 22, 32],
+["Colston Loveland", "TE", "CHI", 57, -10, "", "Bears' unofficial depth chart lists Cole Kmet as CO-STARTER — rookie ramp caution on early-season snaps. Still a rounds-5-9 TE target, just tempered.", 10.3, 11.4, 22, 32],
 ["Luther Burden III", "WR", "CHI", 58.3, 3, "inj", "Back at practice Aug 26, limited to individual drills (groin) after ~a month out. Trending toward Week 1; consensus still ranks him above this ADP.", 8.5, 11.9, 22, 42],
 ["Alec Pierce", "WR", "IND", 66.7, 10, "inj", "ACTIVATED off PUP Aug 27 — finally back. Fade softened, but he missed all of camp and Keenan Allen squeezes the tree; needs a ramp-up. Downs is still the safer buy.", 12.2, 11.6, 26, 83],
 ["TreVeyon Henderson", "RB", "NE", 61.5, 16, "", "FADE on role, not health — ankle cleared, expected 'good to go' Week 1 (Aug 27). Stevenson is still the clear starter; take him two rounds later instead. DYNASTY: Sleeper rank 38, the age-23 upside is the draw.", 12.1, 11.6, 23, 38],
 ["Courtland Sutton", "WR", "DEN", 59.6, 8, "", "Waddle is solidifying as the DEN WR1 — Sutton's ADP is falling and consensus is below it.", 12.9, 11.2, 30, 101],
 ["David Montgomery", "RB", "HOU", 58.4, -6, "", "The one dead-zone RB analysts endorse. HC has publicly backed him as the lead.", 9.8, 11.8, 29, 74],
 ["Christian Watson", "WR", "GB", 58.8, -8, "", "Named repeatedly as a round 5-6 value. ESPN ADP is 30+ picks later than other sites.", 13.2, 12.1, 27, 76],
-["Tyler Warren", "TE", "IND", 65.5, -6, "inj", "Groin — may miss the whole practice week but is expected ready for Week 1. Still my top TE target in rounds 5-9; just know the flag exists.", 11.1, 11.3, 24, 40],
+["Tyler Warren", "TE", "IND", 65.5, -6, "", "Groin cleared — good to go for Week 1 per the Colts. Back to full-strength top TE target in rounds 5-9.", 11.1, 11.3, 24, 40],
 ["Jaylen Warren", "RB", "PIT", 58.4, 10, "", "Footballguys uses him to define the RB dead zone. Take Rico Dowdle 10 picks later instead.", 13.6, 11.8, 27, 93],
 ["Marvin Harrison Jr.", "WR", "ARI", 65.8, -12, "", "BR has him 10 spots above consensus. Went 7.08 in the DK mock — may last much later than ADP.", 10.7, 11.4, 24, 61],
 ["DK Metcalf", "WR", "PIT", 64.5, 0, "", "RETURNED to practice Monday Aug 24 after two-plus weeks out. On track for Week 1.", 12.5, 11.6, 28, 90],
@@ -1140,7 +1580,7 @@ const RAW = [
 ["Rhamondre Stevenson", "RB", "NE", 66.4, 2, "", "Clear NE starter over Henderson, but consensus now sits right at his price. Fine RB3; don't reach.", 12.8, 10.7, 28, 102],
 ["Jayden Daniels", "QB", "WAS", 72.2, -4, "", "Diggs signing raises his floor.", 16.7, 21.7, 25, 31],
 ["Michael Pittman Jr.", "WR", "PIT", 74.8, 0, "inj", "In pads at Monday's (Aug 24) practice — listed with a right ankle issue but trending toward Week 1.", 11.9, 11.4, 28, 96],
-["Brian Thomas Jr.", "WR", "JAX", 72.5, 0, "inj", "Shoulder — practicing Wed Aug 26 in a no-contact jersey. Trending up but still limited 2.5 weeks before the opener.", 9.9, 9.8, 23, 64],
+["Brian Thomas Jr.", "WR", "JAX", 72.5, -3, "", "Shoulder CLEARED — full go at Tuesday's practice per Coen. Buy at cost.", 9.9, 9.8, 23, 64],
 ["Rico Dowdle", "RB", "PIT", 74.5, 4, "", "Still the preferred PIT back over Jaylen Warren, but consensus has cooled to around his ADP.", 12.7, 9.8, 28, 97],
 ["Chuba Hubbard", "RB", "CAR", 79, 12, "inj", "Canales announced Aug 24 it's a COMMITTEE if both are healthy. Hamstring expected ready Week 1, but the solo-lead upside is gone. ADP down 12 in a week.", 8.4, 11.1, 27, 91],
 ["Carnell Tate", "WR", "TEN", 77.3, -4, "", "No. 4 overall pick, starting from day one. Daboll plans to move him around rather than lock him at X.", 0, 10.7, 21, 41],
@@ -1188,7 +1628,7 @@ const RAW = [
 ["Romeo Doubs", "WR", "NE", 114.3, 2, "", "", 10.3, 9.6, 26, 122],
 ["George Kittle", "TE", "SF", 116.7, -8, "inj", "ACTIVATED off PUP Sunday Aug 23 and practiced in pads — the reserve/PUP 4-game risk is GONE. Week 1 in Australia not guaranteed but trending yes. Late-round TE steal at this ADP.", 14.7, 9.0, 32, 109],
 ["Minnesota Defense","DST","MIN",109.4,45,"","Stream."],
-["Jacory Croskey-Merritt", "RB", "WAS", 115.6, 0, "inj", "Groin — still sidelined Aug 26, but Quinn expects a practice return this week and says he should be ready for Week 1 vs PHI. Starter-treatment buzz intact; verify before paying the risen price.", 8.3, 8.0, 25, 127],
+["Jacory Croskey-Merritt", "RB", "WAS", 115.6, -4, "", "Returned to practice Sep 1 (groin) — gearing up for Week 1. Starter-treatment buzz intact.", 8.3, 8.0, 25, 127],
 ["Dallas Goedert", "TE", "PHI", 101, 6, "", "NFL.com: 11 TDs was an outlier.", 12.3, 9.2, 31, 173],
 ["Matthew Golden", "WR", "GB", 106.2, -4, "", "Deep dart with a real route share.", 5.0, 9.1, 23, 107],
 ["LA Rams Defense","DST","LAR",109.1,45,"","Stream."],
@@ -1351,6 +1791,18 @@ const RAW = [
 ["Anthony Richardson","QB","IND",250,0,"","Dynasty-relevant add (startup rank 287) — minimal 2026 redraft value.",0,0,24,287],
 ["Aaron Rodgers","QB","PIT",250,0,"","Dynasty-relevant add (startup rank 325) — minimal 2026 redraft value.",0,0,42,325],
 ];
+
+</script>
+<script>
+const MATCHUP_STAMP="Week 1 \u00b7 Sep 9\u201314";
+const MWEEK=1;
+/* team:[opponent, home(1/0), day, Vegas implied team total] */
+const SCHED={"NE":["SEA",0,"Wed",20.5],"SEA":["NE",1,"Wed",24.0],"SF":["LAR",0,"Thu",23.0],"LAR":["SF",1,"Thu",25.5],"CHI":["CAR",0,"Sun",23.5],"CAR":["CHI",1,"Sun",21.0],"TB":["CIN",0,"Sun",23.5],"CIN":["TB",1,"Sun",27.0],"NO":["DET",0,"Sun",20.8],"DET":["NO",1,"Sun",27.8],"BUF":["HOU",0,"Sun",23.5],"HOU":["BUF",1,"Sun",22.0],"BAL":["IND",0,"Sun",26.5],"IND":["BAL",1,"Sun",23.0],"CLE":["JAX",0,"Sun",16.8],"JAX":["CLE",1,"Sun",23.8],"ATL":["PIT",0,"Sun",19.8],"PIT":["ATL",1,"Sun",22.8],"NYJ":["TEN",0,"Sun",18.3],"TEN":["NYJ",1,"Sun",21.3],"ARI":["LAC",0,"Sun",17.0],"LAC":["ARI",1,"Sun",28.5],"MIA":["LV",0,"Sun",19.3],"LV":["MIA",1,"Sun",22.3],"GB":["MIN",0,"Sun",23.0],"MIN":["GB",1,"Sun",21.5],"WAS":["PHI",0,"Sun",20.5],"PHI":["WAS",1,"Sun",26.0],"DAL":["NYG",0,"Sun",25.5],"NYG":["DAL",1,"Sun",23.0],"DEN":["KC",0,"Mon",20.0],"KC":["DEN",1,"Mon",22.5]};
+/* defense-vs-position ranks [vsQB,vsRB,vsWR,vsTE]: 1=toughest matchup, 32=softest */
+const DVP={"ARI":[23,32,19,30],"ATL":[22,18,25,7],"BAL":[15,13,26,6],"BUF":[4,26,9,2],"CAR":[6,25,10,19],"CHI":[29,19,32,13],"CIN":[21,29,7,32],"CLE":[9,22,12,15],"DAL":[32,27,30,11],"DEN":[8,4,2,18],"DET":[28,11,31,25],"GB":[14,12,20,10],"HOU":[2,8,4,14],"IND":[18,10,27,23],"JAX":[17,2,11,21],"KC":[12,7,8,4],"LAC":[3,6,6,5],"LAR":[7,9,15,17],"LV":[16,20,22,3],"MIA":[24,24,17,28],"MIN":[1,15,1,8],"NE":[11,3,14,16],"NO":[13,16,13,12],"NYG":[20,28,24,9],"NYJ":[27,31,16,20],"PHI":[5,23,3,1],"PIT":[30,5,23,29],"SEA":[10,1,5,22],"SF":[19,14,21,24],"TB":[25,17,18,27],"TEN":[26,21,28,26],"WAS":[31,30,29,31]};
+/* projected offense strength 1=best (for DST streaming: target weak offenses) */
+const OFFR={"ARI":26,"ATL":22,"BAL":13,"BUF":4,"CAR":27,"CHI":8,"CIN":5,"CLE":31,"DAL":3,"DEN":11,"DET":2,"GB":17,"HOU":16,"IND":19,"JAX":10,"KC":15,"LAC":9,"LAR":1,"LV":29,"MIA":32,"MIN":21,"NE":6,"NO":23,"NYG":25,"NYJ":30,"PHI":12,"PIT":20,"SEA":14,"SF":7,"TB":18,"TEN":28,"WAS":24};
+const MNOTES={"KC":"Mahomes (ACL) Week 1 status unclear \u2014 KC offense swings hard either way.","ATL":"Penix expected to start Week 1, but the QB room is unsettled.","LV":"Cousins vs rookie Mendoza still unresolved at QB.","DET":"Kerby Joseph & Brian Branch out \u2014 secondary is soft vs WR.","CHI":"Kyler Gordon & Coby Bryant sidelined \u2014 soft vs WR.","CLE":"Lost Garrett + DC Schwartz \u2014 2025 defense numbers overstate them."};
 
 </script>
 <script>
@@ -2080,6 +2532,7 @@ function render(){
   $('state').value = JSON.stringify(snapshot());
   const ft=$('fmtTag'); if(ft) ft.textContent = S.dyn ? 'DYNASTY \u00b7 1QB PPR' : 'Full PPR';
   renderMini(); autoSave(); slpBadge(); renderGrid();
+  const bs=$('boardStamp'); if(bs && typeof BOARD_STAMP!=='undefined') bs.textContent='BOARD UPDATED '+BOARD_STAMP.toUpperCase();
 }
 
 function renderMini(){
@@ -2334,7 +2787,13 @@ function slpFind(meta){
   if(c.length===1) return c[0];
   if(meta.position && meta.last_name){
     const ln=' '+slpNorm(meta.last_name);
-    const c2=P.filter(p=>slpNorm(p.name).endsWith(ln) && p.pos===meta.position && p.team===(meta.team||'').toUpperCase());
+    const fn=slpNorm(meta.first_name||'');
+    /* first names must be prefix-compatible (Cam/Cameron, Chig/Chigoziem yes;
+       Brian/Bijan NO — same team + last name is not the same player) */
+    const fok=p=>{ const bf=slpNorm(p.name).split(' ')[0];
+      return !fn || !bf || bf.startsWith(fn) || fn.startsWith(bf); };
+    const c2=P.filter(p=>slpNorm(p.name).endsWith(ln) && p.pos===meta.position
+      && p.team===(meta.team||'').toUpperCase() && fok(p));
     if(c2.length===1) return c2[0];
   }
   return null;
@@ -2513,7 +2972,7 @@ async function lgFind(){
 }
 function avUrl(av){ return av? 'https://sleepercdn.com/avatars/thumbs/'+av : ''; }
 function hshot(pl){
-  if(LG.demo) return `<span class="initav ${pl.pos}">${esc(initials(pl.name))}</span>`;
+  if(LG.demo) return `<span class="initav ${pl.pos}">${esc(initials(pl.name))}<img src="https://sleepercdn.com/images/team_logos/nfl/${esc((pl.team||'').toLowerCase())}.png" alt="" onerror="this.remove()"></span>`;
   if(pl.pos==='DST') return `<img class="hshot" src="https://sleepercdn.com/images/team_logos/nfl/${(pl.team||'').toLowerCase()}.png" onerror="this.style.visibility='hidden'">`;
   return `<img class="hshot" src="https://sleepercdn.com/content/nfl/players/thumb/${pl.pid}.jpg" onerror="this.style.visibility='hidden'">`;
 }
@@ -2539,7 +2998,7 @@ async function lgOpen(id){
     LG.myRosterId=mine?mine.roster_id:null;
     await lgPlayerMap();
     lgSave(); st.textContent='Synced ✓'; st.className='slpst ok';
-    renderLgList(); renderTeam(); trInit();
+    renderLgList(); renderTeam(); trInit(); renderLeaguePulse(); renderDealLog();
     const tag=$('avLeague'); if(tag) tag.textContent=(l.name||'')+(LG.myDyn()?' · dynasty':'');
   }catch(e){ st.textContent='Could not load league ('+e.message+').'; st.className='slpst bad'; }
 }
@@ -2565,6 +3024,187 @@ function lgValue(pl){
 }
 const lgRosterPositions = () => (LG.league&&LG.league.roster_positions)||Scoring.DEFAULT_SLOTS;
 const lgNeeds = rosterId => Scoring.needs(lgPlayers(rosterId).map(normP), lgRosterPositions());
+async function renderLeaguePulse(){
+  const el=$('plFeed'); if(!el||!LG.league) return;
+  el.innerHTML='<div class="emptymsg">Reading league activity…</div>';
+  try{
+    let txs=[];
+    for(const wk of [1,2]){ try{ const t=await lgFetch('https://api.sleeper.app/v1/league/'+LG.league.league_id+'/transactions/'+wk); if(Array.isArray(t)) txs=txs.concat(t); }catch(e){} }
+    txs.sort((a,b)=>(b.created||0)-(a.created||0));
+    const nm=id=>LG.pmap&&LG.pmap[id]?LG.pmap[id][0]:('#'+id);
+    const team=rid=>esc(lgTeamName(rid));
+    const rows=txs.filter(t=>t.status==='complete').slice(0,8).map(t=>{
+      const when=t.created? new Date(t.created).toLocaleDateString(undefined,{month:'short',day:'numeric'}):'';
+      if(t.type==='trade'){
+        return `<div class="plrow"><span class="plkind trade">TRADE</span><div>${(t.roster_ids||[]).map(team).join(' &harr; ')}<br>
+          <span style="color:var(--dim)">${Object.keys(t.adds||{}).map(nm).map(esc).join(', ')||'players'}</span>
+          <span style="color:var(--dim2)"> · ${when}</span></div></div>`;
+      }
+      const adds=Object.keys(t.adds||{}), drops=Object.keys(t.drops||{});
+      const rid=(t.roster_ids||[])[0];
+      return `<div class="plrow"><span class="plkind ${adds.length?'add':'drop'}">${adds.length?'ADD':'DROP'}</span><div>
+        <b>${team(rid)}</b> ${adds.length?'added '+adds.map(nm).map(esc).join(', '):''}${adds.length&&drops.length?', ':''}${drops.length?'dropped '+drops.map(nm).map(esc).join(', '):''}
+        <span style="color:var(--dim2)"> · ${when}</span></div></div>`;
+    });
+    el.innerHTML=rows.length?rows.join(''):'<div class="emptymsg">No transactions yet — the league is quiet. Check back after waivers run.</div>';
+  }catch(e){ el.innerHTML='<div class="emptymsg">League activity unavailable right now.</div>'; }
+}
+/* ---- Deal log ---- */
+function dlAll(){ try{ return JSON.parse(localStorage.getItem('ffdeals2026')||'[]'); }catch(e){ return []; } }
+function dlSave(entry){
+  try{ const a=dlAll(); a.unshift(entry); localStorage.setItem('ffdeals2026', JSON.stringify(a.slice(0,30))); }catch(e){}
+  renderDealLog();
+}
+function renderDealLog(){
+  const card=$('dlCard'); if(!card) return;
+  const a=dlAll().filter(d=>d.lg===(LG.league&&LG.league.league_id));
+  card.style.display=a.length?'':'none';
+  $('dlMeta').textContent=a.length+' analyzed';
+  $('dlFeed').innerHTML=a.slice(0,10).map((d,i)=>`<div class="dlrow">
+    <span style="color:var(--dim2);font-size:10.5px">${d.when}</span>
+    <b>${esc(d.out.join(', '))}</b> <span style="color:var(--dim2)">&rarr;</span> <b>${esc(d.inn.join(', '))}</b>
+    <span style="color:var(--dim2)">w/ ${esc(d.them)}</span>
+    <span class="dlv"><span class="dlbadge ${d.cls}">${d.you>=0?'+':''}${d.you} you · ${d.tscore>=0?'+':''}${d.tscore} them</span>
+    <button class="btn" data-dl="${i}">Reload</button></span></div>`).join('');
+  document.querySelectorAll('[data-dl]').forEach(b=>b.onclick=()=>{
+    const d=a[+b.dataset.dl]; if(!d) return;
+    const sel=$('trTeam'); if(sel && [...sel.options].some(o=>+o.value===d.rid)){ sel.value=d.rid; LG.theirRosterId=d.rid; }
+    LG.out=new Set(d.outIds); LG.inn=new Set(d.innIds);
+    trRenderSides(); trAnalyze();
+  });
+}
+/* ---- AI trade pitch: writes the message you send the other manager ---- */
+async function trPitch(){
+  const el=$('trPitchOut'); const {out,inn}=trSelected();
+  if(!out.length||!inn.length) return;
+  if(!AIK.key){ el.innerHTML='<span style="color:var(--warn)">Set up your API key first (Ask AI on the Draft Room recommendations card, or the second-opinion button here).</span>'; return; }
+  el.innerHTML='<span style="color:var(--dim)">Writing your pitch…</span>';
+  const me=sideScore(LG.myRosterId,out,inn), them=sideScore(LG.theirRosterId,inn,out);
+  try{
+    const text=await callClaude(
+      `Write a short, casual trade pitch message (3-5 sentences, first person, friendly league-mate tone, no greeting formality, no bullet lists) that I can paste to the manager of "${lgTeamName(LG.theirRosterId)}" in our fantasy league chat. `+
+      `I am offering: ${out.map(p=>p.name+' ('+p.pos+')').join(', ')}. I want: ${inn.map(p=>p.name+' ('+p.pos+')').join(', ')}. `+
+      `Sell it honestly from THEIR perspective — our analysis says their side scores ${them.score>=0?'+':''}${them.score} (${them.notes.slice(0,2).join('; ')||'roster fit'}), mine ${me.score>=0?'+':''}${me.score}. `+
+      `Lean on what the deal does for THEIR roster. Do not mention scores, models, apps, or that this was AI-written. Plain sentences only.`);
+    el.innerHTML='<div style="border:1px solid var(--line);border-radius:12px;padding:10px 13px;margin-top:9px;font-size:12.5px;line-height:1.6">'
+      +mdLite(text)+'</div><button class="btn" id="trPitchCopy" style="margin-top:7px">Copy message</button>';
+    $('trPitchCopy').onclick=()=>{ navigator.clipboard&&navigator.clipboard.writeText(text.replace(/\*/g,'')); $('trPitchCopy').textContent='Copied ✓'; };
+  }catch(e){ el.innerHTML='<span style="color:var(--bad)">Pitch failed: '+esc(e.message)+'</span>'; }
+}
+/* ================= PORTAL HOME (unsynced content) ================= */
+let PIDX=null;
+async function pidIndex(){
+  if(PIDX) return PIDX;
+  try{ const m=await lgPlayerMap(); PIDX={};
+    Object.keys(m).forEach(id=>{ PIDX[slpNorm(m[id][0])]=id; });
+  }catch(e){ PIDX={}; }
+  return PIDX;
+}
+function initials(n){ return (n||'').split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase(); }
+function portalShot(p, cls){
+  return `<span class="initav" data-pshot="${esc(slpNorm(p.name))}">${esc(initials(p.name))}</span>`;
+}
+async function upgradeShots(){
+  const idx=await pidIndex();
+  document.querySelectorAll('[data-pshot]').forEach(el=>{
+    const id=idx[el.dataset.pshot];
+    if(id) el.outerHTML=`<img class="${el.classList.contains('fshot')?'fshot':'hshot'}" src="https://sleepercdn.com/content/nfl/players/thumb/${id}.jpg" onerror="this.style.visibility='hidden'">`;
+  });
+  const f=document.querySelector('[data-fshot]');
+  if(f){ const id=idx[f.dataset.fshot];
+    if(id){ f.src=`https://sleepercdn.com/content/nfl/players/thumb/${id}.jpg`; f.style.display=''; } }
+}
+function pubNote(p){
+  let n=p.note||'';
+  if(n.includes("AIDAN'S CALL")){
+    const cut=n.search(/\.\s+[A-Z]/);                 // drop the strategy sentence, keep the news
+    n=cut>0?n.slice(cut+2):'';
+    if(!n) return '';
+  }
+  return n;
+}
+function boardHeadlines(){
+  const sev={out:0,inj:1,risk:2};
+  return P.filter(p=>p.flag && pubNote(p) && p.rank<=200)
+          .sort((a,b)=>(sev[a.flag]-sev[b.flag])||(a.rank-b.rank));
+}
+function renderPortal(){
+  if(!$('ftStory')) return;
+  const hl=boardHeadlines();
+  const feat=hl[0];
+  if(feat){
+    const tag=feat.flag==='out'?'BREAKING':'INJURY WATCH';
+    $('ftStory').innerHTML=`
+      <span class="fkick livebadge">${tag}</span>
+      <h1>${esc(feat.name)}: ${esc((pubNote(feat).split('—')[0]||pubNote(feat)).replace(/[.\s]+$/,'').slice(0,80))}</h1>
+      <p>${esc((pubNote(feat).split('—').slice(1).join('—').trim()||pubNote(feat)).slice(0,240))}${pubNote(feat).length>240?'…':''}</p>
+      <div class="fmeta"><span>${feat.pos} · ${esc(feat.team)}</span><span>ADP ${feat.adp.toFixed(0)}</span><span>Board updated ${typeof BOARD_STAMP!=='undefined'?BOARD_STAMP:''}</span></div>
+      <img class="fshot" data-fshot="${esc(slpNorm(feat.name))}" style="display:none" onerror="this.style.display='none'">`;
+  }
+  $('ptNews').innerHTML=hl.slice(1,9).map(p=>`<div class="hlrow">${portalShot(p)}<div>
+    <b>${esc(p.name)}</b><span class="hltag ${p.flag}">${p.flag.toUpperCase()}</span><br>
+    <span style="color:var(--dim)">${esc(pubNote(p).slice(0,110))}${pubNote(p).length>110?'…':''}</span></div></div>`).join('');
+  renderPortalRanks();
+  // values & fades: expert adj vs market
+  const skill=p=>['QB','RB','WR','TE'].includes(p.pos);
+  const vals=P.filter(p=>skill(p)&&p.adj<=-8&&p.flag!=='out'&&p.rank<=200).sort((a,b)=>a.adj-b.adj).slice(0,5);
+  const fades=P.filter(p=>skill(p)&&p.adj>=10&&p.flag!=='out'&&p.rank<=150).sort((a,b)=>b.adj-a.adj).slice(0,5);
+  $('ptVals').innerHTML=vals.map(p=>`<div class="vfrow">${portalShot(p)}<span class="pos ${p.pos}">${p.pos}</span><b>${esc(p.name)}</b>
+      <span class="vfpill v">VALUE ${p.adj}</span></div>`).join('')
+    + fades.map(p=>`<div class="vfrow">${portalShot(p)}<span class="pos ${p.pos}">${p.pos}</span><b>${esc(p.name)}</b>
+      <span class="vfpill f">FADE +${p.adj}</span></div>`).join('');
+  renderPortalTrend();
+  upgradeShots();
+}
+function renderPortalRanks(){
+  const mode=window._rkMode||'ALL';
+  let rows;
+  if(mode==='DYN'){
+    rows=RAW.filter(r=>r[10]>0).map(r=>({name:r[0],pos:r[1],team:r[2],key:r[10],meta:'dyn #'+r[10]+(r[9]?' · age '+r[9]:'')}))
+            .sort((a,b)=>a.key-b.key).slice(0,25);
+    $('rkMeta').textContent='Sleeper dynasty startup ADP';
+  } else {
+    const pool=mode==='ALL'?P:P.filter(p=>p.pos===mode);
+    rows=pool.filter(p=>p.flag!=='out'||mode!=='ALL').slice(0,25)
+             .map(p=>({name:p.name,pos:p.pos,team:p.team,key:p.rank,meta:'ADP '+p.adp.toFixed(0)+(p.pj?' · proj '+p.pj.toFixed(1):'')}));
+    $('rkMeta').textContent='12-team full PPR · expert-adjusted';
+  }
+  $('ptRanks').innerHTML=rows.map((p,i)=>`<div class="rkrow"><span class="rkn">${i+1}</span>
+    ${portalShot(p)}<span class="pos ${p.pos}">${p.pos}</span><b>${esc(p.name)}</b>
+    <span style="color:var(--dim2);font-size:10.5px">${esc(p.team)}</span>
+    <span class="rkmeta">${p.meta}</span></div>`).join('');
+}
+function trendWhy(name,pos,team){
+  const posN = pos==='DEF'?'DST':pos;
+  const bp=lgBoardMatch(name,pos,team);
+  if(bp){ const n=pubNote(bp); if(n) return n.slice(0,95)+(n.length>95?'…':''); }
+  const mates=P.filter(p=>p.team===team && p.pos===posN && (p.flag==='out'||p.flag==='inj') && p.rank<=250 && slpNorm(p.name)!==slpNorm(name))
+               .sort((a,b)=>a.rank-b.rank);
+  if(mates.length){
+    const m=mates[0];
+    return `Next man up — ${m.name} is ${m.flag==='out'?'OUT':'banged up'}${m.pos==='RB'?' in this backfield':''}.`;
+  }
+  const bigOut=P.filter(p=>p.team===team && p.flag==='out' && p.rank<=140).sort((a,b)=>a.rank-b.rank);
+  if(bigOut.length) return `${bigOut[0].name} fallout — snaps opening up on ${team}.`;
+  return 'Deep-league buzz — no board note on him yet.';
+}
+async function renderPortalTrend(){
+  const el=$('ptTrend'); if(!el) return;
+  el.innerHTML='<div class="emptymsg">Loading…</div>';
+  try{
+    const tr=await lgFetch('https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=24&limit=12');
+    const idx=await pidIndex(); const m=await lgPlayerMap();
+    el.innerHTML=tr.slice(0,8).map(t=>{
+      const info=m[t.player_id]; if(!info) return '';
+      const [name,pos,team]=info;
+      return `<div class="wvrow wv2"><img class="hshot" src="https://sleepercdn.com/content/nfl/players/thumb/${t.player_id}.jpg" onerror="this.style.visibility='hidden'">
+        <div class="wvmain"><div><span class="pos ${pos==='DEF'?'DST':pos}">${pos==='DEF'?'DST':pos}</span> <b>${esc(name)}</b>
+        <span style="color:var(--dim2);font-size:10.5px">${esc(team||'')}</span>
+        <span class="adds">+${(t.count||0).toLocaleString()}</span></div>
+        <div class="wvwhy">${esc(trendWhy(name,pos,team))}</div></div></div>`;
+    }).join('')||'<div class="emptymsg">Quiet on the wire.</div>';
+  }catch(e){ el.innerHTML='<div class="emptymsg">Trending unavailable.</div>'; }
+}
 function renderTeam(){ renderHome(); }
 function renderHome(){
   const hero=$('teamHero'), grid=$('homeGrid'), land=$('landing'), dbar=$('demoBar');
@@ -2572,7 +3212,7 @@ function renderHome(){
   const live=!!(LG.league&&LG.myRosterId);
   if(land) land.style.display=live?'none':'';
   if(dbar) dbar.style.display=(live&&LG.demo)?'flex':'none';
-  if(!live){ hero.style.display='none'; grid.style.display='none'; return; }
+  if(!live){ hero.style.display='none'; grid.style.display='none'; renderPortal(); return; }
   hero.style.display='flex'; grid.style.display='grid';
   const me=(LG.users||[]).find(u=>u.user_id===LG.userId);
   const av=(me&&((me.metadata&&me.metadata.avatar)||avUrl(me.avatar)))||avUrl(LG.league.avatar);
@@ -2656,9 +3296,11 @@ async function renderWaiverRadar(){
     const rows=tr.filter(t=>!owned.has(String(t.player_id)) && LG.pmap[t.player_id]).slice(0,8).map(t=>{
       const [name,pos,team]=LG.pmap[t.player_id];
       const pl={pid:String(t.player_id),name,pos:pos==='DEF'?'DST':pos,team,bp:lgBoardMatch(name,pos,team)};
-      return `<div class="wvrow">${hshot(pl)}<span class="pos ${pl.pos}">${pl.pos}</span><b>${esc(name)}</b>
+      return `<div class="wvrow wv2">${hshot(pl)}
+        <div class="wvmain"><div><span class="pos ${pl.pos}">${pl.pos}</span> <b>${esc(name)}</b>
         <span style="color:var(--dim2);font-size:10.5px">${esc(team||'')}</span>
-        <span class="adds">+${(t.count||0).toLocaleString()} adds</span></div>`;
+        <span class="adds">+${(t.count||0).toLocaleString()} adds</span></div>
+        <div class="wvwhy">${esc(trendWhy(name,pos,team))}</div></div></div>`;
     });
     el.innerHTML=rows.length?rows.join(''):'<div class="emptymsg">Nothing trending that\'s unowned in this league.</div>';
   }catch(e){ el.innerHTML='<div class="emptymsg">Trending data unavailable right now.</div>'; }
@@ -2729,6 +3371,7 @@ function trInit(){
   LG.theirRosterId=+sel.value||null;
   sel.onchange=()=>{ LG.theirRosterId=+sel.value; trReset(); };
   $('trAnalyze').onclick=trAnalyze;
+  const ta=$('trAuto'); if(ta) ta.onclick=trAutoRec;
   $('trClear').onclick=trReset;
   document.querySelectorAll('.trtab').forEach(b=>b.onclick=()=>trTab(b.dataset.trtab));
   const q=$('trFindQ'); if(q){ q.oninput=trFindRender; }
@@ -2820,15 +3463,24 @@ function trAnalyze(){
   else head='';
   $('trVerdictMeta').textContent=`${out.length} out · ${inn.length} in`;
   $('trVerdict').innerHTML = head +
-    `<div class="dual">${card('Your side','me',me,mv)}${card(esc(lgTeamName(LG.theirRosterId))+"'s side",'them',them,tv)}</div>` +
+    `<div class="dual">${card('Your side','me',me,mv)}
+       <div class="vs"><span class="scorepill">${me.score>=0?'+':''}${me.score} : ${them.score>=0?'+':''}${them.score}<small>YOU · THEM</small></span></div>
+       ${card(esc(lgTeamName(LG.theirRosterId))+"'s side",'them',them,tv)}</div>` +
     lineupDiffHTML(LG.myRosterId,out,inn,'Your') +
     (flagged.length?`<div style="font-size:12px;color:var(--warn);margin-top:10px">⚠ Incoming with flags: ${
       flagged.map(p=>esc(p.name)+' ('+p.bp.flag.toUpperCase()+')').join(', ')}. Check the news before you commit.</div>`:'') +
     `<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-       <button class="btn" id="trAiBtn">✨ Ask Claude for a second opinion</button>
-       <button class="btn" id="trFlipBtn">⇄ Show their lineup impact</button>
-     </div><div id="trAiOut"></div><div id="trFlipOut"></div>`;
+       <button class="btn go" id="trPitchBtn">&#9993; Write the pitch</button>
+       <button class="btn" id="trAiBtn">Ask Claude for a second opinion</button>
+       <button class="btn" id="trFlipBtn">Their lineup impact</button>
+     </div><div id="trPitchOut"></div><div id="trAiOut"></div><div id="trFlipOut"></div>`;
   $('trAiBtn').onclick=trAskAI;
+  $('trPitchBtn').onclick=trPitch;
+  dlSave({ when:new Date().toLocaleDateString(undefined,{month:'short',day:'numeric'}),
+    lg:LG.league&&LG.league.league_id, rid:LG.theirRosterId, them:lgTeamName(LG.theirRosterId),
+    out:out.map(p=>p.name), inn:inn.map(p=>p.name),
+    outIds:[...LG.out], innIds:[...LG.inn],
+    you:me.score, tscore:them.score, cls: me.score>=12?'good':(me.score>=-8?'mid':'bad') });
   $('trFlipBtn').onclick=()=>{
     const el=$('trFlipOut');
     el.innerHTML=el.innerHTML?'':lineupDiffHTML(LG.theirRosterId,inn,out,esc(lgTeamName(LG.theirRosterId))+"'s");
@@ -3004,6 +3656,42 @@ In under 140 words: say whether to send it, name the single biggest risk the num
       <span style="color:var(--bad)">${esc(e.message||'Network error.')}</span></div>`;
   }
 }
+function trAutoRec(){
+  const card=$('trSugCard'); card.style.display='';
+  $('trSugs').innerHTML='<div class="emptymsg">Scanning every roster for deals both sides would take…</div>';
+  setTimeout(()=>{
+    const my=lgPlayers(LG.myRosterId).filter(p=>p.pos!=='K'&&p.pos!=='DST');
+    const myTop=my.sort((a,b)=>lgValue(b)-lgValue(a)).slice(0,8);
+    const found=[];
+    (LG.rosters||[]).filter(r=>r.roster_id!==LG.myRosterId).forEach(r=>{
+      const th=lgPlayers(r.roster_id).filter(p=>p.pos!=='K'&&p.pos!=='DST')
+                .sort((a,b)=>lgValue(b)-lgValue(a)).slice(0,8);
+      myTop.forEach(mp=>th.forEach(tp=>{
+        if(mp.pos===tp.pos && Math.abs(lgValue(mp)-lgValue(tp))<lgValue(mp)*0.15) return; // skip near-identical same-pos swaps
+        const me=sideScore(LG.myRosterId,[mp],[tp]), them=sideScore(r.roster_id,[tp],[mp]);
+        if(me.score>2 && them.score>-8)
+          found.push({rid:r.roster_id, team:lgTeamName(r.roster_id), give:mp, get:tp, me, them,
+                      combo:me.score+Math.min(them.score,0)*0.5});
+      }));
+    });
+    found.sort((a,b)=>b.combo-a.combo);
+    const seen=new Set(), top=[];
+    for(const f of found){ const k=f.get.pid; if(seen.has(k)) continue; seen.add(k); top.push(f); if(top.length>=4) break; }
+    $('trSugs').innerHTML = top.length ? top.map((f,i)=>`<div class="sugrow">
+        <div class="sughead">Send <b>${esc(f.give.name)}</b> (${f.give.pos}) to ${esc(f.team)} for <b>${esc(f.get.name)}</b> (${f.get.pos})</div>
+        You ${f.me.score>=0?'+':''}${f.me.score} · them ${f.them.score>=0?'+':''}${f.them.score}${f.me.notes.length?' — '+esc(f.me.notes[0]):''}.
+        <button class="btn go" data-rec="${i}" style="margin-left:8px">Load &amp; analyze</button></div>`).join('')
+      + '<div style="font-size:11px;color:var(--dim2);margin-top:8px">Only deals where you clearly gain and they stay above water. Load one, then hit &#9993; Write the pitch.</div>'
+      : '<div class="emptymsg">No clean one-for-one wins right now — your roster is efficiently valued. Try the Market scan for two-for-one angles, or check back after injury news moves prices.</div>';
+    document.querySelectorAll('[data-rec]').forEach(b=>b.onclick=()=>{
+      const f=top[+b.dataset.rec];
+      const sel=$('trTeam'); if(sel){ sel.value=f.rid; LG.theirRosterId=f.rid; }
+      LG.out=new Set([f.give.pid]); LG.inn=new Set([f.get.pid]);
+      trTab('build'); trRenderSides(); trAnalyze();
+      $('trVerdictCard').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  },30);
+}
 function trSuggest(){ trTab('market'); }
 
 /* ================= DEMO LEAGUE =================
@@ -3077,18 +3765,181 @@ function demoExit(){
 }
 (function wireLanding(){
   const go=(id,fn)=>{ const el=$(id); if(el) el.onclick=fn; };
-  go('ctaSync', ()=>{ const i=$('lgUser'); if(i){ i.focus(); i.scrollIntoView({behavior:'smooth',block:'center'}); } });
-  go('ctaDemo', demoLeague);
-  go('demoExit', demoExit);
+  const focusSync=()=>{ const i=$('lgUser'); if(i){ i.focus(); i.scrollIntoView({behavior:'smooth',block:'center'}); } };
+  go('ctaSync', focusSync);
+  go('trCtaSync2', ()=>{ setView('home'); setTimeout(focusSync,150); });
+  document.querySelectorAll('.tile[data-tile]').forEach(t=>t.onclick=()=>{
+    const v=t.dataset.tile;
+    if(v==='synchome'){ focusSync(); return; }
+    setView(v); window.scrollTo({top:0,behavior:'smooth'});
+  });
+  document.querySelectorAll('.rktab').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.rktab').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); window._rkMode=b.dataset.rk; renderPortalRanks(); upgradeShots();
+  });
 })();
 
 /* ---------------- App-level view switching ---------------- */
+/* ================= START/SIT (weekly matchup tool) ================= */
+const SS_POSI={QB:0,RB:1,WR:2,TE:3};
+const SS_AVG_IMP=22.4;
+function ssOrd(n){ const s=['th','st','nd','rd'],v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+function ssTag(r){ return r>=29?'a smash spot':r>=23?'a soft matchup':r<=4?'the toughest kind of draw':r<=9?'a tough matchup':'a neutral matchup'; }
+function ssBase(pl){
+  const bp=pl.bp||((pl.pj||pl.pg)?pl:null);
+  if(bp&&(bp.pj||bp.pg)) return bp.pj&&bp.pg? 0.6*bp.pj+0.4*bp.pg : (bp.pj||bp.pg);
+  return {QB:13,RB:7.5,WR:7.5,TE:5.5,K:7,DST:6}[pl.pos]||6;
+}
+function ssDstPts(team){
+  const g=SCHED[team]; if(!g) return 0;
+  const [opp,home]=g, o=OFFR[opp]||16, oppImp=(SCHED[opp]||[])[3]||SS_AVG_IMP;
+  return 2+((o-1)/31)*8+(home?0.5:0)+Math.max(-1.5,Math.min(1.5,(SS_AVG_IMP-oppImp)*0.18));
+}
+/* one player, one week: projected pts + the reasons, human-readable */
+function ssScore(pl){
+  const g=SCHED[pl.team], flag=(pl.bp?pl.bp.flag:pl.flag)||'';
+  if(!g) return {pts:0,mult:1,flag,game:null,why:'On bye — no game this week.'};
+  const [opp,home,day,imp]=g, at=home?'vs':'@';
+  if(pl.pos==='DST'){
+    const o=OFFR[opp]||16;
+    return {pts:ssDstPts(pl.team),mult:1,flag:'',game:g,
+      why:`${at} ${opp} ${day} — ${opp} projects as the ${ssOrd(o)} offense; implied just ${((SCHED[opp]||[])[3]||'?')} pts.`};
+  }
+  if(pl.pos==='K'){
+    return {pts:imp*0.32+(home?0.3:0),mult:1,flag:'',game:g,
+      why:`${at} ${opp} ${day} — team implied total ${imp} pts${imp>=25?' (scoring environment)':''}.`};
+  }
+  const base=ssBase(pl);
+  const r=(DVP[opp]||[16,16,16,16])[SS_POSI[pl.pos]]||16;
+  const mMult=0.86+((r-1)/31)*0.28;
+  const vMult=1+Math.max(-0.06,Math.min(0.06,(imp-SS_AVG_IMP)*0.012));
+  const hMult=home?1.015:0.985;
+  const iMult=flag==='out'?0:flag==='inj'?0.85:flag==='q'?0.93:1;
+  let why=`${at} ${opp} ${day} — ${opp} ranks ${ssOrd(r)} vs ${pl.pos}, ${ssTag(r)}. Implied ${imp} pts.`;
+  if(flag==='out') why=`Ruled OUT. `+why;
+  else if(flag==='inj') why=`Injury risk — check his status before kickoff. `+why;
+  else if(flag==='q') why=`Questionable tag. `+why;
+  const note=MNOTES[pl.team]||MNOTES[opp];
+  if(note) why+=' '+note;
+  return {pts:base*mMult*vMult*hMult*iMult,base,mult:mMult*vMult*hMult,flag,game:g,rank:r,why};
+}
+function ssMyGraded(){
+  return lgPlayers(LG.myRosterId).map(pl=>({...pl,ss:ssScore(pl)}))
+    .sort((a,b)=>b.ss.pts-a.ss.pts);
+}
+function ssVerdicts(graded){
+  const lineup=Scoring.bestLineup(graded.filter(p=>p.ss.pts>0).map(p=>({id:p.pid,pos:p.pos,proj:p.ss.pts})), lgRosterPositions());
+  const v={};
+  lineup.slots.forEach(s=>{ if(s.player) v[s.player.id]=(s.slot==='FLEX'||s.slot==='SUPER_FLEX'||s.slot==='REC_FLEX')?'flex':'start'; });
+  graded.forEach(p=>{
+    p.vd = p.ss.flag==='out'?'out' : !p.ss.game?'bye' : v[p.pid]||'sit';
+  });
+  return graded;
+}
+function ssRow(p,maxPts){
+  const chip={start:'<span class="sschip start">Start</span>',flex:'<span class="sschip flex">Flex</span>',
+    sit:'<span class="sschip sit">Sit</span>',out:'<span class="sschip out">Out</span>',bye:'<span class="sschip sit">Bye</span>'}[p.vd];
+  const w=maxPts? Math.max(4,Math.round(p.ss.pts/maxPts*100)):0;
+  return `<div class="ssrow">${hshot(p)}
+    <div class="ssmain"><b>${esc(p.name)}</b> <span style="color:var(--dim2);font-size:11px">${p.pos} · ${esc(p.team)}</span>
+      <div class="ssmatch">${esc(p.ss.why)}</div></div>
+    <div class="ssbar ${p.vd==='start'?'g':p.vd==='sit'||p.vd==='bye'?'b':''}"><i style="width:${w}%"></i></div>
+    <div class="ssnum"><b>${p.ss.pts?p.ss.pts.toFixed(1):'—'}</b>proj</div>${chip}</div>`;
+}
+function renderSSVerdicts(){
+  const graded=ssVerdicts(ssMyGraded());
+  const maxPts=Math.max(...graded.map(p=>p.ss.pts),1);
+  const order=['QB','RB','WR','TE','K','DST'];
+  const html=order.filter(pos=>graded.some(p=>p.pos===pos)).map(pos=>
+    `<div class="ssposhdr">${pos==='DST'?'Defense':pos}</div>`+
+    graded.filter(p=>p.pos===pos).map(p=>ssRow(p,maxPts)).join('')
+  ).join('');
+  $('ssVerdicts').innerHTML=html||'<div class="emptymsg">No roster found — sync a league first.</div>';
+  const st=graded.filter(p=>p.vd==='start'||p.vd==='flex').length;
+  $('ssMeta').textContent=st+' starters graded vs '+MATCHUP_STAMP.toLowerCase()+' matchups';
+}
+/* head-to-head: any two of my players */
+function ssCompare(){
+  const graded=ssVerdicts(ssMyGraded());
+  const a=graded.find(p=>p.pid===$('ssCmpA').value), b=graded.find(p=>p.pid===$('ssCmpB').value);
+  const out=$('ssCmpOut'); if(!a||!b||a.pid===b.pid){ out.innerHTML='<div class="emptymsg">Pick two different players.</div>'; return; }
+  const [w,l]=a.ss.pts>=b.ss.pts?[a,b]:[b,a];
+  const edge=w.ss.pts-l.ss.pts;
+  const conf=edge>2.5?'Clear call':edge>1?'Lean':'Coin flip — either is fine';
+  const fac=(lbl,fa,fb,hi)=>`<div class="ssfac"><span class="lbl">${lbl}</span><span class="a ${hi===1?'win':''}">${fa}</span><span class="b ${hi===2?'win':''}">${fb}</span></div>`;
+  const g=p=>p.ss.game, mtx=p=>g(p)?`${g(p)[1]?'vs':'@'} ${g(p)[0]}${p.ss.rank?' · '+ssOrd(p.ss.rank)+' vs '+p.pos:''}`:'BYE';
+  const hp=p=>p.ss.flag==='out'?'OUT':p.ss.flag==='inj'?'Injury risk':p.ss.flag==='q'?'Questionable':'Healthy';
+  const bcmp=(x,y)=>x>y+0.01?1:y>x+0.01?2:0;
+  out.innerHTML=`<div class="sswin">
+    <div class="hd">${conf}: start <b>${esc(w.name)}</b> over ${esc(l.name)} <span style="color:var(--dim);font-size:12px">(+${edge.toFixed(1)} projected)</span></div>
+    ${fac('Player',esc(a.name)+' ('+a.pos+')',esc(b.name)+' ('+b.pos+')',0)}
+    ${fac('Base proj',(a.ss.base||a.ss.pts).toFixed(1)+' ppg',(b.ss.base||b.ss.pts).toFixed(1)+' ppg',bcmp(a.ss.base||0,b.ss.base||0))}
+    ${fac('Matchup',mtx(a),mtx(b),bcmp((a.ss.rank||0),(b.ss.rank||0)))}
+    ${fac('Health',hp(a),hp(b),bcmp(b.ss.flag?0:1,a.ss.flag?0:1)===0?0:(a.ss.flag&&!b.ss.flag?2:!a.ss.flag&&b.ss.flag?1:0))}
+    ${fac('This week',a.ss.pts.toFixed(1)+' pts',b.ss.pts.toFixed(1)+' pts',bcmp(a.ss.pts,b.ss.pts))}
+  </div>`;
+  try{ upgradeShots(); }catch(e){}
+}
+/* streaming defenses, ranked; availability from league rosters */
+function ssDstOwners(){
+  const own={};
+  (LG.rosters||[]).forEach(r=>(r.players||[]).forEach(pid=>{
+    const m=LG.pmap&&LG.pmap[pid]; if(m&&m[1]==='DEF') own[m[2]||pid]=r.roster_id;
+  }));
+  return own;
+}
+function renderSSStream(elId){
+  const own=(LG.league&&LG.myRosterId)?ssDstOwners():null;
+  const rows=Object.keys(SCHED).map(t=>{
+    const g=SCHED[t], opp=g[0];
+    return {t,opp,home:g[1],day:g[2],pts:ssDstPts(t),oRank:OFFR[opp]||16,oImp:(SCHED[opp]||[])[3]||0};
+  }).sort((a,b)=>b.pts-a.pts);
+  let grabbed=false;
+  const html=rows.slice(0,14).map((r,i)=>{
+    let av='',cls='';
+    if(own){
+      if(own[r.t]===LG.myRosterId){ av='<span class="dstav mine">Yours</span>'; }
+      else if(own[r.t]!==undefined){ av='<span class="dstav">Rostered</span>'; }
+      else { av=`<span class="dstav fa">${!grabbed?'GRAB — free agent':'Free agent'}</span>`; if(!grabbed){ cls=' dstgrab'; grabbed=true; } }
+    }
+    return `<div class="dstrow${cls}"><span class="dstrk">${i+1}</span>
+      <img class="tl" src="https://sleepercdn.com/images/team_logos/nfl/${r.t.toLowerCase()}.png" onerror="this.style.visibility='hidden'">
+      <div class="dstmain"><b>${r.t} DST</b> <span style="color:var(--dim2);font-size:11px">${r.home?'vs':'@'} ${r.opp} ${r.day}</span>
+        <div class="sub">${r.opp} is the ${ssOrd(r.oRank)}-ranked offense, implied ${r.oImp} pts${r.home?'':' · on the road'}</div></div>
+      ${av}<div class="ssnum"><b>${r.pts.toFixed(1)}</b>proj</div></div>`;
+  }).join('');
+  $(elId).innerHTML=html;
+}
+function ssInit(){
+  ['ssWk0','ssWk1','ssWk2','ssWk3'].forEach(id=>{ const e=$(id); if(e) e.textContent=MATCHUP_STAMP; });
+  const has=!!(LG.league&&LG.myRosterId);
+  $('ssNeedsLeague').style.display=has?'none':'';
+  $('ssUI').style.display=has?'':'none';
+  if(!has){
+    const c=$('ssCtaSync'); if(c) c.onclick=()=>{ setView('home'); setTimeout(()=>$('lgUser').focus(),60); };
+    renderSSStream('ssStreamSolo');
+    return;
+  }
+  renderSSVerdicts();
+  const graded=ssMyGraded();
+  const opts=graded.map(p=>`<option value="${p.pid}">${esc(p.name)} (${p.pos} · ${esc(p.team)})</option>`).join('');
+  const A=$('ssCmpA'),B=$('ssCmpB');
+  const keepA=A.value,keepB=B.value;
+  A.innerHTML=opts; B.innerHTML=opts;
+  if(keepA) A.value=keepA;
+  if(keepB) B.value=keepB; else if(graded[1]) B.value=graded[1].pid;
+  $('ssCmpGo').onclick=ssCompare;
+  $('ssStreamMeta').textContent='top 14 of 32 — grab the highlighted free agent';
+  renderSSStream('ssStream');
+  try{ upgradeShots(); }catch(e){}
+}
 function setView(v){
   document.body.dataset.view=v;
   document.querySelectorAll('.avtab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
   try{ localStorage.setItem('ffview2026', v); }catch(e){}
   if(v==='home') renderHome();
   if(v==='trade') trInit();
+  if(v==='sitstart') ssInit();
 }
 /* ================= ACTIONS ================= */
 function markTaken(id, mine){
@@ -3217,14 +4068,12 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
   document.querySelectorAll('.avtab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
   $('lgFind').onclick=lgFind;
   $('lgUser').addEventListener('keydown',e=>{ if(e.key==='Enter') lgFind(); });
-  let startView='draft';
+  let startView='home';
   try{
     const savedLg=JSON.parse(localStorage.getItem('ffleague2026')||'null');
-    const savedView=localStorage.getItem('ffview2026');
     if(savedLg&&savedLg.u){ $('lgUser').value=savedLg.u;
       lgFind().then(()=>{ if(savedLg.id) lgOpen(savedLg.id); }).catch(()=>{});
     }
-    if(savedView&&['home','draft','trade'].includes(savedView)) startView=savedView;
   }catch(e){}
   setView(startView);
 
