@@ -492,6 +492,7 @@ body:not([data-view="draft"]) .slpbadge, body:not([data-view="draft"]) .restore,
 body:not([data-view="draft"]) .gridcard, body:not([data-view="draft"]) .wrap,
 body:not([data-view="draft"]) .mtabs{display:none!important}
 body:not([data-view="home"]) #viewHome{display:none!important}
+body:not([data-view="team"]) #viewTeam{display:none!important}
 body:not([data-view="trade"]) #viewTrade{display:none!important}
 body:not([data-view="sitstart"]) #viewSitStart{display:none!important}
 .vwrap{max-width:1100px;margin:14px auto;padding:0 14px;display:flex;flex-direction:column;gap:14px}
@@ -548,7 +549,20 @@ body:not([data-view="sitstart"]) #viewSitStart{display:none!important}
 .card.slim{padding:10px 14px}
 .card h3{display:flex;align-items:center}
 .synclabel{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--dim)}
-.lgchips{display:flex;gap:8px;flex-wrap:wrap;margin-left:6px}
+.lgdd{position:relative}
+.lgcur{display:flex;align-items:center;gap:7px;background:#1c1c1c;border:none;color:var(--txt);
+  font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.lgcur:hover{background:#242424}
+.lgcur img{width:22px;height:22px;border-radius:50%}
+.lgcur .caret{border:solid var(--dim);border-width:0 2px 2px 0;padding:2.5px;display:inline-block;
+  transform:rotate(45deg);margin:-3px 1px 0 3px}
+.lgcur .lgdyn{font-size:9px;color:var(--acc);border:1px solid var(--acc);border-radius:4px;padding:0 5px}
+.lgchips{display:none;position:absolute;right:0;top:calc(100% + 10px);flex-direction:column;gap:3px;
+  background:#151515;border:1px solid var(--line2);border-radius:13px;padding:6px;min-width:235px;
+  box-shadow:0 20px 55px rgba(0,0,0,.65);z-index:90}
+.lgdd.open .lgchips{display:flex}
+.lgchips .lgchip{border-radius:9px;width:auto}
+.lgchip.lgsw{color:var(--dim);font-size:12px;border-top:1px solid var(--line);border-radius:0 0 9px 9px;margin-top:3px;padding-top:9px}
 .lgchip{display:flex;align-items:center;gap:7px;background:#1c1c1c;border:1px solid transparent;border-radius:999px;
   padding:5px 13px 5px 6px;cursor:pointer;font-size:12px;font-weight:600}
 .lgchip img{width:22px;height:22px;border-radius:50%}
@@ -829,6 +843,29 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
 /* ================= HEADER V3 (floating FIFA-style nav) ================= */
 .appnav{background:rgba(10,10,10,.92);backdrop-filter:blur(10px);border-bottom:1px solid #1d1d1d}
 .appnav-in{display:flex;align-items:center;gap:10px;max-width:1500px;margin:0 auto;padding:12px 18px;flex-wrap:wrap}
+@media (min-width:1100px){ .appnav-in{flex-wrap:nowrap} .navsync{min-width:0} }
+@media (max-width:1350px){ .boardstamp{display:none} }
+.lgchip span{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.navsync.synced:not(.editing) #lgUser,
+.navsync.synced:not(.editing) #lgFind,
+.navsync.synced:not(.editing) #lgSt{display:none}
+.avtab{white-space:nowrap}
+.boardstamp{white-space:nowrap}
+.slpst{white-space:nowrap}
+/* first-sync league picker dialog */
+.lgmodal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;
+  background:rgba(4,4,4,.7);backdrop-filter:blur(6px)}
+.lgmbox{width:min(430px,92vw);background:linear-gradient(170deg,#191919,#111);border:1px solid var(--line2);
+  border-radius:16px;padding:22px 22px 16px;box-shadow:0 30px 90px rgba(0,0,0,.7)}
+.lgmbox h3{margin:0 0 4px;font-size:18px;font-weight:900;font-style:italic}
+.lgmbox p{margin:0 0 14px;color:var(--dim);font-size:12.5px}
+.lgmrow{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);
+  border-radius:11px;cursor:pointer;margin-bottom:7px;font-size:13.5px;font-weight:600;transition:border-color .12s,background .12s}
+.lgmrow:hover{border-color:var(--acc);background:rgba(255,106,26,.06)}
+.lgmrow img{width:30px;height:30px;border-radius:50%}
+.lgmrow .lgdyn{font-size:9px;color:var(--acc);border:1px solid var(--acc);border-radius:4px;padding:1px 5px;margin-left:auto}
+.lgmx{display:block;margin:4px auto 0;background:none;border:none;color:var(--dim2);font-size:12px;cursor:pointer}
+.lgmx:hover{color:var(--dim)}
 .navlinks{display:flex;gap:26px;margin-left:26px}
 .avtab{background:none!important;border:none;box-shadow:none!important;padding:4px 0;border-radius:0;
   font-size:12.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#8a8a8a;
@@ -846,7 +883,6 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
 .navsync input{width:150px;padding:6px 12px;font-size:12px;border-radius:999px}
 .navsync .btn.go{padding:6px 15px;font-size:12px}
 .navsync .slpst{max-width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.navsync .lgchips{margin:0;display:flex;gap:6px}
 .navsync .lgchip{padding:4px 11px 4px 5px;font-size:11.5px}
 .boardstamp{margin-right:4px}
 @media (max-width:900px){
@@ -1018,18 +1054,32 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
   </svg>Front Office</span>
   <div class="navlinks">
     <button class="avtab" data-view="home">Home</button>
+    <button class="avtab" data-view="team">My Team</button>
     <button class="avtab" data-view="trade">Trade Advisor</button>
     <button class="avtab" data-view="sitstart">Start/Sit</button>
     <button class="avtab" data-view="draft">Draft Room</button>
   </div>
   <div class="navsync">
     <span class="boardstamp" id="boardStamp"></span>
-    <div id="lgList" class="lgchips"></div>
+    <div class="lgdd" id="lgDD">
+      <button class="lgcur" id="lgCur" style="display:none"></button>
+      <div id="lgList" class="lgchips"></div>
+    </div>
     <input type="text" id="lgUser" placeholder="Sleeper username" spellcheck="false" autocomplete="off">
     <button class="btn go" id="lgFind">Sync</button>
+    <button class="btn" id="lgEdit" style="display:none!important">&#8644;</button>
     <span class="slpst" id="lgSt"></span>
   </div>
 </div></nav>
+
+<div class="lgmodal" id="lgModal" style="display:none">
+  <div class="lgmbox">
+    <h3>Choose your league</h3>
+    <p>Found more than one on your Sleeper account &mdash; which one are we scouting?</p>
+    <div id="lgModalList"></div>
+    <button class="lgmx" id="lgModalX">Not now</button>
+  </div>
+</div>
 
 <!-- ============ HOME VIEW ============ -->
 <div id="viewHome" class="viewpane">
@@ -1199,6 +1249,25 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
       </div>
 
       <div class="finetext"><b>Read-only.</b> Enter a Sleeper username, never a password. League data is fetched straight from Sleeper's public API and cached in this browser; the app cannot set lineups, drop players or send trades.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ MY TEAM VIEW ============ -->
+<div id="viewTeam" class="viewpane">
+  <div class="vwrap wide">
+    <div id="teamNeedsLeague" style="display:none">
+      <div class="land">
+        <div class="featured">
+          <span class="kicker">My team</span>
+          <h1>Sync your league to <em>scout your roster</em>.</h1>
+          <p>Every player valued against the researched board &mdash; injury flags, lineup alerts, waiver radar,
+            power rankings and your league's pulse. Read-only, from just a Sleeper username.</p>
+          <div class="meta"><span>Roster values</span><span>Lineup alerts</span><span>Waiver radar</span><span>Power rankings</span></div>
+          <div class="ctarow"><button class="bigbtn" id="tmCtaSync">Sync your Sleeper league</button></div>
+        </div>
+      </div>
     </div>
 
     <div id="teamHero" class="hero" style="display:none">
@@ -2756,7 +2825,7 @@ function render(){
   $('state').value = JSON.stringify(snapshot());
   const ft=$('fmtTag'); if(ft) ft.textContent = S.dyn ? 'DYNASTY \u00b7 1QB PPR' : 'Full PPR';
   renderMini(); autoSave(); slpBadge(); renderGrid();
-  const bs=$('boardStamp'); if(bs && typeof BOARD_STAMP!=='undefined') bs.textContent='BOARD UPDATED '+BOARD_STAMP.toUpperCase();
+  const bs=$('boardStamp'); if(bs && typeof BOARD_STAMP!=='undefined') bs.textContent='BOARD \u00b7 '+BOARD_STAMP.toUpperCase();
 }
 
 function renderMini(){
@@ -3200,14 +3269,62 @@ function hshot(pl){
   if(pl.pos==='DST') return `<img class="hshot" src="https://sleepercdn.com/images/team_logos/nfl/${(pl.team||'').toLowerCase()}.png" onerror="this.style.visibility='hidden'">`;
   return `<img class="hshot" src="https://sleepercdn.com/content/nfl/players/thumb/${pl.pid}.jpg" onerror="this.style.visibility='hidden'">`;
 }
+function navSyncState(){
+  const ns=document.querySelector('.navsync'); if(!ns) return;
+  ns.classList.toggle('synced', !!LG.league);
+  if(LG.league) ns.classList.remove('editing');
+  const ed=$('lgEdit'); if(ed&&!ed._w){ ed._w=1; ed.onclick=()=>{ ns.classList.toggle('editing'); if(ns.classList.contains('editing')){ const i=$('lgUser'); if(i) i.focus(); } }; }
+}
 function renderLgList(){
-  $('lgList').innerHTML=(LG.leagues||[]).map(l=>{
+  navSyncState();
+  const dd=$('lgDD'), cur=$('lgCur'), list=$('lgList');
+  if(!list) return;
+  const n=(LG.leagues||[]).length;
+  list.innerHTML=(LG.leagues||[]).map(l=>{
     const dyn=(l.settings&&l.settings.type===2);
     const on=LG.league&&LG.league.league_id===l.league_id;
     return `<div class="lgchip ${on?'on':''}" data-lg="${l.league_id}">
       ${l.avatar?`<img src="${avUrl(l.avatar)}">`:''}<span>${esc(l.name||'League')}</span>${dyn?'<span class="lgdyn">DYN</span>':''}</div>`;
+  }).join('') + (LG.league?'<div class="lgchip lgsw" data-lgsw="1">&#8644;&nbsp; Switch Sleeper account</div>':'');
+  if(cur){
+    if(LG.league){
+      cur.style.display='';
+      cur.innerHTML=`${LG.league.avatar?`<img src="${avUrl(LG.league.avatar)}">`:''}<span>${esc(LG.league.name||'League')}</span>${LG.myDyn()?'<span class="lgdyn">DYN</span>':''}<i class="caret"></i>`;
+      dd.classList.remove('open');
+    } else if(n){
+      cur.style.display='';
+      cur.innerHTML=`<span>Choose your league</span><i class="caret"></i>`;
+    } else { cur.style.display='none'; dd.classList.remove('open'); }
+    if(!cur._w){ cur._w=1;
+      cur.onclick=e=>{ e.stopPropagation(); dd.classList.toggle('open'); };
+      document.addEventListener('click',ev=>{ if(!dd.contains(ev.target)) dd.classList.remove('open'); });
+    }
+  }
+  document.querySelectorAll('.lgchip[data-lg]').forEach(el=>el.onclick=()=>{
+    dd.classList.remove('open');
+    lgOpen(el.dataset.lg).then(()=>{ if(LG.league&&LG.myRosterId) setView('team'); });
+  });
+  const sw=document.querySelector('.lgchip[data-lgsw]');
+  if(sw) sw.onclick=()=>{ dd.classList.remove('open');
+    const ns=document.querySelector('.navsync'); if(ns) ns.classList.add('editing');
+    const i=$('lgUser'); if(i){ i.focus(); i.select(); } };
+}
+/* first-sync dialog: pick which league to scout */
+function lgShowModal(){
+  const m=$('lgModal'), list=$('lgModalList'); if(!m||!list) return;
+  const ls=LG.leagues||[]; if(!ls.length) return;
+  list.innerHTML=ls.map(l=>{
+    const dyn=(l.settings&&l.settings.type===2);
+    return `<div class="lgmrow" data-mlg="${l.league_id}">
+      ${l.avatar?`<img src="${avUrl(l.avatar)}">`:''}<span>${esc(l.name||'League')}</span>${dyn?'<span class="lgdyn">DYNASTY</span>':''}</div>`;
   }).join('');
-  document.querySelectorAll('.lgchip').forEach(el=>el.onclick=()=>lgOpen(el.dataset.lg));
+  m.style.display='flex';
+  const close=()=>{ m.style.display='none'; };
+  document.querySelectorAll('.lgmrow').forEach(el=>el.onclick=()=>{
+    close(); lgOpen(el.dataset.mlg).then(()=>{ if(LG.league&&LG.myRosterId) setView('team'); });
+  });
+  $('lgModalX').onclick=close;
+  m.onclick=e=>{ if(e.target===m) close(); };
 }
 async function lgOpen(id){
   const st=$('lgSt'); st.textContent='Loading league…'; st.className='slpst';
@@ -3429,14 +3546,20 @@ async function renderPortalTrend(){
     }).join('')||'<div class="emptymsg">Quiet on the wire.</div>';
   }catch(e){ el.innerHTML='<div class="emptymsg">Trending unavailable.</div>'; }
 }
-function renderTeam(){ renderHome(); }
+/* Home is ALWAYS the portal now (news, rankings, trends) — synced or not. */
 function renderHome(){
-  const hero=$('teamHero'), grid=$('homeGrid'), land=$('landing'), dbar=$('demoBar');
+  const land=$('landing'); if(land) land.style.display='';
+  renderPortal();
+}
+/* My Team: the synced-roster breakdown, its own tab. */
+function renderTeam(){
+  const hero=$('teamHero'), grid=$('homeGrid'), cta=$('teamNeedsLeague');
   if(!hero) return;
   const live=!!(LG.league&&LG.myRosterId);
-  if(land) land.style.display=live?'none':'';
-  if(dbar) dbar.style.display=(live&&LG.demo)?'flex':'none';
-  if(!live){ hero.style.display='none'; grid.style.display='none'; renderPortal(); return; }
+  if(cta){ cta.style.display=live?'none':'';
+    const b=$('tmCtaSync'); if(b) b.onclick=()=>{ setView('home'); setTimeout(()=>{ const i=$('lgUser'); if(i){ i.focus(); i.scrollIntoView({behavior:'smooth',block:'center'}); } },60); };
+  }
+  if(!live){ hero.style.display='none'; grid.style.display='none'; return; }
   hero.style.display='flex'; grid.style.display='grid';
   const me=(LG.users||[]).find(u=>u.user_id===LG.userId);
   const av=(me&&((me.metadata&&me.metadata.avatar)||avUrl(me.avatar)))||avUrl(LG.league.avatar);
@@ -3978,14 +4101,14 @@ function demoLeague(){
   const st=$('lgSt'); if(st){ st.textContent='Demo league loaded'; st.className='slpst ok'; }
   const tag=$('avLeague'); if(tag) tag.textContent='Sunday Night Showdown · demo';
   $('lgList').innerHTML='';
-  renderHome(); trInit();
+  navSyncState(); renderTeam(); trInit(); setView('team');
 }
 function demoExit(){
   LG.demo=false; LG.league=null; LG.rosters=[]; LG.users=[]; LG.myRosterId=null;
   LG.theirRosterId=null; LG.out.clear(); LG.inn.clear(); LG.pmap=null;
   const st=$('lgSt'); if(st){ st.textContent=''; st.className='slpst'; }
   const tag=$('avLeague'); if(tag) tag.textContent='';
-  renderHome(); trInit();
+  navSyncState(); renderTeam(); trInit();
 }
 (function wireLanding(){
   const go=(id,fn)=>{ const el=$(id); if(el) el.onclick=fn; };
@@ -4210,6 +4333,7 @@ function setView(v){
   document.querySelectorAll('.avtab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
   try{ localStorage.setItem('ffview2026', v); }catch(e){}
   if(v==='home') renderHome();
+  if(v==='team') renderTeam();
   if(v==='trade') trInit();
   if(v==='sitstart') ssInit();
 }
@@ -4338,8 +4462,12 @@ function undoOne(id){ S.taken = S.taken.filter(t=>t.id!==id); render(); }
 
   // ----- app-level views -----
   document.querySelectorAll('.avtab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
-  $('lgFind').onclick=lgFind;
-  $('lgUser').addEventListener('keydown',e=>{ if(e.key==='Enter') lgFind(); });
+  const lgGo=()=>lgFind().then(()=>{
+    const ls=LG.leagues||[];
+    if(!LG.league){ if(ls.length===1){ lgOpen(ls[0].league_id).then(()=>{ if(LG.league&&LG.myRosterId) setView('team'); }); } else if(ls.length>1) lgShowModal(); }
+  }).catch(()=>{});
+  $('lgFind').onclick=lgGo;
+  $('lgUser').addEventListener('keydown',e=>{ if(e.key==='Enter') lgGo(); });
   try{ hero3dInit(); }catch(e){}
   let startView='home';
   try{
