@@ -1791,7 +1791,7 @@ input[type="checkbox"]:checked::after{transform:translateX(14px);background:#fff
 
 </script>
 <script>
-const BOARD_STAMP="Sep 3, 2026";
+const BOARD_STAMP="Sep 4, 2026";
 /* PLAYER DATA
    [name, pos, team, adp, adj, flag, note]
    adp  = FantasyFootballCalculator 12-team PPR, Aug 10-17 2026 (6,665 drafts). ~ = estimated (outside top 180).
@@ -1802,8 +1802,8 @@ const RAW = [
 // ---- top of the board ----
 ["Bijan Robinson", "RB", "ATL", 2.1, 0, "", "Extension signed Aug 4, hold-in over. Draft normally.", 21.8, 21.6, 24, 1],
 ["Jahmyr Gibbs", "RB", "DET", 1.5, 0, "", "Extension signed Aug 6, full-go in practice since Aug 9.", 21.6, 21.6, 24, 2],
-["Puka Nacua", "WR", "LAR", 2.9, 3, "risk", "Fully healthy — a full week of Week 1 prep after returning Aug 30. But the NFL conduct review is still OPEN (Sep 2): suspension risk of a few games lingers. Market is unbothered (ADP 2.8).", 23.4, 20.0, 25, 4],
-["Ja'Marr Chase", "WR", "CIN", 3.8, 0, "inj", "Managed by design — limited all week, but Zac Taylor says he'll 'be good at the end of week.' NO Week 1 concern vs TB.", 19.6, 19.4, 26, 3],
+["Puka Nacua", "WR", "LAR", 2.9, 3, "risk", "Quietly de-risked Friday: McVay confirmed the FULL squad travels to Australia (Puka included) and he's 'currently expected to be available' Week 1. Conduct review open with no deadline. Draft at full value.", 23.4, 20.0, 25, 4],
+["Ja'Marr Chase", "WR", "CIN", 3.8, 0, "inj", "Managed by design — sat Thursday again, but Taylor says ready for Week 1 vs TB. No long-term concern; draft with confidence.", 19.6, 19.4, 26, 3],
 ["Jaxon Smith-Njigba", "WR", "SEA", 5.4, 0, "", "Top-3 WR on every list.", 21.2, 18.1, 24, 5],
 ["Christian McCaffrey", "RB", "SF", 6.6, 8, "risk", "RETURNED to practice Aug 23 after ~3 weeks (muscle tightness). Trending toward a full Week 1. Age 30 and 413 touches last year still argue for a modest fade, not a hard one.", 24.5, 20.3, 30, 21],
 ["Amon-Ra St. Brown", "WR", "DET", 6.4, 0, "", "Consensus top-8 overall.", 19.1, 18.7, 26, 6],
@@ -1815,7 +1815,7 @@ const RAW = [
 ["James Cook III", "RB", "BUF", 12.1, -1, "", "No. 1 in my redraft RB order at the turn (Aidan's call). DYNASTY (3-yr): No. 2 of the 12/13 pairing — ages 26-28 in-window, proven role in the league's best offense.", 17.8, 16.2, 26, 17],
 ["Chase Brown", "RB", "CIN", 13.1, -1, "", "No. 2 in my redraft RB order at the turn (Aidan's call). DYNASTY (3-yr): No. 3 of the 12/13 pairing — Burrow offense, pass-game role; Perine snap noise is why he's not No. 2.", 16.6, 15.6, 26, 24],
 ["Rashee Rice", "WR", "KC", 14.8, -2, "", "May knee scope fully behind him, ramping up in camp. Riser.", 18.8, 14.7, 26, 36],
-["Ashton Jeanty", "RB", "LV", 20.5, -7.5, "inj", "AIDAN'S CALL (keep on refresh): DEMOTED in redraft — order is Cook > Chase Brown > Hampton > Jeanty. Still NO team practice all week (side work Tue, DNP Wednesday) — low ankle sprain, GM Spytek optimistic, but Week 1 vs MIA is a game-time call. Washington Jr. is a MUST-DRAFT handcuff. DYNASTY: Sleeper rank 9 — the injury is noise; buy the dip if he's there at 12.", 14.4, 15.5, 22, 9],
+["Ashton Jeanty", "RB", "LV", 20.5, -7.5, "inj", "AIDAN'S CALL (keep on refresh): DEMOTED in redraft — order is Cook > Chase Brown > Hampton > Jeanty. Still no practice through Friday, but Schefter calls it 'not long-term' and LV kept only 3 RBs — Week 1 vs MIA (Sep 13) is live. Washington is a MUST-DRAFT handcuff. DYNASTY: rank 9, low ankle sprain — buy the dip at 12.", 14.4, 15.5, 22, 9],
 ["Derrick Henry", "RB", "BAL", 17.6, 9, "", "Age fade: expert consensus now ranks him ~2 rounds below his ADP. Still fine if the room lets him slide.", 16.4, 15.3, 32, 57],
 ["A.J. Brown", "WR", "NE", 18.2, 0, "", "Traded from PHI in June. Lifts Drake Maye; Maye lifts him back.", 14.7, 14.3, 29, 39],
 ["George Pickens", "WR", "DAL", 20.6, -3, "", "BR has him 9 spots above ADP.", 17.2, 13.3, 25, 23],
@@ -1824,19 +1824,19 @@ const RAW = [
 ["Chris Olave", "WR", "NO", 19.5, -3, "", "Brief medical-tent visit at the Aug 18 joint practice but returned to the field — scare only, no designation.", 16.8, 14.5, 26, 30],
 ["Nico Collins", "WR", "HOU", 21, -9, "", "DraftSharks has him WR9 against a WR26 price — and Higgins' torn ACL concentrates the Houston target tree on him even further.", 15.1, 14.1, 27, 25],
 ["Kenneth Walker III", "RB", "KC", 21.1, 0, "", "AIDAN'S CALL (keep on refresh): No. 4 of the dynasty 12/13 pairing. CLEARED — the 'foot' was ankle swelling from his cleats (Andy Reid); FULL practice Tuesday, Week 1 vs DEN back on. Emmett Johnson stays a pure handcuff, no split planned.", 11.3, 15.2, 25, 27],
-["Zay Flowers", "WR", "BAL", 26.1, 2, "inj", "Trending right — 'nothing serious' per Minter; expected back to full practice this week and good to go for the Sep 13 opener vs IND.", 14.3, 13.7, 26, 49],
+["Zay Flowers", "WR", "BAL", 26.1, 2, "", "Back at practice Thursday for the first time in ~2 weeks — trending toward his normal role Week 1 vs IND. Green light.", 14.3, 13.7, 26, 49],
 ["Garrett Wilson", "WR", "NYJ", 25.7, -2, "", "NFL.com counters: outside the top-20 PPR in 3 of 4 seasons.", 14.2, 14.4, 26, 34],
 ["Malik Nabers", "WR", "NYG", 26.9, 3, "inj", "AIDAN'S CALL (keep on refresh): the dynasty buy-low at 12/13 — Sleeper rank 15, age 23, thesis intact. Practicing without restrictions off the ACL and looks explosive, but he and NYG haven't committed to Week 1 vs DAL yet.", 14.3, 13.6, 23, 15],
 ["DeVonta Smith", "WR", "PHI", 29.8, -3, "", "", 11.9, 13.6, 27, 51],
 ["Jeremiyah Love", "RB", "ARI", 27.2, 18, "inj", "AIDAN'S CALL (keep on refresh): elite dynasty buy if the room discounts the ankle — Sleeper rank 13, age 21. Still ~50/50 for Week 1 (high ankle sprain), and ARI plans an Allgeier split early even once he's back — don't pay for September volume.", 0, 15.3, 21, 13],
-["Breece Hall", "RB", "NYJ", 35.3, 0, "inj", "Groin trending well — agility drills on the side field Aug 24, 'moving well,' on track for Week 1.", 13.0, 14.4, 25, 35],
-["Josh Jacobs", "RB", "GB", 43.2, 40, "out", "COMMISSIONER'S EXEMPT LIST since Aug 30 — indefinite, no appeal news, and the market has finally repriced it: ADP cratered from ~32 to 43 in two days. Treat as a multi-week absence minimum. DYNASTY: age 28 with legal overhang — deep discount only.", 15.8, 14.4, 28, 50],
+["Breece Hall", "RB", "NYJ", 35.3, 0, "inj", "Groin flared again this week but he's expected ready for Week 1 — priced in, monitor the Wednesday report.", 13.0, 14.4, 25, 35],
+["Josh Jacobs", "RB", "GB", 43.2, 40, "out", "COMMISSIONER'S EXEMPT LIST since Aug 30 — indefinite; GB expects discipline before the season (court date Nov 17, NFL can act sooner) and traded for Kaleb Johnson. Market free-fall continues. DYNASTY: age 28 with legal overhang — deep discount only.", 15.8, 14.4, 28, 50],
 ["Josh Allen", "QB", "BUF", 34.2, 8, "", "Unanimous QB1 in ESPN's vote, but BR says his edge over QB10 is marginal. Went 26th overall in the RotoWire mock.", 22.0, 24.8, 30, 7],
 ["Trey McBride", "TE", "ARI", 29, 14, "", "AIDAN'S CALL (keep on refresh): passing at round-3 cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then the pass lifts and he's the pick. Consensus TE1.", 18.6, 14.8, 26, 19],
 ["Kyren Williams", "RB", "LAR", 31.6, -2, "", "Boring, but the touches are real. Corum eats the goal line.", 15.5, 14.6, 26, 46],
 ["Tetairoa McMillan", "WR", "CAR", 32.2, 0, "", "Clear alpha target share.", 12.4, 13.1, 23, 22],
 ["Cam Skattebo", "RB", "NYG", 37.1, 4, "", "Co-starter battle with Tracy is tilting his way — Tracy lost a red-zone fumble and ceded snaps to Singletary in preseason Wk2. Najee (Achilles rehab) is noise for now.", 16.0, 14.6, 24, 54],
-["Tee Higgins", "WR", "CIN", 36.8, 2, "inj", "Heel contusion lingering — conditioning work only Wednesday, no team practice; Bengals say they're 'positive' for Week 1 vs TB. Watch Thursday/Friday.", 14.1, 12.0, 27, 47],
+["Tee Higgins", "WR", "CIN", 36.8, 2, "inj", "Heel contusion — sat Thursday with Chase, still 'expected to be ready to go' for Week 1 vs TB. Watch the Wednesday report.", 14.1, 12.0, 27, 47],
 ["Emeka Egbuka", "WR", "TB", 34.8, 4, "inj", "Still NOT in team drills (toe, since Aug 12) — sat Tuesday too; Bowles stuck on 'day-to-day/week-to-week.' Week 1 vs CIN uncertain. DYNASTY: Sleeper rank 28, age 23 — the discount is the opportunity.", 11.5, 13.2, 23, 28],
 ["Javonte Williams", "RB", "DAL", 36.5, -3, "", "Lead role in a high-total offense. BR calls him undervalued.", 15.2, 13.7, 26, 52],
 ["Brock Bowers", "TE", "LV", 35.4, 12, "", "AIDAN'S CALL (keep on refresh): passing at cost — EXCEPT if the top-11 RBs are gone by my round-2/3 pick with no TE rostered; then take him. Otherwise my TE window is rounds 5-9.", 14.7, 14.9, 23, 11],
@@ -1846,9 +1846,9 @@ const RAW = [
 ["Jameson Williams", "WR", "DET", 44.2, 0, "", "", 12.9, 13.0, 25, 60],
 ["Bucky Irving", "RB", "TB", 44.7, 10, "risk", "Fade softened: OC Zac Robinson now on record that Irving is the lead ('a stud') with Gainwell the pass-down complement. Still 3.4 YPC last year at a round-4 price.", 13.8, 13.5, 24, 43],
 ["Terry McLaurin", "WR", "WAS", 46.9, 10, "", "Downgraded by the Diggs signing on Aug 7 — still the WR1 there, but the target share shrinks.", 11.4, 11.5, 31, 78],
-["D'Andre Swift", "RB", "CHI", 45.7, -8, "", "DraftSharks and FantasySixPack both have him roughly two rounds above ADP.", 14.3, 13.1, 27, 73],
+["D'Andre Swift", "RB", "CHI", 45.7, -8, "", "Exited Thursday's practice with an abdominal issue believed to be just a cramp. DraftSharks and FantasySixPack both have him roughly two rounds above ADP.", 14.3, 13.1, 27, 73],
 ["Jaylen Waddle", "WR", "DEN", 46, 0, "", "Traded to DEN. Back in full-team drills Aug 17 after 11 days out; Payton says he is coming along really good.", 12.1, 12.2, 27, 62],
-["Rome Odunze", "WR", "CHI", 52.6, -4, "", "Del Don ranks him 49th overall. Benefits directly from Burden's groin.", 12.2, 11.9, 24, 53],
+["Rome Odunze", "WR", "CHI", 52.6, -4, "", "Friday all-clear: 'should be all good' after Thursday's right-leg scare — draft at full price. Benefits from Burden's groin.", 12.2, 11.9, 24, 53],
 ["Drake Maye", "QB", "NE", 51.8, 0, "", "Jumped to QB3 after the A.J. Brown trade.", 21.2, 22.6, 24, 20],
 ["DJ Moore", "WR", "BUF", 48.5, -3, "", "Traded from CHI. Ankle scare cleared — officially good to go per the OC on Aug 15.", 10.0, 12.2, 29, 71],
 ["Quinshon Judkins", "RB", "CLE", 50.4, 0, "", "Returned to team drills Aug 25 — trending right. Volume is there; Watson (named the Week 1 starter) caps the ceiling.", 12.1, 12.3, 22, 45],
