@@ -3343,7 +3343,14 @@ async function lgOpen(id){
     const tag=$('avLeague'); if(tag) tag.textContent=(l.name||'')+(LG.myDyn()?' · dynasty':'');
   }catch(e){ st.textContent='Could not load league ('+e.message+').'; st.className='slpst bad'; }
 }
-LG.myDyn=()=>!!(LG.league&&LG.league.settings&&LG.league.settings.type===2);
+/* Sleeper's settings.type is 0=redraft, 1=keeper, 2=dynasty — but plenty of real
+   dynasty leagues are set up as "keeper" (type 1). A taxi squad is the giveaway:
+   only dynasty/devy formats carry one. Manual override wins over both. */
+LG.myDyn=()=>{
+  if(LG.dynOverride!==undefined) return !!LG.dynOverride;
+  const st=LG.league&&LG.league.settings; if(!st) return false;
+  return st.type===2 || (st.type===1 && (st.taxi_slots||0)>0);
+};
 function lgTeamName(rosterId){
   const r=(LG.rosters||[]).find(x=>x.roster_id===rosterId); if(!r) return 'Team '+rosterId;
   const u=(LG.users||[]).find(x=>x.user_id===r.owner_id);
